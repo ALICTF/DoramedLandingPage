@@ -5,9 +5,9 @@ const products = [
   {
     title: "Armfit Plus",
     category: "تجهیزات وارداتی",
-    isInnovation: false, // برای رنگ‌بندی تگ
+    isInnovation: false, 
     description: "دستگاه فشارسنج و نوار قلب جیبی. بهترین گزینه برای پایش روزانه سلامت قلب و عروق با دقت کلینیکال.",
-    image: "../../public/armfitPlus.png", // تصویر نمونه (بعدا عکس واقعی بگذار)
+    image: "../../public/armfitPlus.png", 
     features: ["فشار خون", "نوار قلب (ECG)", "اتصال به موبایل"]
   },
   {
@@ -21,7 +21,7 @@ const products = [
   {
     title: "کیت پایش سلامت",
     category: "محصول دانش‌بنیان",
-    isInnovation: true, // این محصول نوآورانه است
+    isInnovation: true, 
     description: "ایستگاه سلامت هوشمند جهت چکاپ سریع مراجعین در سازمان‌ها، کلینیک‌ها و اماکن عمومی.",
     image: "../../public/bag.png",
     features: ["چکاپ کامل", "گزارش‌دهی آنی", "پرونده الکترونیک"]
@@ -37,24 +37,24 @@ const products = [
 ];
 ---
 
-<section id="products" class="py-20 bg-white relative">
+<section id="products" class="py-20 bg-doramed-white relative">
     <div class="container mx-auto px-6">
         
         <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
-                تجهیزات پزشکی و <span class="text-blue-600">نوآوری‌های دورامد</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-doramed-dark mb-4">
+                تجهیزات پزشکی و <span class="text-doramed-primary">نوآوری‌های دورامد</span>
             </h2>
-            <p class="text-gray-500 text-lg">
+            <p class="text-doramed-muted text-lg">
                 ما با واردات برترین گجت‌های جهانی و تولید محصولات بومی در کارخانه نوآوری، تکنولوژی را به خدمت سلامت درآورده‌ایم.
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {products.map((item) => (
-                <div class="group bg-white rounded-3xl border border-gray-100 shadow-lg shadow-gray-200/50 overflow-hidden hover:shadow-2xl hover:shadow-blue-600/10 transition-all duration-500 hover:-translate-y-2 flex flex-col">
+                <div class="group bg-white rounded-3xl border border-doramed-white shadow-lg shadow-doramed-dark/5 overflow-hidden hover:shadow-2xl hover:shadow-doramed-primary/10 transition-all duration-500 hover:-translate-y-2 flex flex-col">
                     
-                    <div class="relative h-56 bg-gray-50 p-6 flex items-center justify-center overflow-hidden">
-                        <div class={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold border ${item.isInnovation ? 'bg-purple-100 text-purple-700 border-purple-200' : 'bg-blue-100 text-blue-700 border-blue-200'}`}>
+                    <div class="relative h-56 bg-doramed-white/30 p-6 flex items-center justify-center overflow-hidden">
+                        <div class={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold border ${item.isInnovation ? 'bg-doramed-dark text-white border-doramed-dark' : 'bg-doramed-white text-doramed-muted border-doramed-muted'}`}>
                             {item.category}
                         </div>
 
@@ -66,23 +66,23 @@ const products = [
                     </div>
 
                     <div class="p-6 flex-1 flex flex-col">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+                        <h3 class="text-xl font-bold text-doramed-dark mb-2 group-hover:text-doramed-primary transition">
                             {item.title}
                         </h3>
                         
-                        <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">
+                        <p class="text-doramed-gray text-sm leading-relaxed mb-6 flex-1">
                             {item.description}
                         </p>
 
                         <div class="flex flex-wrap gap-2 mb-6">
                             {item.features.map(feat => (
-                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">
+                                <span class="text-xs bg-doramed-white text-doramed-muted px-2 py-1 rounded-md">
                                     {feat}
                                 </span>
                             ))}
                         </div>
 
-                        <a href="#" class="w-full py-3 rounded-xl border-2 border-gray-100 text-gray-700 font-bold text-sm text-center hover:bg-blue-600 hover:text-white hover:border-blue-600 transition duration-300 flex items-center justify-center gap-2">
+                        <a href="#" class="w-full py-3 rounded-xl border-2 border-doramed-white text-doramed-muted font-bold text-sm text-center hover:bg-doramed-primary hover:text-white hover:border-doramed-primary transition duration-300 flex items-center justify-center gap-2">
                             <span>مشاهده جزئیات</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -93,16 +93,16 @@ const products = [
             ))}
         </div>
 
-        <div class="mt-20 bg-gray-900 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+        <div class="mt-20 bg-doramed-darker rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-2xl shadow-doramed-darker/30">
             <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
             
             <div class="relative z-10">
                 <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">نیاز به مشاوره تخصصی دارید؟</h3>
-                <p class="text-gray-400">کارشناسان فنی ما در کارخانه نوآوری آماده پاسخگویی به سوالات شما هستند.</p>
+                <p class="text-doramed-gray">کارشناسان فنی ما در کارخانه نوآوری آماده پاسخگویی به سوالات شما هستند.</p>
             </div>
             
             <div class="relative z-10 flex gap-4">
-                <a href="tel:05112345678" class="px-6 py-3 bg-white text-gray-900 font-bold rounded-xl hover:bg-gray-100 transition">
+                <a href="tel:05112345678" class="px-6 py-3 bg-white text-doramed-dark font-bold rounded-xl hover:bg-doramed-white transition border-2 border-white hover:border-doramed-white">
                     تماس با واحد فنی
                 </a>
             </div>
