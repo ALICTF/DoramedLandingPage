@@ -1,0 +1,57 @@
+---
+// src/components/Footer.astro
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+    <div class="container mx-auto px-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            
+            <div>
+                <div class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                   دورامد
+                </div>
+                <p class="text-gray-400 leading-loose">
+                    ما در دورامد تلاش می‌کنیم تا با استفاده از جدیدترین تکنولوژی‌های هوش مصنوعی، فاصله بین تشخیص و درمان را به حداقل برسانیم.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4">دسترسی سریع</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-blue-400 transition duration-300">صفحه اصلی</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition duration-300">درباره ما</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition duration-300">خدمات</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition duration-300">وبلاگ</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4">راه های ارتباطی</h3>
+                <ul class="space-y-3 text-gray-400">
+                    <li class="flex items-center gap-2">
+                        <span>📍</span>
+                        <span>تهران، خیابان آزادی، کارخانه نوآوری</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span>📞</span>
+                        <span dir="ltr">021-12345678</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span>✉️</span>
+                        <span>info@doramed.ai</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="border-t border-gray-800 my-8"></div>
+
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+            <p>تمامی حقوق برای شرکت دورامد محفوظ است © {year}</p>
+            
+            <div class="flex gap-6">
+                <a href="#" aria-label="Instagram" class="hover:text-white transition">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.01
