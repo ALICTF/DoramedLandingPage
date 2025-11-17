@@ -1,0 +1,53 @@
+---
+// src/components/About.astro
+---
+<section id="about" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+            
+            <div class="w-full lg:w-1/2">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                    تکنولوژی در قلب <span class="text-blue-600">کارخانه نوآوری مشهد</span>
+                </h2>
+                <p class="text-gray-600 text-lg leading-relaxed mb-6 text-justify">
+                    شرکت <span class="font-bold text-gray-800">گسترش لوازم درمانی نوین مدیا (دورامد)</span>، مستقر در کارخانه نوآوری مشهد، تلفیقی از دانش پزشکی و مهندسی نرم‌افزار است.
+                </p>
+                <p class="text-gray-600 text-lg leading-relaxed mb-8 text-justify">
+                    تیم تحقیق و توسعه (R&D) ما به طور مداوم در حال طراحی راهکارهای بومی مثل کیت‌های پایش آتش‌نشانان و کیوسک‌های سلامت است تا کیفیت زندگی ایرانیان را ارتقا دهد.
+                </p>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="text-3xl font-extrabold text-blue-600 mb-1">+۵</div>
+                        <div class="text-sm text-gray-500">محصول نوآورانه</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="text-3xl font-extrabold text-blue-600 mb-1">R&D</div>
+                        <div class="text-sm text-gray-500">تیم تحقیق و توسعه فعال</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-1/2 h-96 bg-gray-200 rounded-3xl overflow-hidden relative shadow-2xl group">
+                <img 
+                    src="https://lh5.googleusercontent.com/p/AF1QipN5N5t7Xg4yV9P6s4XkX4XkX4XkX4XkX4XkX4Xk" 
+                    alt="کارخانه نوآوری مشهد" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition duration-700 grayscale hover:grayscale-0"
+                />
+                
+                <div class="absolute bottom-6 right-6 bg-white/90 backdrop-blur p-4 rounded-xl shadow-lg max-w-xs">
+                    <p class="text-sm font-bold text-gray-800 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+                        آدرس ما:
+                    </p>
+                    <p class="text-xs text-gray-600 mt-2">
+                        مشهد، میدان پژوهش (کوثر شمالی ۲۹)، کارخانه نوآوری
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

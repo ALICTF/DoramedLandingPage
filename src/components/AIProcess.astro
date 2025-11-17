@@ -1,0 +1,69 @@
+---
+// src/components/AIProcess.astro
+---
+<section id="ai-health" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+    
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px] animate-pulse"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px] animate-pulse" style="animation-delay: 2s;"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        
+        <div class="text-center mb-16">
+            <span class="text-blue-400 font-bold tracking-wider text-sm uppercase">تکنولوژی انحصاری دورامد</span>
+            <h2 class="text-3xl md:text-5xl font-extrabold mt-3 mb-6">مسیر سلامتی شما با <span class="text-blue-500">هوش مصنوعی</span></h2>
+            <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+                ما داده‌های خام دستگاه‌های پزشکی را دریافت کرده و با الگوریتم‌های پیشرفته، تبدیل به یک نقشه راه سلامتی می‌کنیم.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            <div class="hidden md:block absolute top-12 right-0 left-0 h-0.5 bg-gradient-to-l from-slate-800 via-blue-900 to-slate-800 z-0"></div>
+
+            <div class="relative z-10 bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-8 rounded-3xl hover:border-blue-500 transition duration-300 group">
+                <div class="w-16 h-16 bg-slate-700 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition shadow-lg mx-auto md:mx-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">۱. جمع‌آوری داده‌ها</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    اطلاعات حیاتی شما از طریق دستگاه‌های Armfit و Checkme یا کیوسک‌های سلامت با دقت پزشکی ثبت می‌شود.
+                </p>
+            </div>
+
+            <div class="relative z-10 bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-8 rounded-3xl hover:border-purple-500 transition duration-300 group">
+                <div class="w-16 h-16 bg-slate-700 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-600 transition shadow-lg mx-auto md:mx-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">۲. پردازش هوشمند</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    هوش مصنوعی دورامد داده‌ها را تحلیل کرده و الگوهای پنهان سلامتی شما را شناسایی می‌کند (ریسک‌ها و نقاط قوت).
+                </p>
+            </div>
+
+            <div class="relative z-10 bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-8 rounded-3xl hover:border-green-500 transition duration-300 group">
+                <div class="w-16 h-16 bg-slate-700 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-600 transition shadow-lg mx-auto md:mx-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">۳. برنامه اختصاصی</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    دریافت داشبورد جامع شامل برنامه غذایی، رژیم ورزشی و لیست مکمل‌های مورد نیاز بدن شما.
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-16 text-center">
+            <a href="#" class="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold px-10 py-4 rounded-full hover:shadow-lg hover:shadow-purple-600/40 transition transform hover:-translate-y-1">
+                ورود به داشبورد سلامت دورامد
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                </svg>
+            </a>
+        </div>
+
+    </div>
+</section>

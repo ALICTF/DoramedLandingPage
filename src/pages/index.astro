@@ -2,20 +2,25 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
-import Features from '../components/Features.astro';
+import KioskTimeline from '../components/KioskTimeline.astro'; // 👈 ایمپورت جدید
+import Products from '../components/Products.astro';
+import AIProcess from '../components/AIProcess.astro';
+import About from '../components/About.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="دورامد | لندینگ پیج">
-    
+<Layout title="دورامد | پایش سلامت هوشمند">
     <Navbar />
-	
+    
     <main>
         <Hero />
         
-        <Features />
+        <KioskTimeline />
+        
+        <Products />
+        <AIProcess />
+        <About />
     </main>
 
     <Footer />
-
 </Layout>
