@@ -36,7 +36,7 @@ const versions = [
     title: "اوج هوشمندی با AI",
     description: "اوج تکامل مهندسی ما در مدل «سینا» (ابن‌سینا) تگلی پیدا کرد. این دستگاه فقط داده جمع نمی‌کند، بلکه «فکر» می‌کند. با افزودن سنسورهای پیشرفته اکسیژن خون (SpO2) و تب‌سنج، بینش کاملی از بدن ارائه می‌دهد. اما شاهکار اصلی، ادغام «هوش مصنوعی» است؛ الگوریتم‌های ما با تحلیل روند داده‌های کاربر، الگوهای خطر را شناسایی کرده و پیشنهادات اختصاصی ارائه می‌دهند. همچنین با سیستم تشخیص چهره، کاربر بدون نیاز به وارد کردن اطلاعات، در کسری از ثانیه شناخته می‌شود.",
     image: "/DoramedLandingPage/2.png",
-    features: ["تحلیلگر هوش مصنوعی", "تشخیص چهره (Face ID)", "پایش کامل علائم حیاتی"]
+    features: ["تحلیلگر هوش مصنوعی", "تشخیص چهره ", "پایش کامل علائم حیاتی"]
   }
 ];
 ---
@@ -71,8 +71,7 @@ const versions = [
             {versions.map((item, index) => (
                 <div class={`mb-24 flex justify-between items-stretch w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out ${index % 2 === 0 ? 'md:flex-row-reverse left-timeline' : 'md:flex-row right-timeline'}`}>
                     
-                    <div class="order-1 w-full md:w-5/12 px-6 py-4 flex flex-col">
-                         <div class="hidden md:flex flex-col h-full min-h-[550px] text-right bg-white p-8 rounded-3xl shadow-sm border border-doramed-white hover:shadow-lg hover:border-doramed-primary/30 transition-all duration-300">
+    <div class="order-1 w-full md:w-5/12 px-6 py-4 hidden md:flex flex-col">                         <div class="hidden md:flex flex-col h-full min-h-[550px] text-right bg-white p-8 rounded-3xl shadow-sm border border-doramed-white hover:shadow-lg hover:border-doramed-primary/30 transition-all duration-300">
                             
                             <span class="mb-3 font-bold text-doramed-primary text-sm block tracking-widest uppercase">{item.year}</span>
                             <h3 class="mb-4 font-extrabold text-doramed-darker text-3xl">{item.title}</h3>
@@ -96,9 +95,7 @@ const versions = [
                         <h1 class="mx-auto font-bold text-sm text-white">{index + 1}</h1>
                     </div>
                     
-                    <div class="order-1 w-full md:w-5/12 px-6 ml-12 md:ml-0 flex flex-col">
-                        <div class="bg-white p-4 rounded-[2.5rem] shadow-xl border border-doramed-white hover:border-doramed-primary/50 transition group relative overflow-hidden h-full min-h-[550px] flex flex-col justify-center">
-                            
+                        <div class="order-1 w-full md:w-5/12 pl-10 pr-0 md:px-6 md:ml-0 flex flex-col items-end">                        <div class="w-full items-end bg-white p-6 md:p-5 rounded-3xl md:rounded-[2.5rem] shadow-xl border border-doramed-white hover:border-doramed-primary/50 transition group relative overflow-hidden h-full min-h-[400px] md:min-h-[550px] flex flex-col justify-center">                            
                             <div class="absolute top-0 right-0 w-40 h-40 bg-doramed-primary/5 rounded-full blur-3xl opacity-50 -mr-10 -mt-10 group-hover:bg-doramed-primary/10 transition"></div>
                             
                             <div class="relative w-full flex-grow flex items-center justify-center p-6">
@@ -122,35 +119,32 @@ const versions = [
                 </div>
             ))}
 
-            <div class="mb-16 flex flex-col items-center w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+            <div class="mb-16 flex flex-col items-center w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out pl-10 md:pl-0">
                 
-                <div class="z-20 flex items-center justify-center bg-doramed-darker shadow-xl w-20 h-20 rounded-full border-4 border-white animate-bounce mb-8 relative">
-                    <h1 class="font-bold text-3xl text-white">?</h1>
+                <div class="z-20 flex items-center justify-center bg-doramed-darker shadow-xl w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white animate-bounce mb-6 relative right-[154px] md:right-auto md:left-0 top-6 md:top-auto">                    <h1 class="font-bold text-xl md:text-2xl text-white">?</h1>
                 </div>
                 
-                <div class="bg-gradient-to-br from-doramed-darker to-doramed-dark rounded-[2.5rem] shadow-2xl w-full md:w-3/4 lg:w-2/3 px-8 py-12 border-2 border-doramed-muted relative overflow-hidden group text-center hover:shadow-doramed-primary/20 transition-shadow duration-500">
+                <div class="bg-gradient-to-br from-doramed-darker to-doramed-dark rounded-2xl md:rounded-[2.5rem] shadow-2xl w-full md:w-3/4 px-5 py-8 md:px-8 md:py-12 border-2 border-doramed-muted relative overflow-hidden group text-center mt-6 md:mt-0">
                     
-                    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
-                    <div class="absolute -top-20 -left-20 w-60 h-60 bg-doramed-primary/20 rounded-full blur-[80px] animate-pulse"></div>
-                    <div class="absolute -bottom-20 -right-20 w-60 h-60 bg-doramed-muted/20 rounded-full blur-[80px]"></div>
-
-                    <span class="mb-4 font-bold text-doramed-primary text-sm block tracking-[0.2em] uppercase">V5.0 - آینده نزدیک</span>
-                    <h3 class="mb-6 font-black text-white text-3xl md:text-4xl leading-tight">ویژگی بعدی با شما!</h3>
+                    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay hidden md:block"></div>
                     
-                    <p class="text-doramed-gray text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-                        ما در حال توسعه نسل پنجم کیوسک هستیم و می‌خواهیم آن را بر اساس نیاز واقعی <span class="text-white font-bold">شما</span> بسازیم. به نظر شما جای چه قابلیتی در این دستگاه خالی است؟
+                    <span class="mb-2 md:mb-3 font-bold text-doramed-primary text-xs md:text-sm block tracking-widest uppercase">V5.0 - آینده نزدیک</span>
+                    <h3 class="mb-3 md:mb-4 font-black text-white text-xl md:text-3xl leading-tight">ویژگی بعدی با شما!</h3>
+                    
+                    <p class="text-doramed-gray text-sm md:text-lg leading-relaxed mb-6 md:mb-8 max-w-xl mx-auto">
+                        ما در حال توسعه نسل پنجم کیوسک هستیم. به نظر شما جای چه قابلیتی در این دستگاه خالی است؟
                     </p>
 
                     <div class="flex justify-center">
-                        <button id="open-suggestion-modal" class="relative px-10 py-5 bg-white text-doramed-darker font-black text-lg rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 group-btn overflow-hidden cursor-pointer">
-                            <span class="relative z-10">ثبت پیشنهاد شما</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 relative z-10 group-btn-hover:translate-x-1 transition-transform">
+                        <button id="open-suggestion-modal" class="relative w-full md:w-auto px-6 py-3.5 md:px-8 md:py-4 bg-white text-doramed-darker font-extrabold rounded-xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-base">
+                            <span class="relative z-10">ثبت پیشنهاد</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 relative z-10">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
-                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-doramed-primary/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                         </button>
                     </div>
                 </div>
+            </div>
             </div>
             
         </div>
