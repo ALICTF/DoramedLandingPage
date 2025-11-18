@@ -27,14 +27,12 @@
             </ul>
 
             <div class="hidden lg:flex items-center gap-3 shrink-0">
-                
                 <a href="tel:05112345678" class="px-5 py-2.5 rounded-full bg-doramed-primary text-white text-sm font-bold shadow-lg hover:bg-doramed-muted hover:shadow-doramed-primary/30 transition-all duration-300 flex items-center gap-2 transform hover:-translate-y-0.5">
                     <span>مشاوره رایگان</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75v-4.5m0 4.5h4.5m-4.5 0l6-6m-3 18c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 014.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 00-.38 1.21 12.035 12.035 0 007.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 011.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 01-2.25 2.25h-2.25z" />
                     </svg>
                 </a>
-
             </div>
 
             <button id="mobile-menu-btn" class="lg:hidden p-2 text-doramed-dark hover:bg-gray-100 rounded-full transition active:scale-95">
@@ -75,10 +73,10 @@
         
         <div class="h-px bg-gray-100 my-1"></div>
 
-        <a href="#" class="w-full py-3.5 bg-doramed-primary text-white text-center rounded-xl font-bold shadow-lg shadow-doramed-primary/20 flex justify-center items-center gap-2 active:scale-95 transition-transform">
-            ورود به پنل کاربری
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        <a href="https://t.me/doramedco" target="_blank" class="w-full py-3.5 bg-doramed-primary text-white text-center rounded-xl font-bold shadow-lg shadow-[#229ED9]/30 flex justify-center items-center gap-3 active:scale-95 transition-transform">
+            <span>پشتیبانی در تلگرام</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
+                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0 .056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
             </svg>
         </a>
     </div>
@@ -101,31 +99,51 @@
     const menu = document.getElementById('mobile-menu');
     
     if(btn && menu) {
-        btn.addEventListener('click', () => {
+        // تابع برای بستن منو
+        const closeMenu = () => {
+            menu.classList.remove('scale-100', 'opacity-100');
+            menu.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                menu.classList.add('hidden');
+            }, 300);
+        };
+
+        // تابع برای باز کردن منو
+        const openMenu = () => {
+            menu.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                menu.classList.remove('scale-95', 'opacity-0');
+                menu.classList.add('scale-100', 'opacity-100');
+            });
+        };
+
+        // کلیک روی دکمه همبرگری
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation(); // جلوگیری از بسته شدن فوری
             const isHidden = menu.classList.contains('hidden');
             if (isHidden) {
-                menu.classList.remove('hidden');
-                requestAnimationFrame(() => {
-                    menu.classList.remove('scale-95', 'opacity-0');
-                    menu.classList.add('scale-100', 'opacity-100');
-                });
+                openMenu();
             } else {
-                menu.classList.remove('scale-100', 'opacity-100');
-                menu.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                }, 300);
+                closeMenu();
             }
         });
 
+        // کلیک روی لینک‌های داخل منو
         menu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                menu.classList.remove('scale-100', 'opacity-100');
-                menu.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                }, 300);
+                closeMenu();
             });
+        });
+
+        // کلیک خارج از منو برای بستن
+        document.addEventListener('click', (e) => {
+            const isClickInsideMenu = menu.contains(e.target);
+            const isClickOnBtn = btn.contains(e.target);
+            const isMenuOpen = !menu.classList.contains('hidden');
+
+            if (isMenuOpen && !isClickInsideMenu && !isClickOnBtn) {
+                closeMenu();
+            }
         });
     }
 </script>
