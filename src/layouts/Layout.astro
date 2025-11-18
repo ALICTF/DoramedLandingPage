@@ -1,28 +1,62 @@
 ---
 // src/layouts/Layout.astro
+import '../styles/global.css';
+
 interface Props {
 	title: string;
+	description?: string; 
+	image?: string;       
 }
 
-const { title } = Astro.props;
-import '../styles/global.css';
+const defaultDescription = "دورامد (نوین مدیا)، پیشگام در ارائه تجهیزات پزشکی هوشمند و خدمات پزشکی از راه دور (Telemedicine) در ایران. با کیوسک‌های پایش سلامت و گجت‌های پوشیدنی مجهز به هوش مصنوعی، وضعیت سلامتی خود را لحظه‌به‌لحظه تحلیل کنید.";
+const defaultImage = "/DoramedLandingPage/og-image.jpg"; 
+
+const { 
+	title, 
+	description = defaultDescription, 
+	image = defaultImage 
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="توضیحات لندینگ پیج" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/DoramedLandingPage/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="keywords" content="تجهیزات پزشکی, هوش مصنوعی در پزشکی, پایش سلامت, پزشکی از راه دور, تله مدیسین, کیوسک سلامت, دورامد, نوین مدیا, فشارسنج هوشمند, پرونده الکترونیک سلامت" />
+		<meta name="author" content="Doramed | Novin Media" />
+		<meta name="robots" content="index, follow" />
+
+		<meta name="theme-color" content="#0D1B2A" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={image} />
+		<meta property="og:locale" content="fa_IR" />
+		<meta property="og:site_name" content="Doramed" />
+
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonicalURL} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={image} />
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 	</head>
 	
-<body class="font-sans bg-doramed-darker text-doramed-white">
-    <slot />
-</body>
+	<body class="font-sans bg-doramed-darker text-doramed-white antialiased selection:bg-doramed-primary selection:text-white overflow-x-hidden">
+		<slot />
+	</body>
 </html>
