@@ -9,7 +9,7 @@ const versions = [
     title: "پروتوتایپ اولیه: آغاز یک رویا",
     description: "اولین گام ما با نام «تریتا»، نخستین پزشک اساطیری ایران، آغاز شد. این نسخه صرفاً یک ابزار سنجش نبود، بلکه اثبات یک ایده جسورانه بود. با بدنه‌ای فلزی و مستحکم، تمرکز تیم فنی بر روی طراحی مدارهای پایه و اندازه‌گیری دقیق‌ترین شاخص‌های فیزیکی یعنی قد، وزن و محاسبه BMI قرار داشت. تریتا نماد تولد یک تفکر نو در پایش سلامت بود که نشان داد تکنولوژی می‌تواند شانه‌به‌شانه کادر درمان حرکت کند.",
     image: "/DoramedLandingPage/1.png",
-    features: ["سنجش قد و وزن", "بدنه فلزی صنعتی", "محاسبه‌گر BMI پایه"]
+    features: ["سنجش قد و وزن", "بدنه فلزی صنعتی", "محاسبه‌گر BMI " , "پایش نوار قلب"]
   },
   {
     id: 2,
@@ -20,14 +20,14 @@ const versions = [
     image: "/DoramedLandingPage/4.png",
     features: ["ماژول فشار خون دیجیتال", "پرینتر حرارتی آنی", "بدنه کامپوزیت ارگونومیک"]
   },
-  {
+{
     id: 3,
     version: "مدل سیمرغ (V3.0)", 
     year: "۱۴۰۲",
     title: "پرواز داده‌ها به ابرها",
-    description: "و آنگاه «سیمرغ» پر گشود. همانطور که سیمرغ در شاهنامه درمانگر زال بود، این نسخه با اتصال به اینترنت و فضای ابری (Cloud)، مرزهای فیزیکی را درهم شکست. این انقلاب نرم‌افزاری دورامد بود؛ دستگاه‌ها دیگر جزایر جداافتاده نبودند. کاربران می‌توانستند با شماره موبایل لاگین کنند، پرونده سلامت دیجیتال تشکیل دهند و تاریخچه تغییرات بدن خود را در پنل تحت وب مشاهده کنند. سیمرغ، نماد دانش وسیع و دسترسی بدون مرز به اطلاعات سلامت است.",
+    description: "و آنگاه «سیمرغ» پر گشود. در این نسخه با تغییر ساختار به طراحی دیواری و مینیمال، فضای کمتری اشغال شد و همزمان با اتصال به فضای ابری (Cloud)، مرزهای فیزیکی شکست. کاربران می‌توانستند با شماره موبایل لاگین کنند، پرونده سلامت دیجیتال تشکیل دهند و تاریخچه تغییرات بدن خود را در پنل تحت وب مشاهده کنند. سیمرغ، نماد دانش وسیع در کالبدی سبک و مدرن است.",
     image: "/DoramedLandingPage/3.png",
-    features: ["اتصال به شبکه (IoT)", "پرونده سلامت ابری", "احراز هویت با موبایل"]
+    features: ["طراحی دیواری (Wall-mount)", "پرونده سلامت ابری", "احراز هویت با موبایل"]
   },
   {
     id: 4,
@@ -41,9 +41,9 @@ const versions = [
 ];
 ---
 
-<section id="kiosk-evolution" class="py-24 bg-gradient-to-b from-white via-white to-doramed-white/100 relative overflow-hidden">
+<section id="kiosk-evolution" class=" bg-gradient-to-b from-white via-white to-doramed-white/100 relative overflow-hidden">
     
-    <div class="container mx-auto px-6 relative z-10">
+    <div class="container mx-auto px-6 relative z-10 mt-9">
         
         <div class="text-center max-w-4xl mx-auto mb-24">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-doramed-primary/10 text-doramed-primary text-xs font-bold mb-4 border border-doramed-primary/20">
@@ -71,7 +71,8 @@ const versions = [
             {versions.map((item, index) => (
                 <div class={`mb-24 flex justify-between items-stretch w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out ${index % 2 === 0 ? 'md:flex-row-reverse left-timeline' : 'md:flex-row right-timeline'}`}>
                     
-    <div class="order-1 w-full md:w-5/12 px-6 py-4 hidden md:flex flex-col">                         <div class="hidden md:flex flex-col h-full min-h-[550px] text-right bg-white p-8 rounded-3xl shadow-sm border border-doramed-white hover:shadow-lg hover:border-doramed-primary/30 transition-all duration-300">
+    <div class="order-1 w-full md:w-5/12 px-6 py-4 hidden md:flex flex-col">                    
+         <div class="hidden md:flex flex-col h-full min-h-[550px] text-right bg-white p-8 rounded-3xl shadow-sm border border-doramed-white hover:shadow-lg hover:border-doramed-primary/30 transition-all duration-300">
                             
                             <span class="mb-3 font-bold text-doramed-primary text-sm block tracking-widest uppercase">{item.year}</span>
                             <h3 class="mb-4 font-extrabold text-doramed-darker text-3xl">{item.title}</h3>
@@ -109,7 +110,7 @@ const versions = [
                                 <p class="text-sm text-doramed-muted mb-4 leading-7 text-justify">{item.description}</p>
                                 <div class="flex flex-wrap gap-2">
                                     {item.features.map(f => (
-                                        <span class="text-[10px] bg-gray-100 px-2 py-1 rounded border border-gray-200">{f}</span>
+                                        <span class="text-[10px] bg-doramed-primary px-2 py-1 rounded border border-gray-200">{f}</span>
                                     ))}
                                 </div>
                             </div>
@@ -121,7 +122,7 @@ const versions = [
 
             <div class="mb-16 flex flex-col items-center w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out pl-10 md:pl-0">
                 
-                <div class="z-20 flex items-center justify-center bg-doramed-darker shadow-xl w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white animate-bounce mb-6 relative right-[154px] md:right-auto md:left-0 top-6 md:top-auto">                    <h1 class="font-bold text-xl md:text-2xl text-white">?</h1>
+                <div class="z-20 flex items-center justify-center bg-doramed-darker shadow-xl w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white animate-bounce mb-6 relative right-[154px] md:right-auto md:left-0 top-20 md:top-auto">                    <h1 class="font-bold text-xl md:text-2xl text-white">?</h1>
                 </div>
                 
                 <div class="bg-gradient-to-br from-doramed-darker to-doramed-dark rounded-2xl md:rounded-[2.5rem] shadow-2xl w-full md:w-3/4 px-5 py-8 md:px-8 md:py-12 border-2 border-doramed-muted relative overflow-hidden group text-center mt-6 md:mt-0">
