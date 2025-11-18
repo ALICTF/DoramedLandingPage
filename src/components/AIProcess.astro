@@ -1,69 +1,144 @@
 ---
 // src/components/AIProcess.astro
 ---
-<section id="ai-health" class="py-24 bg-doramed-darker text-doramed-white relative overflow-hidden">
+<section id="ai-health" class="py-32 bg-doramed-darker text-doramed-white relative overflow-hidden">
     
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-doramed-primary/10 rounded-full blur-[100px] animate-pulse"></div>
-    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-doramed-muted/10 rounded-full blur-[100px] animate-pulse" style="animation-delay: 2s;"></div>
+    <div class="absolute inset-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 z-0"></div>
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-doramed-primary/20 rounded-full blur-[120px] animate-pulse-slow"></div>
+        <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[150px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+        
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
+    </div>
 
     <div class="container mx-auto px-6 relative z-10">
         
-        <div class="text-center mb-16">
-            <span class="text-doramed-gray font-bold tracking-wider text-sm uppercase">تکنولوژی انحصاری دورامد</span>
-            <h2 class="text-3xl md:text-5xl font-extrabold mt-3 mb-6">مسیر سلامتی شما با <span class="text-doramed-primary">هوش مصنوعی</span></h2>
-            <p class="text-doramed-gray max-w-2xl mx-auto text-lg">
-                ما داده‌های خام دستگاه‌های پزشکی را دریافت کرده و با الگوریتم‌های پیشرفته، تبدیل به یک نقشه راه سلامتی می‌کنیم.
+        <div class="text-center mb-20">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-doramed-dark border border-doramed-primary/50 text-doramed-primary text-xs font-bold mb-6 shadow-[0_0_15px_rgba(2,62,138,0.5)] animate-float">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-doramed-primary opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                </span>
+                تکنولوژی انحصاری دورامد
+            </div>
+            <h2 class="text-4xl md:text-6xl font-black mt-2 mb-6 tracking-tight leading-tight">
+                انقلاب سلامتی با <br class="md:hidden" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-doramed-primary to-purple-500 animate-gradient-x drop-shadow-lg">هوش مصنوعی</span>
+            </h2>
+            <p class="text-doramed-gray max-w-3xl mx-auto text-lg md:text-xl leading-relaxed">
+                ما داده‌های خام بدن شما را به <span class="text-white font-bold border-b border-cyan-500/50">دانش پزشکی</span> تبدیل می‌کنیم. الگوریتم‌های ما الگوهایی را می‌بینند که چشم انسان قادر به دیدن آن‌ها نیست.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            <div class="hidden md:block absolute top-12 right-0 left-0 h-0.5 bg-gradient-to-l from-doramed-darker via-doramed-muted to-doramed-darker z-0 opacity-30"></div>
-
-            <div class="relative z-10 bg-doramed-dark/50 backdrop-blur-sm border border-doramed-muted/30 p-8 rounded-3xl hover:border-doramed-primary transition duration-300 group">
-                <div class="w-16 h-16 bg-doramed-darker rounded-2xl flex items-center justify-center mb-6 group-hover:bg-doramed-primary transition shadow-lg mx-auto md:mx-0 border border-doramed-muted/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-doramed-white">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-doramed-white">۱. جمع‌آوری داده‌ها</h3>
-                <p class="text-doramed-gray text-sm leading-relaxed">
-                    اطلاعات حیاتی شما از طریق دستگاه‌های Armfit و Checkme یا کیوسک‌های سلامت با دقت پزشکی ثبت می‌شود.
-                </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative perspective-1000">
+            
+            <div class="hidden md:block absolute top-16 right-10 left-10 h-1 bg-gray-800 rounded-full z-0 overflow-hidden">
+                <div class="absolute top-0 right-0 h-full w-1/2 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-beam"></div>
             </div>
 
-            <div class="relative z-10 bg-doramed-dark/50 backdrop-blur-sm border border-doramed-muted/30 p-8 rounded-3xl hover:border-doramed-white transition duration-300 group">
-                <div class="w-16 h-16 bg-doramed-darker rounded-2xl flex items-center justify-center mb-6 group-hover:bg-doramed-white group-hover:text-doramed-darker transition shadow-lg mx-auto md:mx-0 border border-doramed-muted/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-doramed-white group-hover:text-doramed-darker">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-                    </svg>
+            <div class="relative z-10 group">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-doramed-primary rounded-[2rem] blur opacity-20 group-hover:opacity-75 transition duration-500 group-hover:duration-200"></div>
+                <div class="relative bg-doramed-darker border border-white/10 p-8 rounded-[2rem] h-full hover:transform hover:-translate-y-2 transition-all duration-300 shadow-2xl">
+                    
+                    <div class="w-20 h-20 bg-doramed-dark rounded-2xl flex items-center justify-center mb-8 mx-auto shadow-[0_0_20px_rgba(6,182,212,0.2)] group-hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all duration-500 border border-white/5">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-cyan-400 group-hover:scale-110 transition-transform">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-white text-center group-hover:text-cyan-400 transition-colors">۱. جمع‌آوری داده‌ها</h3>
+                    <p class="text-doramed-gray text-sm leading-relaxed text-center group-hover:text-white/80 transition-colors">
+                        اطلاعات حیاتی شما از طریق سنسورهای دقیق (Armfit, Checkme) به صورت لحظه‌ای و با دقت بیمارستانی دریافت و رمزگذاری می‌شود.
+                    </p>
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-doramed-white">۲. پردازش هوشمند</h3>
-                <p class="text-doramed-gray text-sm leading-relaxed">
-                    هوش مصنوعی دورامد داده‌ها را تحلیل کرده و الگوهای پنهان سلامتی شما را شناسایی می‌کند (ریسک‌ها و نقاط قوت).
-                </p>
             </div>
 
-            <div class="relative z-10 bg-doramed-dark/50 backdrop-blur-sm border border-doramed-muted/30 p-8 rounded-3xl hover:border-doramed-primary transition duration-300 group">
-                <div class="w-16 h-16 bg-doramed-darker rounded-2xl flex items-center justify-center mb-6 group-hover:bg-doramed-primary transition shadow-lg mx-auto md:mx-0 border border-doramed-muted/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-doramed-white">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
-                    </svg>
+            <div class="relative z-10 group md:-mt-8"> <div class="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-[2rem] blur opacity-30 group-hover:opacity-100 transition duration-500"></div>
+                <div class="relative bg-[#160f2b] border border-white/10 p-8 rounded-[2rem] h-full hover:transform hover:scale-105 transition-all duration-300 shadow-2xl">
+                    
+                    <div class="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-8 mx-auto shadow-[0_0_30px_rgba(168,85,247,0.4)] group-hover:shadow-[0_0_50px_rgba(168,85,247,0.8)] transition-all duration-500 border border-white/10 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-transparent animate-spin-slow"></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-purple-400 relative z-10">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-white text-center group-hover:text-purple-400 transition-colors">۲. مغز متفکر (AI)</h3>
+                    <p class="text-doramed-gray text-sm leading-relaxed text-center group-hover:text-white/80 transition-colors">
+                        الگوریتم‌های یادگیری عمیق (Deep Learning) ما، الگوهای پنهان سلامتی شما را شناسایی کرده و ریسک‌های احتمالی را پیش‌بینی می‌کنند.
+                    </p>
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-doramed-white">۳. برنامه اختصاصی</h3>
-                <p class="text-doramed-gray text-sm leading-relaxed">
-                    دریافت داشبورد جامع شامل برنامه غذایی، رژیم ورزشی و لیست مکمل‌های مورد نیاز بدن شما.
-                </p>
+            </div>
+
+            <div class="relative z-10 group">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-green-500 to-emerald-600 rounded-[2rem] blur opacity-20 group-hover:opacity-75 transition duration-500 group-hover:duration-200"></div>
+                <div class="relative bg-doramed-darker border border-white/10 p-8 rounded-[2rem] h-full hover:transform hover:-translate-y-2 transition-all duration-300 shadow-2xl">
+                    
+                    <div class="w-20 h-20 bg-doramed-dark rounded-2xl flex items-center justify-center mb-8 mx-auto shadow-[0_0_20px_rgba(34,197,94,0.2)] group-hover:shadow-[0_0_30px_rgba(34,197,94,0.6)] transition-all duration-500 border border-white/5">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-emerald-400 group-hover:scale-110 transition-transform">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-white text-center group-hover:text-emerald-400 transition-colors">۳. نقشه راه سلامتی</h3>
+                    <p class="text-doramed-gray text-sm leading-relaxed text-center group-hover:text-white/80 transition-colors">
+                        دریافت برنامه کاملاً شخصی‌سازی شده (غذایی، ورزشی، دارویی) در داشبورد اختصاصی برای رسیدن به اوج سلامتی.
+                    </p>
+                </div>
             </div>
         </div>
 
-        <div class="mt-16 text-center">
-            <a href="#" class="inline-flex items-center gap-3 bg-doramed-primary text-white font-bold px-10 py-4 rounded-full hover:shadow-lg hover:shadow-doramed-primary/40 transition transform hover:-translate-y-1 border border-doramed-muted">
-                ورود به داشبورد سلامت دورامد
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                </svg>
+        <div class="mt-24 text-center">
+            <a href="#" class="relative inline-flex group">
+                <div class="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
+                <button class="relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-doramed-darker font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 gap-3">
+                    ورود به آینده پزشکی
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 group-hover:translate-x-1 transition-transform">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </button>
             </a>
         </div>
 
     </div>
 </section>
+
+<style>
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .animate-float {
+        animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes beam {
+        0% { transform: translateX(150%); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: translateX(-150%); opacity: 0; }
+    }
+    .animate-beam {
+        animation: beam 3s linear infinite;
+    }
+    
+    @keyframes gradient-x {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+    .animate-gradient-x {
+        background-size: 200% 200%;
+        animation: gradient-x 4s ease infinite;
+    }
+    
+    @keyframes pulse-slow {
+        0%, 100% { opacity: 0.2; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(1.1); }
+    }
+    .animate-pulse-slow {
+        animation: pulse-slow 6s ease-in-out infinite;
+    }
+
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+</style>
