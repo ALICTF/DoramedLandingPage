@@ -1,5 +1,13 @@
 ---
 // src/components/Products.astro
+import { Image } from 'astro:assets';
+
+// ایمپورت کردن تصاویر از پوشه assets
+// نکته: مطمئن شو عکس‌ها رو به src/assets منتقل کردی
+import armfitImg from '../assets/armfitPlus.png';
+import pulsO2Img from '../assets/PulsO2.png';
+import bagImg from '../assets/bag.png';
+import bag2Img from '../assets/bag2.png';
 
 const products = [
   {
@@ -7,7 +15,7 @@ const products = [
     category: "تجهیزات وارداتی",
     isInnovation: false, 
     description: "دستگاه فشارسنج و نوار قلب جیبی. بهترین گزینه برای پایش روزانه سلامت قلب و عروق با دقت کلینیکال.",
-    image: "/armfitPlus.png", 
+    image: armfitImg, // اینجا متغیر ایمپورت شده رو میدیم
     features: ["فشار خون", "نوار قلب (ECG)", "اتصال به موبایل"],
     link: "https://doramed.ir/product/blood-pressure-monitor-armfit-plus/"
   },
@@ -16,7 +24,7 @@ const products = [
     category: "تجهیزات وارداتی",
     isInnovation: false,
     description: "پایشگر مداوم اکسیژن خون و ضربان قلب در خواب. راهکاری عالی برای تشخیص آپنه خواب.",
-    image: "/PulsO2.png",
+    image: pulsO2Img,
     features: ["سنجش اکسیژن SpO2", "پایش خواب", "لرزش هشدار"],
     link: "https://doramed.ir/product/pulse-oximeter-checkme-o2/"
   },
@@ -25,7 +33,7 @@ const products = [
     category: "محصول دانش‌بنیان",
     isInnovation: true, 
     description: "یک کلینیک سیار کامل! این ایستگاه سلامت هوشمند و قابل حمل، امکان چکاپ سریع مراجعین و ارسال پرونده الکترونیک را در هر مکانی فراهم می‌کند.",
-    image: "/bag.png",
+    image: bagImg,
     features: ["چکاپ کامل", "گزارش‌دهی آنی", "پرونده الکترونیک"],
     link: "https://doramed.ir/%da%a9%d9%88%d9%84%d9%87-%d9%be%d8%b4%d8%aa%db%8c-%d9%be%d8%b2%d8%b4%da%a9%db%8c/"
   },
@@ -34,7 +42,7 @@ const products = [
     category: "تحقیق و توسعه (R&D)",
     isInnovation: true,
     description: "سیستم پوشیدنی پیشرفته برای پایش لحظه‌ای علائم حیاتی در شرایط سخت عملیاتی و حرارت بالا، جهت حفظ جان نیروهای امدادی.",
-    image: "/bag2.png",
+    image: bag2Img,
     features: ["مانیتورینگ زنده", "مقاوم در برابر حرارت", "ارسال دیتا"],
     link: "https://doramed.ir/product/firefighter-kit" 
   }
@@ -58,13 +66,17 @@ const products = [
                 <div class="group bg-white rounded-3xl border border-doramed-white shadow-lg shadow-doramed-dark/5 overflow-hidden hover:shadow-2xl hover:shadow-doramed-primary/10 transition-all duration-500 hover:-translate-y-2 flex flex-col">
                     
                     <div class="relative h-56 bg-doramed-white/30 p-6 flex items-center justify-center overflow-hidden">
-                        <div class={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold border ${item.isInnovation ? 'bg-doramed-dark text-white border-doramed-dark' : 'bg-doramed-white text-doramed-muted border-doramed-muted'}`}>
+                        <div class={`absolute top-4 right-4 z-10 px-3 py-1 rounded-full text-xs font-bold border ${item.isInnovation ? 'bg-doramed-dark text-white border-doramed-dark' : 'bg-doramed-white text-doramed-muted border-doramed-muted'}`}>
                             {item.category}
                         </div>
 
-                        <img 
+                        <Image 
                             src={item.image} 
-                            alt={item.title} 
+                            alt={`تصویر محصول ${item.title}`}
+                            width={300}
+                            height={300}
+                            format="webp"
+                            quality="mid"
                             class="w-full h-full object-contain transform group-hover:scale-110 transition duration-500"
                         />
                     </div>
@@ -99,12 +111,12 @@ const products = [
 
         <div class="mt-20 bg-doramed-darker rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-2xl shadow-doramed-darker/30">
             <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-            
+             
             <div class="relative z-10">
                 <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">نیاز به مشاوره تخصصی دارید؟</h3>
                 <p class="text-doramed-gray">کارشناسان فنی ما در کارخانه نوآوری آماده پاسخگویی به سوالات شما هستند.</p>
             </div>
-            
+             
             <div class="relative z-10 flex gap-4">
                 <a href="tel:05112345678" class="px-6 py-3 bg-white text-doramed-dark font-bold rounded-xl hover:bg-doramed-white transition border-2 border-white hover:border-doramed-white">
                     تماس با واحد فنی

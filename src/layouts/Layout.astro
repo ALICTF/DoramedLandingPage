@@ -1,59 +1,148 @@
 ---
 // src/layouts/Layout.astro
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
-	title: string;
-	description?: string;
-	image?: string;
+  title: string;
+  description?: string;
+  image?: string;
 }
 
-const defaultDescription = "دورامد (نوین مدیا)، پیشگام در ارائه تجهیزات پزشکی هوشمند و خدمات پزشکی از راه دور.";
+const defaultDescription =
+  "دورامد (نوین مدیا)، پیشگام در ارائه تجهیزات پزشکی هوشمند، کیوسک های پایش سلامت و خدمات پزشکی از راه دور در ایران.";
 const defaultImage = "/og-image.jpg";
 
-const { 
-	title, 
-	description = defaultDescription, 
-	image = defaultImage 
+const {
+  title,
+  description = defaultDescription,
+  image = defaultImage,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteUrl = Astro.site ? Astro.site.toString() : "https://doramed.ir";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalOrganization",
+  name: "دورامد (نوین مدیا)",
+  alternateName: ["Doramed", "Novin Media"],
+  url: siteUrl,
+  logo: new URL("/logo.png", siteUrl).toString(),
+  image: new URL(image, siteUrl).toString(),
+  description: description,
+  slogan: "تلاقی نوآوری و درمان",
+
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+98-51-38334013",
+    contactType: "customer service",
+    areaServed: "IR",
+    availableLanguage: ["Persian", "English"],
+  },
+
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "میدان پژوهش (کوثر شمالی ۲۹)، کارخانه نوآوری، ساختمان مرکزی",
+    addressLocality: "Mashhad",
+    addressRegion: "Razavi Khorasan",
+    postalCode: "91769-00000",
+    addressCountry: "IR",
+  },
+
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "36.3156",
+    longitude: "59.5316",
+  },
+
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"],
+      opens: "08:00",
+      closes: "16:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Thursday",
+      opens: "08:00",
+      closes: "13:00",
+    },
+  ],
+
+  sameAs: [
+    "https://www.instagram.com/doramed_ir",
+    "https://www.linkedin.com/in/amin-golrou-11235665/",
+    "https://t.me/doramedco",
+  ],
+};
 ---
 
 <!doctype html>
 <html lang="fa" dir="rtl" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="Doramed Tech Team" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://www.clarity.ms" />
+    <link rel="dns-prefetch" href="https://www.clarity.ms" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#0D1B2A" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, siteUrl)} />
+    <meta property="og:locale" content="fa_IR" />
+    <meta property="og:site_name" content="Doramed" />
 
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		<link rel="canonical" href={canonicalURL} />
-		<meta name="theme-color" content="#0D1B2A" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, siteUrl)} />
 
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link
+      href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
+      rel="stylesheet"
+      type="text/css"
+    />
 
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={canonicalURL} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content={image} />
+    <script type="text/javascript" is:inline>
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "ubjze9x2rd");
+    </script>
 
-		<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationSchema)}
+    />
+  </head>
 
-		<script type="text/javascript" is:inline>
-		    (function(c,l,a,r,i,t,y){
-		        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-		        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-		        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-		    })(window, document, "clarity", "script", "ubjze9x2rd");
-		</script>
-	</head>
-	
-	<body class="font-sans bg-doramed-darker text-doramed-white antialiased overflow-x-hidden">
-		<slot />
-	</body>
+  <body
+    class="font-sans bg-doramed-darker text-doramed-white antialiased overflow-x-hidden selection:bg-doramed-primary selection:text-white"
+  >
+    <slot />
+  </body>
 </html>

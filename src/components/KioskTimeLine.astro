@@ -1,5 +1,13 @@
 ---
 // src/components/KioskTimeline.astro
+import { Image } from 'astro:assets';
+
+// ایمپورت تصاویر برای بهینه‌سازی توسط Astro
+// مطمئن شو عکس‌ها در src/assets هستند
+import imgTrita from '../assets/1.png';
+import imgRazi from '../assets/4.png';
+import imgSimorgh from '../assets/3.png';
+import imgSina from '../assets/2.png';
 
 const versions = [
   {
@@ -7,8 +15,9 @@ const versions = [
     version: "مدل تریتا (V1.0)", 
     year: "۱۴۰۰",
     title: "پروتوتایپ اولیه: آغاز یک رویا",
-    description: "اولین گام ما با نام «تریتا»، نخستین پزشک اساطیری ایران، آغاز شد. این نسخه صرفاً یک ابزار سنجش نبود، بلکه اثبات یک ایده جسورانه بود. با بدنه‌ای فلزی و مستحکم، تمرکز تیم فنی بر روی طراحی مدارهای پایه و اندازه‌گیری دقیق‌ترین شاخص‌های فیزیکی یعنی قد، وزن و محاسبه BMI قرار داشت. تریتا نماد تولد یک تفکر نو در پایش سلامت بود که نشان داد تکنولوژی می‌تواند شانه‌به‌شانه کادر درمان حرکت کند.",
-    image: "/1.png",
+    description: "اولین گام ما با نام «تریتا»، نخستین پزشک اساطیری ایران، آغاز شد. این نسخه صرفاً یک ابزار سنجش نبود، بلکه اثبات یک ایده جسورانه بود. با بدنه‌ای فلزی و مستحکم، تمرکز تیم فنی بر روی طراحی مدارهای پایه و اندازه‌گیری دقیق‌ترین شاخص‌های فیزیکی یعنی قد، وزن و محاسبه BMI قرار داشت.",
+    image: imgTrita,
+    alt: "تصویر کیوسک سلامت مدل تریتا نسخه اولیه",
     features: ["سنجش قد و وزن", "بدنه فلزی صنعتی", "محاسبه‌گر BMI " , "پایش نوار قلب"]
   },
   {
@@ -16,17 +25,19 @@ const versions = [
     version: "مدل رازی (V2.0)", 
     year: "۱۴۰۱",
     title: "نسخه تجاری: دقت و مشاهده",
-    description: "با الهام از زکریای رازی، پدر مشاهدات بالینی، نسخه دوم متولد شد. در این مرحله، ما از فاز آزمایشگاهی خارج شدیم و محصولی تجاری با طراحی ارگونومیک ارائه دادیم. جهش بزرگ ما در مدل رازی، افزودن ماژول‌های دقیق فشار خون و پرینتر حرارتی بود. حالا کاربران می‌توانستند نه تنها سلامت خود را بسنجند، بلکه نتیجه را همان لحظه به صورت مکتوب دریافت کنند. رازی، نماد دقت، عینیت و ورود قدرتمند دورامد به بازار تجهیزات پزشکی بود.",
-    image: "/4.png",
+    description: "با الهام از زکریای رازی، نسخه دوم متولد شد. در این مرحله، ما از فاز آزمایشگاهی خارج شدیم و محصولی تجاری با طراحی ارگونومیک ارائه دادیم. جهش بزرگ ما، افزودن ماژول‌های دقیق فشار خون و پرینتر حرارتی بود تا کاربران نتیجه را همان لحظه مکتوب دریافت کنند.",
+    image: imgRazi,
+    alt: "تصویر کیوسک سلامت مدل رازی با پرینتر حرارتی",
     features: ["ماژول فشار خون دیجیتال", "پرینتر حرارتی آنی", "بدنه کامپوزیت ارگونومیک"]
   },
-{
+  {
     id: 3,
     version: "مدل سیمرغ (V3.0)", 
     year: "۱۴۰۲",
     title: "پرواز داده‌ها به ابرها",
-    description: "و آنگاه «سیمرغ» پر گشود. در این نسخه با تغییر ساختار به طراحی دیواری و مینیمال، فضای کمتری اشغال شد و همزمان با اتصال به فضای ابری (Cloud)، مرزهای فیزیکی شکست. کاربران می‌توانستند با شماره موبایل لاگین کنند، پرونده سلامت دیجیتال تشکیل دهند و تاریخچه تغییرات بدن خود را در پنل تحت وب مشاهده کنند. سیمرغ، نماد دانش وسیع در کالبدی سبک و مدرن است.",
-    image: "/3.png",
+    description: "و آنگاه «سیمرغ» پر گشود. در این نسخه با تغییر ساختار به طراحی دیواری و مینیمال، فضای کمتری اشغال شد و با اتصال به فضای ابری (Cloud)، مرزهای فیزیکی شکست. کاربران می‌توانستند با شماره موبایل لاگین کنند و پرونده سلامت دیجیتال تشکیل دهند.",
+    image: imgSimorgh,
+    alt: "تصویر کیوسک سلامت دیواری مدل سیمرغ",
     features: ["طراحی دیواری (Wall-mount)", "پرونده سلامت ابری", "احراز هویت با موبایل"]
   },
   {
@@ -34,16 +45,17 @@ const versions = [
     version: "مدل سینا (V4.0)", 
     year: "۱۴۰۳ - اکنون",
     title: "اوج هوشمندی با AI",
-    description: "اوج تکامل مهندسی ما در مدل «سینا» (ابن‌سینا) تگلی پیدا کرد. این دستگاه فقط داده جمع نمی‌کند، بلکه «فکر» می‌کند. با افزودن سنسورهای پیشرفته اکسیژن خون (SpO2) و تب‌سنج، بینش کاملی از بدن ارائه می‌دهد. اما شاهکار اصلی، ادغام «هوش مصنوعی» است؛ الگوریتم‌های ما با تحلیل روند داده‌های کاربر، الگوهای خطر را شناسایی کرده و پیشنهادات اختصاصی ارائه می‌دهند. همچنین با سیستم تشخیص چهره، کاربر بدون نیاز به وارد کردن اطلاعات، در کسری از ثانیه شناخته می‌شود.",
-    image: "/2.png",
+    description: "اوج تکامل مهندسی در مدل «سینا». این دستگاه فقط داده جمع نمی‌کند، بلکه «فکر» می‌کند. با افزودن سنسورهای SpO2 و تب‌سنج و ادغام هوش مصنوعی، الگوهای خطر را شناسایی می‌کند. سیستم تشخیص چهره نیز تجربه کاربری را به سطح جدیدی برده است.",
+    image: imgSina,
+    alt: "تصویر کیوسک هوشمند مدل سینا با قابلیت تشخیص چهره",
     features: ["تحلیلگر هوش مصنوعی", "تشخیص چهره ", "پایش کامل علائم حیاتی"]
   }
 ];
 ---
 
-<section id="kiosk-evolution" class=" bg-gradient-to-b from-white via-white to-doramed-white/100 relative overflow-hidden">
+<section id="kiosk-evolution" class="bg-gradient-to-b from-white via-white to-doramed-white/100 relative overflow-hidden py-24">
     
-    <div class="container mx-auto px-6 relative z-10 mt-9">
+    <div class="container mx-auto px-6 relative z-10">
         
         <div class="text-center max-w-4xl mx-auto mb-24">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-doramed-primary/10 text-doramed-primary text-xs font-bold mb-4 border border-doramed-primary/20">
@@ -54,7 +66,7 @@ const versions = [
             </h2>
             
             <p class="text-doramed-muted text-lg leading-relaxed mb-6 text-justify md:text-center">
-                با کیوسک پایش سلامت دورامد، یک کلینیک هوشمند مجهز به <span class="text-doramed-primary font-bold">هوش مصنوعی</span> را به فضای خود بیاورید. این ایستگاه پیشرفته، فراتر از پایش لحظه‌ای علائم حیاتی (فشار خون، نوار قلب، اکسیژن و دما)، با الگوریتم‌های دقیق، داده‌های شما را تحلیل کرده و الگوهای پنهان سلامتی را شناسایی می‌کند. با امکان انجام تست‌های قند و کلسترول و ارسال آنی داده‌ها در بستر <span class="text-doramed-primary font-bold">پزشکی از راه دور</span>، نیاز به مراجعات مکرر حذف شده و مدیریت سلامت شما هوشمندانه‌تر از همیشه خواهد بود.
+                با کیوسک پایش سلامت دورامد، یک کلینیک هوشمند مجهز به <span class="text-doramed-primary font-bold">هوش مصنوعی</span> را به فضای خود بیاورید. این ایستگاه پیشرفته، فراتر از پایش لحظه‌ای علائم حیاتی، با الگوریتم‌های دقیق، داده‌های شما را تحلیل کرده و الگوهای پنهان سلامتی را شناسایی می‌کند.
             </p>
 
             <div class="relative inline-block">
@@ -69,11 +81,10 @@ const versions = [
             <div class="border-2-2 absolute border-opacity-20 border-doramed-primary h-full border left-8 md:left-1/2 top-0 transform -translate-x-1/2" style="border-width: 2px;"></div>
 
             {versions.map((item, index) => (
-                <div class={`mb-24 flex justify-between items-stretch w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out ${index % 2 === 0 ? 'md:flex-row-reverse left-timeline' : 'md:flex-row right-timeline'}`}>
+                <article class={`mb-24 flex justify-between items-stretch w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out ${index % 2 === 0 ? 'md:flex-row-reverse left-timeline' : 'md:flex-row right-timeline'}`}>
                     
-    <div class="order-1 w-full md:w-5/12 px-6 py-4 hidden md:flex flex-col">                    
-         <div class="hidden md:flex flex-col h-full min-h-[550px] text-right bg-white p-8 rounded-3xl shadow-sm border border-doramed-white hover:shadow-lg hover:border-doramed-primary/30 transition-all duration-300">
-                            
+                    <div class="order-1 w-full md:w-5/12 px-6 py-4 hidden md:flex flex-col">                    
+                        <div class="hidden md:flex flex-col h-full min-h-[550px] text-right bg-white p-8 rounded-3xl shadow-sm border border-doramed-white hover:shadow-lg hover:border-doramed-primary/30 transition-all duration-300">
                             <span class="mb-3 font-bold text-doramed-primary text-sm block tracking-widest uppercase">{item.year}</span>
                             <h3 class="mb-4 font-extrabold text-doramed-darker text-3xl">{item.title}</h3>
                             <h4 class="mb-6 text-lg text-doramed-primary font-bold border-b border-doramed-white pb-2 inline-block w-max">{item.version}</h4>
@@ -96,11 +107,18 @@ const versions = [
                         <h1 class="mx-auto font-bold text-sm text-white">{index + 1}</h1>
                     </div>
                     
-                        <div class="order-1 w-full md:w-5/12 pl-10 pr-0 md:px-6 md:ml-0 flex flex-col items-end">                        <div class="w-full items-end bg-white p-6 md:p-5 rounded-3xl md:rounded-[2.5rem] shadow-xl border border-doramed-white hover:border-doramed-primary/50 transition group relative overflow-hidden h-full min-h-[400px] md:min-h-[550px] flex flex-col justify-center">                            
+                    <div class="order-1 w-full md:w-5/12 pl-10 pr-0 md:px-6 md:ml-0 flex flex-col items-end">
+                        <div class="w-full items-end bg-white p-6 md:p-5 rounded-3xl md:rounded-[2.5rem] shadow-xl border border-doramed-white hover:border-doramed-primary/50 transition group relative overflow-hidden h-full min-h-[400px] md:min-h-[550px] flex flex-col justify-center">                            
                             <div class="absolute top-0 right-0 w-40 h-40 bg-doramed-primary/5 rounded-full blur-3xl opacity-50 -mr-10 -mt-10 group-hover:bg-doramed-primary/10 transition"></div>
                             
                             <div class="relative w-full flex-grow flex items-center justify-center p-6">
-                                 <img src={item.image} alt={item.title} class="w-full max-h-[400px] object-contain transform group-hover:scale-105 transition duration-700 drop-shadow-lg" />
+                                <Image 
+                                    src={item.image} 
+                                    alt={item.alt}
+                                    width={400}
+                                    format="webp"
+                                    class="w-full max-h-[400px] object-contain transform group-hover:scale-105 transition duration-700 drop-shadow-lg" 
+                                />
                             </div>
 
                             <div class="block md:hidden mt-6 px-2 pb-4">
@@ -117,17 +135,16 @@ const versions = [
                         </div>
                     </div>
 
-                </div>
+                </article>
             ))}
 
             <div class="mb-16 flex flex-col items-center w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out pl-10 md:pl-0">
-                
-                <div class="z-20 flex items-center justify-center bg-doramed-darker shadow-xl w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white animate-bounce mb-6 relative right-[154px] md:right-auto md:left-0 top-20 md:top-auto">                    <h1 class="font-bold text-xl md:text-2xl text-white">?</h1>
+                <div class="z-20 flex items-center justify-center bg-doramed-darker shadow-xl w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white animate-bounce mb-6 relative right-[154px] md:right-auto md:left-0 top-20 md:top-auto">
+                    <h1 class="font-bold text-xl md:text-2xl text-white">?</h1>
                 </div>
                 
                 <div class="bg-gradient-to-br from-doramed-darker to-doramed-dark rounded-2xl md:rounded-[2.5rem] shadow-2xl w-full md:w-3/4 px-5 py-8 md:px-8 md:py-12 border-2 border-doramed-muted relative overflow-hidden group text-center mt-6 md:mt-0">
-                    
-                    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay hidden md:block"></div>
+                    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay hidden md:block pointer-events-none"></div>
                     
                     <span class="mb-2 md:mb-3 font-bold text-doramed-primary text-xs md:text-sm block tracking-widest uppercase">V5.0 - آینده نزدیک</span>
                     <h3 class="mb-3 md:mb-4 font-black text-white text-xl md:text-3xl leading-tight">ویژگی بعدی با شما!</h3>
@@ -137,7 +154,7 @@ const versions = [
                     </p>
 
                     <div class="flex justify-center">
-                        <button id="open-suggestion-modal" class="relative w-full md:w-auto px-6 py-3.5 md:px-8 md:py-4 bg-white text-doramed-darker font-extrabold rounded-xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-base">
+                        <button id="open-suggestion-modal" class="relative w-full md:w-auto px-6 py-3.5 md:px-8 md:py-4 bg-white text-doramed-darker font-extrabold rounded-xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-base cursor-pointer">
                             <span class="relative z-10">ثبت پیشنهاد</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 relative z-10">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -146,17 +163,16 @@ const versions = [
                     </div>
                 </div>
             </div>
-            </div>
-            
+
         </div>
     </div>
 </section>
 
-<div id="suggestion-modal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center px-4">
+<div id="suggestion-modal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center px-4" role="dialog" aria-modal="true">
     <div class="absolute inset-0 bg-doramed-darker/80 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
     
     <div class="relative bg-white rounded-3xl w-full max-w-md p-6 md:p-8 shadow-2xl transform scale-90 opacity-0 transition-all duration-300 border border-doramed-white" id="modal-content">
-        <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors p-2">
+        <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors p-2" aria-label="بستن">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <div class="text-center mb-6">
@@ -166,47 +182,72 @@ const versions = [
             <h3 class="text-2xl font-extrabold text-doramed-darker">ایده شما، آینده ما</h3>
             <p class="text-sm text-doramed-muted mt-2">چه ویژگی جدیدی در کیوسک سلامت نیاز دارید؟</p>
         </div>
-        <form class="space-y-4" onsubmit="event.preventDefault(); alert('ممنون! پیشنهاد شما ثبت شد.'); document.getElementById('close-modal').click();">
-            <div><label class="block text-sm font-bold text-doramed-dark mb-1">نام شما (اختیاری)</label><input type="text" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-doramed-primary focus:ring-0 outline-none transition bg-gray-50 focus:bg-white" placeholder="مثلا: علی احمدی" /></div>
-            <div><label class="block text-sm font-bold text-doramed-dark mb-1">پیشنهاد شما *</label><textarea rows="4" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-doramed-primary focus:ring-0 outline-none transition bg-gray-50 focus:bg-white resize-none" placeholder="من فکر می‌کنم اگر دستگاه قابلیت..."></textarea></div>
+        
+        <form class="space-y-4" id="suggestion-form">
+            <div>
+                <label class="block text-sm font-bold text-doramed-dark mb-1">نام شما (اختیاری)</label>
+                <input type="text" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-doramed-primary focus:ring-0 outline-none transition bg-gray-50 focus:bg-white" placeholder="مثلا: علی احمدی" />
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-doramed-dark mb-1">پیشنهاد شما *</label>
+                <textarea required rows="4" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-doramed-primary focus:ring-0 outline-none transition bg-gray-50 focus:bg-white resize-none" placeholder="من فکر می‌کنم اگر دستگاه قابلیت..."></textarea>
+            </div>
             <button type="submit" class="w-full py-4 bg-doramed-primary text-white font-bold rounded-xl hover:bg-doramed-darker transition shadow-lg hover:shadow-xl transform active:scale-95">ارسال ایده 🚀</button>
         </form>
     </div>
 </div>
 
 <script>
-    const observerOptions = { root: null, threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.remove('opacity-0', 'translate-y-20');
-                observer.unobserve(entry.target);
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Intersection Observer for Animations ---
+        const observerOptions = { root: null, threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('opacity-0', 'translate-y-20');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
+
+        // --- Modal Logic ---
+        const modal = document.getElementById('suggestion-modal');
+        const modalContent = document.getElementById('modal-content');
+        const backdrop = document.getElementById('modal-backdrop');
+        const openBtn = document.getElementById('open-suggestion-modal');
+        const closeBtn = document.getElementById('close-modal');
+        const form = document.getElementById('suggestion-form');
+
+        const toggleModal = (show: boolean) => {
+            if (!modal || !modalContent || !backdrop) return;
+            
+            if (show) {
+                modal.classList.remove('hidden');
+                // Small delay to allow display:block to apply before opacity transition
+                requestAnimationFrame(() => {
+                    backdrop.classList.remove('opacity-0');
+                    modalContent.classList.remove('scale-90', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                });
+            } else {
+                backdrop.classList.add('opacity-0');
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-90', 'opacity-0');
+                setTimeout(() => { modal.classList.add('hidden'); }, 300);
             }
+        };
+
+        openBtn?.addEventListener('click', () => toggleModal(true));
+        closeBtn?.addEventListener('click', () => toggleModal(false));
+        backdrop?.addEventListener('click', () => toggleModal(false));
+
+        form?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('ممنون! پیشنهاد شما ثبت شد.');
+            toggleModal(false);
+            (e.target as HTMLFormElement).reset();
         });
-    }, observerOptions);
-    document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
-
-    const modal = document.getElementById('suggestion-modal');
-    const modalContent = document.getElementById('modal-content');
-    const backdrop = document.getElementById('modal-backdrop');
-    const openBtn = document.getElementById('open-suggestion-modal');
-    const closeBtn = document.getElementById('close-modal');
-
-    function openModal() {
-        modal.classList.remove('hidden');
-        setTimeout(() => {
-            backdrop.classList.remove('opacity-0');
-            modalContent.classList.remove('scale-90', 'opacity-0');
-            modalContent.classList.add('scale-100', 'opacity-100');
-        }, 10);
-    }
-    function closeModal() {
-        backdrop.classList.add('opacity-0');
-        modalContent.classList.remove('scale-100', 'opacity-100');
-        modalContent.classList.add('scale-90', 'opacity-0');
-        setTimeout(() => { modal.classList.add('hidden'); }, 300);
-    }
-    if (openBtn) openBtn.addEventListener('click', openModal);
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (backdrop) backdrop.addEventListener('click', closeModal);
+    });
 </script>

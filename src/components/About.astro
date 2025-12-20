@@ -1,103 +1,224 @@
 ---
 // src/components/About.astro
+import { Image } from "astro:assets";
+import drImage from "../assets/dr2.jpg";
+
+// اگر عکس کاور نقشه داری، اینجا ایمپورت کن. فعلا من با CSS هندل کردم
+// import mapCover from "../assets/map-cover.jpg";
 ---
+
 <section id="about" class="py-24 bg-doramed-white relative overflow-hidden">
-    
-    <div class="absolute top-0 left-0 w-full h-full opacity-5 bg-[radial-gradient(#415A77_1px,transparent_1px)] [background-size:16px_16px]"></div>
+  <div
+    class="absolute top-0 left-0 w-full h-full opacity-5 bg-[radial-gradient(#415A77_1px,transparent_1px)] [background-size:16px_16px]"
+  >
+  </div>
 
-    <div class="container mx-auto px-6 relative z-10">
-        <div class="flex flex-col lg:flex-row items-start gap-16">
-            
-            <div class="w-full lg:w-1/2">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-doramed-primary/10 text-doramed-primary text-xs font-bold mb-4 border border-doramed-primary/20">
-                    درباره ما
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-doramed-darker mb-6">
-                    تکنولوژی در قلب <span class="text-doramed-primary">کارخانه نوآوری مشهد</span>
-                </h2>
-                <p class="text-doramed-muted text-lg leading-relaxed mb-6 text-justify">
-                    شرکت <span class="font-bold text-doramed-dark">گسترش لوازم درمانی نوین مدیا (دورامد)</span>، مستقر در کارخانه نوآوری مشهد، تلفیقی از دانش پزشکی و مهندسی نرم‌افزار است. ما با هدف ارتقای سلامت جامعه، راهکارهای هوشمند و مبتنی بر داده را توسعه می‌دهیم.
-                </p>
-                
-                <div class="mt-10 bg-white p-6 rounded-3xl shadow-lg shadow-doramed-dark/5 border border-doramed-white flex items-center gap-6 max-w-md">
-                    <div class="relative shrink-0">
-                        <div class="w-20 h-20 rounded-full overflow-hidden border-4 border-doramed-white shadow-md">
-                            <img src="/dr2.jpg" alt="مدیرعامل دورامد" class="w-full h-full object-cover" />
-                        </div>
-                        <div class="absolute bottom-0 right-0 w-6 h-6 bg-doramed-primary rounded-full border-2 border-white flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-white">
-                                <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h4 class="text-lg font-bold text-doramed-darker">دکتر امین الله گلرو</h4>
-                        <p class="text-xs text-doramed-muted mb-3">مدیرعامل و بنیان‌گذار دورامد</p>
-                        
-                        <div class="flex gap-3">
-                            <a href="https://golrou.com/" target="_blank" class="text-doramed-gray hover:text-doramed-primary transition" title="وب‌سایت شخصی">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                                </svg>
-                            </a>
-                            <a href="https://www.linkedin.com/checkpoint/challenge/AgGBoe6ePuZhcQAAAZqW-PSY1jrc9UUHleiYS_-8ZGzoJJZlnlqvTx9sZUxrWXKbgCdbgrwEi6vN3zKx93OvMOp3zTkzDw?ut=2miOPmE34Sus01" target="_blank" class="text-doramed-gray hover:text-doramed-primary transition" title="لینکدین">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                            </a>
-                            <a href="https://instagram.com/amin.golrou" target="_blank" class="text-doramed-gray hover:text-doramed-primary transition" title="اینستاگرام">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="w-full lg:w-1/2 relative group">
-                
-                <div class="relative h-[400px] bg-gray-200 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-doramed-dark/10 border-8 border-white">
-                    
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3215.050268134254!2d59.51031088829041!3d36.31108783009264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f6c93b408fe61ef%3A0x910fc5efce50e85!2sMashhad%20Innovation%20Factory!5e0!3m2!1sen!2s!4v1763387311994!5m2!1sen!2s" 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0; filter: grayscale(20%) contrast(1.2);" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
-                        class="w-full h-full"
-                    ></iframe>
-                    
-                    <div class="absolute inset-0 bg-gradient-to-t from-doramed-darker/90 via-transparent to-transparent pointer-events-none"></div>
-
-                    <div class="absolute bottom-8 right-8 left-8 text-white pointer-events-none">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-doramed-primary rounded-2xl flex items-center justify-center shadow-lg shadow-doramed-primary/40 shrink-0 animate-bounce">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-lg mb-1 drop-shadow-md">کارخانه نوآوری مشهد</h3>
-                                <p class="text-doramed-white/80 text-sm leading-relaxed mb-4 drop-shadow-sm">
-                                    مشهد، میدان پژوهش (کوثر شمالی ۲۹)،<br/>ساختمان مرکزی، شرکت دورامد 
-                                </p>
-                                <a href="https://goo.gl/maps/YOUR_LINK" target="_blank" class="pointer-events-auto inline-flex items-center gap-2 text-xs font-bold bg-doramed-primary hover:bg-doramed-primary/80 px-4 py-2 rounded-lg shadow-lg transition text-white">
-                                    مسیریابی در نقشه
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="absolute -top-6 -right-6 w-32 h-32 bg-doramed-primary/10 rounded-full blur-3xl -z-10"></div>
-                <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-doramed-muted/10 rounded-full blur-3xl -z-10"></div>
-            </div>
-
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="flex flex-col lg:flex-row items-start gap-16">
+      <div class="w-full lg:w-1/2">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-doramed-primary/10 text-doramed-primary text-xs font-bold mb-4 border border-doramed-primary/20"
+        >
+          درباره ما
         </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-doramed-darker mb-6">
+          تکنولوژی در قلب <span class="text-doramed-primary"
+            >کارخانه نوآوری مشهد</span
+          >
+        </h2>
+        <p
+          class="text-doramed-muted text-lg leading-relaxed mb-6 text-justify"
+        >
+          شرکت <span class="font-bold text-doramed-dark"
+            >گسترش لوازم درمانی نوین مدیا (دورامد)</span
+          >، مستقر در کارخانه نوآوری مشهد، تلفیقی از دانش پزشکی و مهندسی
+          نرم‌افزار است. ما با هدف ارتقای سلامت جامعه، راهکارهای هوشمند و مبتنی
+          بر داده را توسعه می‌دهیم.
+        </p>
+
+        <div
+          class="mt-10 bg-white p-6 rounded-3xl shadow-lg shadow-doramed-dark/5 border border-doramed-white flex items-center gap-6 max-w-md"
+        >
+          <div class="relative shrink-0">
+            <div
+              class="w-20 h-20 rounded-full overflow-hidden border-4 border-doramed-white shadow-md relative"
+            >
+              <Image
+                src={drImage}
+                alt="دکتر امین الله گلرو - مدیرعامل دورامد"
+                width={100}
+                height={100}
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div
+              class="absolute bottom-0 right-0 w-6 h-6 bg-doramed-primary rounded-full border-2 border-white flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-3 h-3 text-white"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-bold text-doramed-darker">
+              دکتر امین الله گلرو
+            </h4>
+            <p class="text-xs text-doramed-muted mb-3">
+              مدیرعامل و بنیان‌گذار دورامد
+            </p>
+
+            <div class="flex gap-3">
+              <a
+                href="https://golrou.com/"
+                target="_blank"
+                class="text-doramed-gray hover:text-doramed-primary transition"
+                title="وب‌سایت شخصی"
+                aria-label="وبسایت شخصی"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-5 h-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/amin-golrou-11235665/"
+                target="_blank"
+                class="text-doramed-gray hover:text-doramed-primary transition"
+                title="لینکدین"
+                aria-label="لینکدین"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"
+                  ><path
+                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                  ></path></svg
+                >
+              </a>
+              <a
+                href="https://instagram.com/amin.golrou"
+                target="_blank"
+                class="text-doramed-gray hover:text-doramed-primary transition"
+                title="اینستاگرام"
+                aria-label="اینستاگرام"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                  ></path></svg
+                >
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full lg:w-1/2 relative group">
+        <div
+          id="map-container"
+          class="relative h-[400px] bg-gray-200 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-doramed-dark/10 border-8 border-white group"
+        >
+          <div
+            id="map-placeholder"
+            class="absolute inset-0 bg-gray-300 flex items-center justify-center z-20 cursor-pointer transition-all duration-500 group-hover:bg-gray-400"
+          >
+            <div class="text-center">
+              <span
+                class="block w-16 h-16 bg-doramed-primary text-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg animate-bounce"
+              >
+                📍
+              </span>
+              <span class="text-doramed-darker font-bold text-lg"
+                >برای مشاهده نقشه کلیک کنید</span
+              >
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-doramed-darker/60 to-transparent pointer-events-none"
+            >
+            </div>
+          </div>
+
+          </div>
+
+        <div
+          class="absolute -top-6 -right-6 w-32 h-32 bg-doramed-primary/10 rounded-full blur-3xl -z-10"
+        >
+        </div>
+        <div
+          class="absolute -bottom-6 -left-6 w-32 h-32 bg-doramed-muted/10 rounded-full blur-3xl -z-10"
+        >
+        </div>
+      </div>
     </div>
+  </div>
 </section>
+
+<script>
+  const mapContainer = document.getElementById("map-container");
+  const placeholder = document.getElementById("map-placeholder");
+  
+  // لینک نقشه رو اینجا نگه میداریم، اما تا کلیک نشه تو DOM نمیزاریمش
+  const iframeSrc =
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3215.394967385966!2d59.53032737648437!3d36.30275897239396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f6c92476b797207%3A0x6291612e4f5091c6!2sMashhad%20Innovation%20Factory!5e0!3m2!1sen!2s!4v1709635000000!5m2!1sen!2s";
+
+  function loadMap() {
+    if (!mapContainer) return;
+
+    // ساختن المنت iframe
+    const iframe = document.createElement("iframe");
+    iframe.setAttribute("src", iframeSrc);
+    iframe.setAttribute("width", "100%");
+    iframe.setAttribute("height", "100%");
+    iframe.style.border = "0";
+    iframe.style.filter = "grayscale(20%) contrast(1.2)";
+    iframe.setAttribute("allowfullscreen", "");
+    iframe.setAttribute("loading", "lazy");
+    iframe.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+    iframe.classList.add("w-full", "h-full", "animate-fade-in");
+
+    // حذف placeholder و اضافه کردن iframe
+    if (placeholder) {
+      placeholder.style.opacity = "0";
+      setTimeout(() => {
+        placeholder.remove();
+        mapContainer.appendChild(iframe);
+      }, 300);
+    }
+  }
+
+  // لیسنر برای کلیک
+  if (placeholder) {
+    placeholder.addEventListener("click", loadMap);
+  }
+</script>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>

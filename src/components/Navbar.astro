@@ -1,33 +1,58 @@
 ---
 // src/components/Navbar.astro
+import { Image } from 'astro:assets';
+import logoImg from '../assets/logo.png'; // لوگو را به پوشه assets منتقل کن
+
+// تعریف ساختار لینک‌ها (Data Model)
+interface NavLink {
+    text: string;
+    href: string;
+    special?: boolean; // برای لینک‌هایی که استایل خاص دارند (مثل هوش مصنوعی)
+}
+
+const navLinks: NavLink[] = [
+    { text: "خانه", href: "#hero" },
+    { text: "کیوسک پایش", href: "#kiosk-evolution" },
+    { text: "محصولات", href: "#products" },
+    { text: "هوش مصنوعی", href: "#ai-health", special: true },
+    { text: "درباره ما", href: "#about" },
+];
 ---
 
 <header class="fixed top-4 left-0 right-0 z-50 flex justify-center transition-all duration-300 px-3 md:px-0" id="main-header">
     
     <div class="relative rounded-full p-[1.5px] shadow-xl shadow-doramed-primary/10 group w-full max-w-[400px] md:max-w-none md:w-auto">
         
-        <div class="absolute inset-0 rounded-full bg-gradient-to-r from-doramed-white via-doramed-primary to-doramed-dark bg-[length:200%_200%] animate-border-pulse"></div>
+        <div class="absolute inset-0 rounded-full bg-gradient-to-r from-doramed-white via-doramed-primary to-doramed-dark bg-[length:200%_200%] animate-border-pulse pointer-events-none"></div>
 
         <nav class="relative bg-white/90 backdrop-blur-xl rounded-full px-4 py-2.5 md:px-5 md:py-3 flex justify-between items-center z-10 w-full md:w-auto md:min-w-[700px] lg:min-w-[900px] xl:min-w-[1100px]">
 
-            <a href="#" class="flex items-center gap-2 md:gap-3 shrink-0">
-                <img 
-                    src="/logo.png" 
-                    alt="Doramed Logo" 
+            <a href="#" class="flex items-center gap-2 md:gap-3 shrink-0" aria-label="بازگشت به صفحه اصلی دورامد">
+                <Image 
+                    src={logoImg} 
+                    alt="لوگوی شرکت نوین مدیا (دورامد)" 
+                    height={40}
+                    loading="eager" 
                     class="h-8 md:h-10 w-auto object-contain" 
                 />
             </a>
 
             <ul class="hidden lg:flex items-center gap-1 bg-gray-100/60 p-1.5 rounded-full border border-gray-200/50 shadow-inner mx-4">
-                <li><a href="#hero" class="px-4 py-2 rounded-full text-sm font-bold text-doramed-muted hover:text-doramed-primary hover:bg-white hover:shadow-md transition-all duration-300 block hover:-translate-y-0.5">خانه</a></li>
-                <li><a href="#kiosk-evolution" class="px-4 py-2 rounded-full text-sm font-bold text-doramed-muted hover:text-doramed-primary hover:bg-white hover:shadow-md transition-all duration-300 block hover:-translate-y-0.5 whitespace-nowrap">کیوسک پایش</a></li>
-                <li><a href="#products" class="px-4 py-2 rounded-full text-sm font-bold text-doramed-muted hover:text-doramed-primary hover:bg-white hover:shadow-md transition-all duration-300 block hover:-translate-y-0.5">محصولات</a></li>
-                <li><a href="#ai-health" class="px-4 py-2 rounded-full text-sm font-bold text-doramed-muted hover:text-doramed-primary hover:bg-white hover:shadow-md transition-all duration-300 block hover:-translate-y-0.5 flex items-center gap-2">هوش مصنوعی <span class="w-1.5 h-1.5 rounded-full bg-doramed-primary animate-pulse"></span></a></li>
-                <li><a href="#about" class="px-4 py-2 rounded-full text-sm font-bold text-doramed-muted hover:text-doramed-primary hover:bg-white hover:shadow-md transition-all duration-300 block hover:-translate-y-0.5">درباره ما</a></li>
+                {navLinks.map(link => (
+                    <li>
+                        <a 
+                            href={link.href} 
+                            class="px-4 py-2 rounded-full text-sm font-bold text-doramed-muted hover:text-doramed-primary hover:bg-white hover:shadow-md transition-all duration-300 block hover:-translate-y-0.5 flex items-center gap-2"
+                        >
+                            {link.text}
+                            {link.special && <span class="w-1.5 h-1.5 rounded-full bg-doramed-primary animate-pulse"></span>}
+                        </a>
+                    </li>
+                ))}
             </ul>
 
             <div class="hidden lg:flex items-center gap-3 shrink-0">
-                <a href="tel:05112345678" class="px-5 py-2.5 rounded-full bg-doramed-primary text-white text-sm font-bold shadow-lg hover:bg-doramed-muted hover:shadow-doramed-primary/30 transition-all duration-300 flex items-center gap-2 transform hover:-translate-y-0.5">
+                <a href="tel:05138334013" class="px-5 py-2.5 rounded-full bg-doramed-primary text-white text-sm font-bold shadow-lg hover:bg-doramed-muted hover:shadow-doramed-primary/30 transition-all duration-300 flex items-center gap-2 transform hover:-translate-y-0.5">
                     <span>مشاوره رایگان</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75v-4.5m0 4.5h4.5m-4.5 0l6-6m-3 18c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 014.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 00-.38 1.21 12.035 12.035 0 007.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 011.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 01-2.25 2.25h-2.25z" />
@@ -35,7 +60,7 @@
                 </a>
             </div>
 
-            <button id="mobile-menu-btn" class="lg:hidden p-2 text-doramed-dark hover:bg-gray-100 rounded-full transition active:scale-95">
+            <button id="mobile-menu-btn" aria-label="منوی موبایل" aria-expanded="false" class="lg:hidden p-2 text-doramed-dark hover:bg-gray-100 rounded-full transition active:scale-95">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
                 </svg>
@@ -46,34 +71,19 @@
 
     <div id="mobile-menu" class="hidden absolute top-20 left-3 right-3 max-w-[400px] mx-auto bg-white/95 backdrop-blur-xl rounded-3xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] border border-gray-200 p-5 flex-col gap-3 origin-top transition-all duration-300 z-40 ring-1 ring-black/5">
         
-        <a href="#hero" class="flex items-center justify-between p-3 hover:bg-doramed-white/50 rounded-2xl font-bold text-doramed-dark transition-colors group">
-            <span>خانه</span>
-            <span class="text-gray-300 group-hover:text-doramed-primary">←</span>
-        </a>
-        
-        <a href="#kiosk-evolution" class="flex items-center justify-between p-3 hover:bg-doramed-white/50 rounded-2xl font-bold text-doramed-primary bg-doramed-white/30 transition-colors">
-            <span>کیوسک پایش سلامت</span>
-            <span class="text-[10px] bg-doramed-primary text-white px-2 py-0.5 rounded-full">محصول برتر</span>
-        </a>
-        
-        <a href="#products" class="flex items-center justify-between p-3 hover:bg-doramed-white/50 rounded-2xl font-bold text-doramed-dark transition-colors group">
-            <span>محصولات</span>
-            <span class="text-gray-300 group-hover:text-doramed-primary">←</span>
-        </a>
-
-        <a href="#ai-health" class="flex items-center justify-between p-3 hover:bg-doramed-white/50 rounded-2xl font-bold text-doramed-dark transition-colors group">
-            <span>هوش مصنوعی</span>
-            <span class="text-gray-300 group-hover:text-doramed-primary">←</span>
-        </a>
-
-        <a href="#about" class="flex items-center justify-between p-3 hover:bg-doramed-white/50 rounded-2xl font-bold text-doramed-dark transition-colors group">
-            <span>درباره ما</span>
-            <span class="text-gray-300 group-hover:text-doramed-primary">←</span>
-        </a>
+        {navLinks.map(link => (
+            <a href={link.href} class={`flex items-center justify-between p-3 rounded-2xl font-bold transition-colors group ${link.special ? 'bg-doramed-white/30 text-doramed-primary' : 'text-doramed-dark hover:bg-doramed-white/50'}`}>
+                <span class="flex items-center gap-2">
+                    {link.text}
+                    {link.special && <span class="text-[10px] bg-doramed-primary text-white px-2 py-0.5 rounded-full">ویژه</span>}
+                </span>
+                <span class="text-gray-300 group-hover:text-doramed-primary">←</span>
+            </a>
+        ))}
         
         <div class="h-px bg-gray-100 my-1"></div>
 
-        <a href="https://t.me/doramedco" target="_blank" class="w-full py-3.5 bg-doramed-primary text-white text-center rounded-xl font-bold shadow-lg shadow-[#229ED9]/30 flex justify-center items-center gap-3 active:scale-95 transition-transform">
+        <a href="https://t.me/doramedco" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 bg-doramed-primary text-white text-center rounded-xl font-bold shadow-lg shadow-[#229ED9]/30 flex justify-center items-center gap-3 active:scale-95 transition-transform">
             <span>پشتیبانی در تلگرام</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
                 <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0 .056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
@@ -95,55 +105,54 @@
 </style>
 
 <script>
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    
-    if(btn && menu) {
-        // تابع برای بستن منو
-        const closeMenu = () => {
-            menu.classList.remove('scale-100', 'opacity-100');
-            menu.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                menu.classList.add('hidden');
-            }, 300);
-        };
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        
+        if(btn && menu) {
+            const closeMenu = () => {
+                btn.setAttribute('aria-expanded', 'false');
+                menu.classList.remove('scale-100', 'opacity-100');
+                menu.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 300);
+            };
 
-        // تابع برای باز کردن منو
-        const openMenu = () => {
-            menu.classList.remove('hidden');
-            requestAnimationFrame(() => {
-                menu.classList.remove('scale-95', 'opacity-0');
-                menu.classList.add('scale-100', 'opacity-100');
+            const openMenu = () => {
+                btn.setAttribute('aria-expanded', 'true');
+                menu.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    menu.classList.remove('scale-95', 'opacity-0');
+                    menu.classList.add('scale-100', 'opacity-100');
+                });
+            };
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                const isHidden = menu.classList.contains('hidden');
+                if (isHidden) {
+                    openMenu();
+                } else {
+                    closeMenu();
+                }
             });
-        };
 
-        // کلیک روی دکمه همبرگری
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation(); // جلوگیری از بسته شدن فوری
-            const isHidden = menu.classList.contains('hidden');
-            if (isHidden) {
-                openMenu();
-            } else {
-                closeMenu();
-            }
-        });
-
-        // کلیک روی لینک‌های داخل منو
-        menu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                closeMenu();
+            menu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    closeMenu();
+                });
             });
-        });
 
-        // کلیک خارج از منو برای بستن
-        document.addEventListener('click', (e) => {
-            const isClickInsideMenu = menu.contains(e.target);
-            const isClickOnBtn = btn.contains(e.target);
-            const isMenuOpen = !menu.classList.contains('hidden');
+            document.addEventListener('click', (e) => {
+                const isClickInsideMenu = menu.contains(e.target as Node);
+                const isClickOnBtn = btn.contains(e.target as Node);
+                const isMenuOpen = !menu.classList.contains('hidden');
 
-            if (isMenuOpen && !isClickInsideMenu && !isClickOnBtn) {
-                closeMenu();
-            }
-        });
-    }
+                if (isMenuOpen && !isClickInsideMenu && !isClickOnBtn) {
+                    closeMenu();
+                }
+            });
+        }
+    });
 </script>

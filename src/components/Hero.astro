@@ -1,12 +1,19 @@
 ---
 // src/components/Hero.astro
+
+// نکته مهم: با ایمپورت کردن ویدیو، آسترو خودش آدرس نهایی و بهینه شده را تولید می‌کند
+// اطمینان حاصل کن که فایل vid.mp4 دقیقاً در مسیر src/assets/vid.mp4 باشد
+import heroVideo from '../assets/vid.mp4';
+
+// اگر پوستر هم در پوشه assets است، بهتر است ایمپورت شود، اما فعلا طبق کد قبلی از public می‌خوانیم
+const videoPoster = "/hero-video-poster.jpg"; 
 ---
+
 <section id="hero" class="relative bg-gradient-to-b from-doramed-darker via-doramed-dark to-doramed-darker pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden text-doramed-white">
     
-    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-doramed-primary/20 rounded-full blur-[100px] opacity-50 -translate-y-1/2 translate-x-1/4"></div>
-    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-doramed-muted/20 rounded-full blur-[100px] opacity-40 translate-y-1/4 -translate-x-1/4"></div>
-
-    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-doramed-primary/20 rounded-full blur-[100px] opacity-50 -translate-y-1/2 translate-x-1/4 pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-doramed-muted/20 rounded-full blur-[100px] opacity-40 translate-y-1/4 -translate-x-1/4 pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" aria-hidden="true"></div>
 
     <div class="container mx-auto px-6 relative z-10">
         <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
@@ -30,11 +37,11 @@
                 </h1>
                 
                 <p class="text-lg text-doramed-gray mb-10 leading-8 max-w-2xl mx-auto lg:mx-0 text-justify lg:text-right font-light">
-                    داشبورد سلامت دورامد و کیوسک پایش سلامت دورامد ، فراتر از یک نمایشگر ساده است. این پلتفرم هوشمند، تمام داده‌های دریافتی از تجهیزات پزشکی شما را جمع‌آوری کرده و با استفاده از الگوریتم‌های پیشرفته هوش مصنوعی، تحلیل می‌کند تا تصویری دقیق، لحظه‌ای و قابل درک از وضعیت سلامتی‌تان ارائه دهد.
+                    داشبورد سلامت دورامد و کیوسک پایش سلامت دورامد، فراتر از یک نمایشگر ساده است. این پلتفرم هوشمند، تمام داده‌های دریافتی از تجهیزات پزشکی شما را جمع‌آوری کرده و با استفاده از الگوریتم‌های پیشرفته هوش مصنوعی، تحلیل می‌کند تا تصویری دقیق، لحظه‌ای و قابل درک از وضعیت سلامتی‌تان ارائه دهد.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-                    <a href="https://doramed.ir" target="_blank" class="group relative px-8 py-4 bg-doramed-primary text-white font-bold rounded-2xl transition-all duration-300 shadow-xl shadow-doramed-primary/30 border border-doramed-muted hover:scale-105 hover:shadow-2xl hover:shadow-doramed-primary/50 active:scale-95 flex items-center justify-center gap-3 overflow-hidden">
+                    <a href="https://doramed.ir" target="_blank" rel="noopener noreferrer" class="group relative px-8 py-4 bg-doramed-primary text-white font-bold rounded-2xl transition-all duration-300 shadow-xl shadow-doramed-primary/30 border border-doramed-muted hover:scale-105 hover:shadow-2xl hover:shadow-doramed-primary/50 active:scale-95 flex items-center justify-center gap-3 overflow-hidden">
                         <div class="absolute inset-0 bg-white/20 translate-x-[-100%] skew-x-12 group-hover:translate-x-[100%] transition-transform duration-700"></div>
                         <span class="relative">وبسایت شرکت</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 relative group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300">
@@ -42,7 +49,7 @@
                         </svg>
                     </a>
                     
-                    <a href="#" class="group px-8 py-4 bg-transparent text-doramed-white border-2 border-doramed-gray font-bold rounded-2xl transition-all duration-300 hover:bg-doramed-primary hover:border-doramed-primary hover:text-white hover:shadow-[0_0_20px_rgba(2,62,138,0.6)] active:scale-95 flex items-center justify-center gap-2">
+                    <a href="http://kiosk.doramed.ir/subusers/login" target="_blank" rel="noopener noreferrer" class="group px-8 py-4 bg-transparent text-doramed-white border-2 border-doramed-gray font-bold rounded-2xl transition-all duration-300 hover:bg-doramed-primary hover:border-doramed-primary hover:text-white hover:shadow-[0_0_20px_rgba(2,62,138,0.6)] active:scale-95 flex items-center justify-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 group-hover:animate-pulse">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
                         </svg>
@@ -53,9 +60,9 @@
                 <div class="mt-8 md:mt-12 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 p-3 sm:p-3 pr-4 sm:pr-5 rounded-2xl bg-doramed-dark/40 border border-doramed-muted/30 backdrop-blur-md hover:bg-doramed-dark/60 hover:border-doramed-primary/40 transition-all duration-300 cursor-default group max-w-max mx-auto lg:mx-0">
                     
                     <div class="flex -space-x-2 sm:-space-x-3 space-x-reverse">
-                        <img class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker object-cover" src="https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg?w=100" alt="Doctor 1">
-                        <img class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker object-cover" src="https://img.freepik.com/free-photo/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.jpg?w=100" alt="Doctor 2">
-                        <img class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker object-cover" src="https://img.freepik.com/free-photo/doctor-with-his-arms-crossed-white-background_1368-5790.jpg?w=100" alt="Doctor 3">
+                        <img width="40" height="40" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker object-cover" src="https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg?w=100" alt="دکتر متخصص دورامد ۱" loading="lazy">
+                        <img width="40" height="40" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker object-cover" src="https://img.freepik.com/free-photo/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.jpg?w=100" alt="دکتر متخصص دورامد ۲" loading="lazy">
+                        <img width="40" height="40" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker object-cover" src="https://img.freepik.com/free-photo/doctor-with-his-arms-crossed-white-background_1368-5790.jpg?w=100" alt="دکتر متخصص دورامد ۳" loading="lazy">
                         <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker bg-doramed-primary flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-white">
                             +۵۰
                         </div>
@@ -85,12 +92,13 @@
                 <div class="absolute inset-0 bg-gradient-to-tr from-doramed-primary to-doramed-muted rounded-[3rem] rotate-3 transform scale-95 -z-10 opacity-60"></div>
 
                 <video 
-                    src="/vid.mp4" 
-                    poster="/hero-video-poster.jpg" 
+                    src={heroVideo} 
                     autoplay 
                     loop 
                     muted 
                     playsinline
+                    preload="auto"
+                    fetchpriority="high"
                     class="relative rounded-[2.5rem] shadow-2xl shadow-black/50 w-full h-[500px] object-cover border-4 border-doramed-muted/50"
                 ></video>
                 
@@ -151,4 +159,3 @@
         50% { opacity: .5; }
     }
 </style>
-
