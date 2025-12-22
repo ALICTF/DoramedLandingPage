@@ -2,8 +2,6 @@
 // src/components/KioskTimeline.astro
 import { Image } from 'astro:assets';
 
-// ایمپورت تصاویر برای بهینه‌سازی توسط Astro
-// مطمئن شو عکس‌ها در src/assets هستند
 import imgTrita from '../assets/1.png';
 import imgRazi from '../assets/4.png';
 import imgSimorgh from '../assets/3.png';
@@ -53,38 +51,38 @@ const versions = [
 ];
 ---
 
-<section id="kiosk-evolution" class="bg-gradient-to-b from-white via-white to-doramed-white/100 relative overflow-hidden py-24">
+<section id="kiosk-evolution" class="bg-gradient-to-b from-white via-white to-doramed-white/100 relative overflow-hidden py-16 md:py-24">
     
-    <div class="container mx-auto px-6 relative z-10">
+    <div class="container mx-auto px-4 md:px-8 lg:px-6 relative z-10">
         
-        <div class="text-center max-w-4xl mx-auto mb-24">
+        <div class="text-center max-w-4xl mx-auto mb-16 md:mb-24">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-doramed-primary/10 text-doramed-primary text-xs font-bold mb-4 border border-doramed-primary/20">
                 تکنولوژی بومی، استاندارد جهانی
             </div>
-            <h2 class="text-3xl md:text-5xl font-extrabold text-doramed-darker mb-6">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-doramed-darker mb-6 leading-tight">
                 میراث سلامتی: از <span class="text-doramed-primary">تریتا</span> تا <span class="text-doramed-primary">سینا</span>
             </h2>
             
-            <p class="text-doramed-muted text-lg leading-relaxed mb-6 text-justify md:text-center">
+            <p class="text-doramed-muted text-base md:text-lg leading-relaxed mb-6 text-justify md:text-center px-2 md:px-0">
                 با کیوسک پایش سلامت دورامد، یک کلینیک هوشمند مجهز به <span class="text-doramed-primary font-bold">هوش مصنوعی</span> را به فضای خود بیاورید. این ایستگاه پیشرفته، فراتر از پایش لحظه‌ای علائم حیاتی، با الگوریتم‌های دقیق، داده‌های شما را تحلیل کرده و الگوهای پنهان سلامتی را شناسایی می‌کند.
             </p>
 
-            <div class="relative inline-block">
-                <p class="text-doramed-primary font-bold text-xl relative z-10">
+            <div class="relative inline-block mt-4">
+                <p class="text-doramed-primary font-bold text-lg md:text-xl relative z-10">
                     مسیری که طی کردیم تا پیشرفته‌ترین ایستگاه سلامت کشور را بسازیم.
                 </p>
             </div>
         </div>
 
-        <div class="relative wrap overflow-hidden p-0 md:p-10 h-full">
+        <div class="relative wrap overflow-hidden p-0 h-full">
             
-            <div class="border-2-2 absolute border-opacity-20 border-doramed-primary h-full border left-8 md:left-1/2 top-0 transform -translate-x-1/2" style="border-width: 2px;"></div>
+            <div class="border-2-2 absolute border-opacity-20 border-doramed-primary h-full border left-4 md:left-8 lg:left-1/2 top-0 transform -translate-x-1/2 transition-all duration-500" style="border-width: 2px;"></div>
 
             {versions.map((item, index) => (
-                <article class={`mb-24 flex justify-between items-stretch w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out ${index % 2 === 0 ? 'md:flex-row-reverse left-timeline' : 'md:flex-row right-timeline'}`}>
+                <article class={`mb-16 md:mb-24 flex justify-between items-stretch w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out flex-col lg:flex-row ${index % 2 === 0 ? 'lg:flex-row-reverse left-timeline' : 'right-timeline'}`}>
                     
-                    <div class="order-1 w-full md:w-5/12 px-6 py-4 hidden md:flex flex-col">                    
-                        <div class="hidden md:flex flex-col h-full min-h-[550px] text-right bg-white p-8 rounded-3xl shadow-sm border border-doramed-white hover:shadow-lg hover:border-doramed-primary/30 transition-all duration-300">
+                    <div class="order-1 w-full lg:w-5/12 px-6 py-4 hidden lg:flex flex-col">                    
+                        <div class="flex flex-col h-full min-h-[550px] text-right bg-white p-8 rounded-3xl shadow-sm border border-doramed-white hover:shadow-lg hover:border-doramed-primary/30 transition-all duration-300">
                             <span class="mb-3 font-bold text-doramed-primary text-sm block tracking-widest uppercase">{item.year}</span>
                             <h3 class="mb-4 font-extrabold text-doramed-darker text-3xl">{item.title}</h3>
                             <h4 class="mb-6 text-lg text-doramed-primary font-bold border-b border-doramed-white pb-2 inline-block w-max">{item.version}</h4>
@@ -103,32 +101,39 @@ const versions = [
                         </div>
                     </div>
                     
-                    <div class="z-20 flex items-center order-1 bg-doramed-primary shadow-xl w-14 h-14 rounded-full border-4 border-white absolute left-8 md:left-1/2 transform -translate-x-1/2 mt-10 md:mt-0">
-                        <h1 class="mx-auto font-bold text-sm text-white">{index + 1}</h1>
+                    <div class="z-20 flex items-center order-1 bg-doramed-primary shadow-xl w-10 h-10 md:w-14 md:h-14 rounded-full border-4 border-white absolute left-4 md:left-8 lg:left-1/2 transform -translate-x-1/2 mt-8 lg:mt-0 transition-all duration-500">
+                        <h1 class="mx-auto font-bold text-xs md:text-sm text-white">{index + 1}</h1>
                     </div>
                     
-                    <div class="order-1 w-full md:w-5/12 pl-10 pr-0 md:px-6 md:ml-0 flex flex-col items-end">
-                        <div class="w-full items-end bg-white p-6 md:p-5 rounded-3xl md:rounded-[2.5rem] shadow-xl border border-doramed-white hover:border-doramed-primary/50 transition group relative overflow-hidden h-full min-h-[400px] md:min-h-[550px] flex flex-col justify-center">                            
-                            <div class="absolute top-0 right-0 w-40 h-40 bg-doramed-primary/5 rounded-full blur-3xl opacity-50 -mr-10 -mt-10 group-hover:bg-doramed-primary/10 transition"></div>
+                    <div class="order-1 w-full lg:w-5/12 pl-12 md:pl-20 lg:pl-0 lg:px-6 flex flex-col items-end">
+                        <div class="w-full items-end bg-white p-5 md:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl border border-doramed-white hover:border-doramed-primary/50 transition group relative overflow-hidden h-full min-h-auto lg:min-h-[550px] flex flex-col justify-center">                            
+                            <div class="absolute top-0 right-0 w-32 h-32 md:w-40 md:h-40 bg-doramed-primary/5 rounded-full blur-3xl opacity-50 -mr-10 -mt-10 group-hover:bg-doramed-primary/10 transition"></div>
                             
-                            <div class="relative w-full flex-grow flex items-center justify-center p-6">
+                            <div class="relative w-full flex-grow flex items-center justify-center p-2 md:p-6">
                                 <Image 
                                     src={item.image} 
                                     alt={item.alt}
-                                    width={400}
+                                    width={500}
                                     format="webp"
-                                    class="w-full max-h-[400px] object-contain transform group-hover:scale-105 transition duration-700 drop-shadow-lg" 
+                                    class="w-full h-auto max-h-[300px] md:max-h-[450px] object-contain transform group-hover:scale-105 transition duration-700 drop-shadow-lg" 
                                 />
                             </div>
 
-                            <div class="block md:hidden mt-6 px-2 pb-4">
-                                <span class="text-doramed-primary text-xs font-bold block mb-1">{item.year}</span>
-                                <h3 class="text-xl font-bold text-doramed-darker mb-1">{item.title}</h3>
-                                <h4 class="text-md font-bold text-doramed-primary mb-3">{item.version}</h4>
-                                <p class="text-sm text-doramed-muted mb-4 leading-7 text-justify">{item.description}</p>
+                            <div class="block lg:hidden mt-6 px-1 pb-2 w-full text-right">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-doramed-primary text-xs md:text-sm font-bold bg-doramed-primary/10 px-2 py-1 rounded-md">{item.year}</span>
+                                    <h4 class="text-sm md:text-base font-bold text-doramed-primary">{item.version}</h4>
+                                </div>
+                                
+                                <h3 class="text-lg md:text-2xl font-bold text-doramed-darker mb-3">{item.title}</h3>
+                                
+                                <p class="text-sm md:text-base text-doramed-muted mb-6 leading-7 text-justify">
+                                    {item.description}
+                                </p>
+                                
                                 <div class="flex flex-wrap gap-2">
                                     {item.features.map(f => (
-                                        <span class="text-[10px] bg-doramed-primary px-2 py-1 rounded border border-gray-200">{f}</span>
+                                        <span class="text-[10px] md:text-xs bg-gray-50 text-gray-700 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-gray-200 font-medium">{f}</span>
                                     ))}
                                 </div>
                             </div>
@@ -138,12 +143,12 @@ const versions = [
                 </article>
             ))}
 
-            <div class="mb-16 flex flex-col items-center w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out pl-10 md:pl-0">
-                <div class="z-20 flex items-center justify-center bg-doramed-darker shadow-xl w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white animate-bounce mb-6 relative right-[154px] md:right-auto md:left-0 top-20 md:top-auto">
-                    <h1 class="font-bold text-xl md:text-2xl text-white">?</h1>
+            <div class="mb-16 flex flex-col items-center w-full timeline-item opacity-0 translate-y-20 transition-all duration-1000 ease-out pl-8 md:pl-16 lg:pl-0">
+                <div class="z-20 flex items-center justify-center bg-doramed-darker shadow-xl w-10 h-10 md:w-16 md:h-16 rounded-full border-4 border-white animate-bounce mb-6 relative right-[125px] md:right-[150px] lg:right-auto lg:left-0 top-16 lg:top-auto">
+                    <h1 class="font-bold text-lg md:text-2xl text-white">?</h1>
                 </div>
                 
-                <div class="bg-gradient-to-br from-doramed-darker to-doramed-dark rounded-2xl md:rounded-[2.5rem] shadow-2xl w-full md:w-3/4 px-5 py-8 md:px-8 md:py-12 border-2 border-doramed-muted relative overflow-hidden group text-center mt-6 md:mt-0">
+                <div class="bg-gradient-to-br from-doramed-darker to-doramed-dark rounded-2xl md:rounded-[2.5rem] shadow-2xl w-full lg:w-3/4 px-5 py-8 md:px-12 md:py-12 border-2 border-doramed-muted relative overflow-hidden group text-center mt-6 lg:mt-0">
                     <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay hidden md:block pointer-events-none"></div>
                     
                     <span class="mb-2 md:mb-3 font-bold text-doramed-primary text-xs md:text-sm block tracking-widest uppercase">V5.0 - آینده نزدیک</span>
@@ -170,36 +175,28 @@ const versions = [
 
 <div id="suggestion-modal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center px-4" role="dialog" aria-modal="true">
     <div class="absolute inset-0 bg-doramed-darker/80 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
-    
     <div class="relative bg-white rounded-3xl w-full max-w-md p-6 md:p-8 shadow-2xl transform scale-90 opacity-0 transition-all duration-300 border border-doramed-white" id="modal-content">
-        <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors p-2" aria-label="بستن">
+        <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors p-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <div class="text-center mb-6">
             <div class="w-16 h-16 bg-doramed-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-doramed-primary animate-pulse">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.001 6.001 0 00-5.951 5.808 6 6 0 00-3.001 3.003h17.904a6 6 0 00-3.001-3.003A6.001 6.001 0 0012 12.75zm0 0a6 6 0 016-6v-3.75h-3a6 6 0 01-6 6v3.75h-3a6 6 0 016-6zM12 12.75a6 6 0 006-6v-3.75h-3a6 6 0 00-6 6v3.75h-3a6 6 0 006-6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.001 6.001 0 00-5.951 5.808 6 6 0 00-3.001 3.003h17.904a6 6 0 00-3.001-3.003A6.001 6.001 0 0012 12.75zm0 0a6 6 0 016-6v-3.75h-3a6 6 0 01-6 6v3.75h-3a6 6 0 01-6 6v3.75h-3a6 6 0 01-6 6v3.75h-3a6 6 0 01-6 6v3.75h-3a6 6 0 00-6 6v3.75h-3a6 6 0 006-6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>
             </div>
             <h3 class="text-2xl font-extrabold text-doramed-darker">ایده شما، آینده ما</h3>
             <p class="text-sm text-doramed-muted mt-2">چه ویژگی جدیدی در کیوسک سلامت نیاز دارید؟</p>
         </div>
-        
         <form class="space-y-4" id="suggestion-form">
-            <div>
-                <label class="block text-sm font-bold text-doramed-dark mb-1">نام شما (اختیاری)</label>
-                <input type="text" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-doramed-primary focus:ring-0 outline-none transition bg-gray-50 focus:bg-white" placeholder="مثلا: علی احمدی" />
-            </div>
-            <div>
-                <label class="block text-sm font-bold text-doramed-dark mb-1">پیشنهاد شما *</label>
-                <textarea required rows="4" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-doramed-primary focus:ring-0 outline-none transition bg-gray-50 focus:bg-white resize-none" placeholder="من فکر می‌کنم اگر دستگاه قابلیت..."></textarea>
-            </div>
+            <div><label class="block text-sm font-bold text-doramed-dark mb-1">نام شما (اختیاری)</label><input type="text" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-doramed-primary focus:ring-0 outline-none transition bg-gray-50 focus:bg-white" /></div>
+            <div><label class="block text-sm font-bold text-doramed-dark mb-1">پیشنهاد شما *</label><textarea required rows="4" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-doramed-primary focus:ring-0 outline-none transition bg-gray-50 focus:bg-white resize-none"></textarea></div>
             <button type="submit" class="w-full py-4 bg-doramed-primary text-white font-bold rounded-xl hover:bg-doramed-darker transition shadow-lg hover:shadow-xl transform active:scale-95">ارسال ایده 🚀</button>
         </form>
     </div>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- Intersection Observer for Animations ---
+    document.addEventListener('astro:page-load', () => {
+        // Observer for animations
         const observerOptions = { root: null, threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -209,10 +206,9 @@ const versions = [
                 }
             });
         }, observerOptions);
-        
         document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
 
-        // --- Modal Logic ---
+        // Modal Logic
         const modal = document.getElementById('suggestion-modal');
         const modalContent = document.getElementById('modal-content');
         const backdrop = document.getElementById('modal-backdrop');
@@ -220,12 +216,10 @@ const versions = [
         const closeBtn = document.getElementById('close-modal');
         const form = document.getElementById('suggestion-form');
 
-        const toggleModal = (show: boolean) => {
+        const toggleModal = (show) => {
             if (!modal || !modalContent || !backdrop) return;
-            
             if (show) {
                 modal.classList.remove('hidden');
-                // Small delay to allow display:block to apply before opacity transition
                 requestAnimationFrame(() => {
                     backdrop.classList.remove('opacity-0');
                     modalContent.classList.remove('scale-90', 'opacity-0');
@@ -239,15 +233,17 @@ const versions = [
             }
         };
 
-        openBtn?.addEventListener('click', () => toggleModal(true));
-        closeBtn?.addEventListener('click', () => toggleModal(false));
-        backdrop?.addEventListener('click', () => toggleModal(false));
-
-        form?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('ممنون! پیشنهاد شما ثبت شد.');
-            toggleModal(false);
-            (e.target as HTMLFormElement).reset();
-        });
+        if(openBtn) openBtn.addEventListener('click', () => toggleModal(true));
+        if(closeBtn) closeBtn.addEventListener('click', () => toggleModal(false));
+        if(backdrop) backdrop.addEventListener('click', () => toggleModal(false));
+        
+        if(form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('ممنون! پیشنهاد شما ثبت شد.');
+                toggleModal(false);
+                e.target.reset();
+            });
+        }
     });
 </script>

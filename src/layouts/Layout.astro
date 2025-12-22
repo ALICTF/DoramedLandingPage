@@ -1,37 +1,53 @@
 ---
 // src/layouts/Layout.astro
 import "../styles/global.css";
+import { ViewTransitions } from 'astro:transitions'; 
+import PageLoader from '../components/PageLoader.astro';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
+  type?: 'website' | 'article';
+  publishDate?: Date;
+  author?: string;
+  tags?: string[];
 }
 
 const defaultDescription =
   "دورامد (نوین مدیا)، پیشگام در ارائه تجهیزات پزشکی هوشمند، کیوسک های پایش سلامت و خدمات پزشکی از راه دور در ایران.";
 const defaultImage = "/og-image.jpg";
+const siteName = "دورامد (نوین مدیا)";
+const siteUrl = Astro.site ? Astro.site.toString() : "https://doramed.ir";
 
 const {
   title,
   description = defaultDescription,
   image = defaultImage,
+  type = 'website',
+  publishDate,
+  author = "تیم تحریریه دورامد",
+  tags = []
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const siteUrl = Astro.site ? Astro.site.toString() : "https://doramed.ir";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "MedicalOrganization",
+  "@id": `${siteUrl}/#organization`,
   name: "دورامد (نوین مدیا)",
-  alternateName: ["Doramed", "Novin Media"],
+  alternateName: ["Doramed", "Novin Media", "DoraMed"],
   url: siteUrl,
-  logo: new URL("/logo.png", siteUrl).toString(),
-  image: new URL(image, siteUrl).toString(),
-  description: description,
+  logo: {
+    "@type": "ImageObject",
+    "url": new URL("/logo.png", siteUrl).toString(),
+    "width": 512,
+    "height": 512
+  },
+  description: defaultDescription,
   slogan: "تلاقی نوآوری و درمان",
-
+  email: "info@doramed.ir",
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+98-51-38334013",
@@ -39,7 +55,6 @@ const organizationSchema = {
     areaServed: "IR",
     availableLanguage: ["Persian", "English"],
   },
-
   address: {
     "@type": "PostalAddress",
     streetAddress: "میدان پژوهش (کوثر شمالی ۲۹)، کارخانه نوآوری، ساختمان مرکزی",
@@ -48,34 +63,39 @@ const organizationSchema = {
     postalCode: "91769-00000",
     addressCountry: "IR",
   },
-
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: "36.3156",
-    longitude: "59.5316",
-  },
-
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"],
-      opens: "08:00",
-      closes: "16:00",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Thursday",
-      opens: "08:00",
-      closes: "13:00",
-    },
-  ],
-
   sameAs: [
     "https://www.instagram.com/doramed_ir",
     "https://www.linkedin.com/in/amin-golrou-11235665/",
     "https://t.me/doramedco",
   ],
 };
+
+let articleSchema = null;
+if (type === 'article' && publishDate) {
+  articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description: description,
+    image: new URL(image, siteUrl).toString(),
+    author: {
+      "@type": "Person",
+      name: author
+    },
+    publisher: {
+      "@id": `${siteUrl}/#organization`
+    },
+    datePublished: publishDate.toISOString(),
+    dateModified: new Date().toISOString(), 
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalURL.toString()
+    },
+    keywords: tags.join(", ")
+  };
+}
+
+const jsonLd = type === 'article' ? [organizationSchema, articleSchema] : [organizationSchema];
 ---
 
 <!doctype html>
@@ -84,28 +104,22 @@ const organizationSchema = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <meta name="title" content={title} />
+    <meta name="theme-color" content="#0D1B2A" />
+
+    <title>{title} | {siteName}</title>
+    <meta name="title" content={`${title} | ${siteName}`} />
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="author" content="Doramed Tech Team" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="preconnect" href="https://www.clarity.ms" />
-    <link rel="dns-prefetch" href="https://www.clarity.ms" />
+    <meta name="author" content={author} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#0D1B2A" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, siteUrl)} />
     <meta property="og:locale" content="fa_IR" />
-    <meta property="og:site_name" content="Doramed" />
+    <meta property="og:site_name" content={siteName} />
 
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
@@ -113,19 +127,17 @@ const organizationSchema = {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, siteUrl)} />
 
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
       href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
       rel="stylesheet"
       type="text/css"
     />
 
+    <link rel="preconnect" href="https://www.clarity.ms" />
     <script type="text/javascript" is:inline>
       (function (c, l, a, r, i, t, y) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
-          };
+        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
         t = l.createElement(r);
         t.async = 1;
         t.src = "https://www.clarity.ms/tag/" + i;
@@ -134,15 +146,15 @@ const organizationSchema = {
       })(window, document, "clarity", "script", "ubjze9x2rd");
     </script>
 
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify(organizationSchema)}
-    />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <ViewTransitions />
   </head>
 
-  <body
-    class="font-sans bg-doramed-darker text-doramed-white antialiased overflow-x-hidden selection:bg-doramed-primary selection:text-white"
-  >
+  <body class="font-sans bg-gray-50 text-gray-900 antialiased overflow-x-hidden selection:bg-doramed-primary selection:text-white">
+    
+    <PageLoader />
+
     <slot />
   </body>
 </html>

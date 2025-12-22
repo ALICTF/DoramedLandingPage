@@ -1,0 +1,125 @@
+---
+// src/components/PageLoader.astro
+import { Image } from "astro:assets";
+import logoImg from "../assets/logo.png";
+---
+
+<div
+  id="page-loader"
+  class="fixed inset-0 z-[100] bg-white/80 backdrop-blur-xl flex flex-col items-center justify-center transition-opacity duration-500 pointer-events-none opacity-0"
+  aria-hidden="true"
+>
+  <div class="relative flex flex-col items-center">
+    <div
+      class="absolute inset-0 bg-doramed-primary/30 rounded-full blur-2xl animate-ping-slow"
+    >
+    </div>
+
+    <div
+      class="relative z-10 w-24 h-24 bg-white rounded-3xl shadow-2xl shadow-doramed-primary/20 flex items-center justify-center p-4 border border-gray-100 animate-float"
+    >
+      <Image
+        src={logoImg}
+        alt="Loading..."
+        class="w-full h-full object-contain"
+      />
+    </div>
+
+    <div class="mt-8 relative w-48 h-12 overflow-hidden">
+      <div
+        class="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-200 rounded-full"
+      >
+      </div>
+
+      <svg
+        class="absolute top-0 left-0 h-full w-full drop-shadow-lg"
+        viewBox="0 0 300 100"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M0,50 L20,50 L30,20 L40,80 L50,10 L60,90 L70,50 L300,50"
+          fill="none"
+          stroke="#06b6d4"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ecg-line"></path>
+      </svg>
+    </div>
+
+    <p
+      class="mt-2 text-doramed-primary text-sm font-bold tracking-widest animate-pulse"
+    >
+      در حال بارگذاری...
+    </p>
+  </div>
+</div>
+
+<style>
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  .animate-float {
+    animation: float 2s ease-in-out infinite;
+  }
+
+  @keyframes ping-slow {
+    75%,
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+  .animate-ping-slow {
+    animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .ecg-line {
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: ecg-draw 1.5s linear infinite;
+  }
+  @keyframes ecg-draw {
+    0% {
+      stroke-dashoffset: 300;
+    }
+    50% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: -300;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const loader = document.getElementById("page-loader");
+
+    const showLoader = () => {
+      if (loader) {
+        loader.classList.remove("opacity-0", "pointer-events-none");
+      }
+    };
+
+    const hideLoader = () => {
+      if (loader) {
+        loader.classList.add("opacity-0", "pointer-events-none");
+      }
+    };
+
+    document.addEventListener("astro:before-preparation", () => {
+      showLoader();
+    });
+
+    document.addEventListener("astro:after-swap", () => {});
+
+    hideLoader();
+  });
+</script>

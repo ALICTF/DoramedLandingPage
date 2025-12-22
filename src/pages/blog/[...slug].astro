@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import { Image } from 'astro:assets';
 
+// 1. Static Paths Configuration
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
   return blogEntries.map(entry => ({
@@ -13,125 +14,241 @@ export async function getStaticPaths() {
   }));
 }
 
+// 2. Data Processing
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
+
+// محاسبه زمان مطالعه (بر اساس میانگین ۲۰۰ کلمه در دقیقه)
+const wordCount = entry.body.split(/\s+/g).length;
+const readingTime = Math.ceil(wordCount / 200);
 
 const formattedDate = entry.data.pubDate.toLocaleDateString('fa-IR', {
     year: 'numeric', month: 'long', day: 'numeric'
 });
+
+// 3. Related Posts Logic (Smart Recommendation)
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+    .filter(post => post.slug !== entry.slug && !post.data.draft) // حذف پست فعلی
+    .filter(post => post.data.tags.some(tag => entry.data.tags.includes(tag))) // پیدا کردن تگ مشترک
+    .sort(() => 0.5 - Math.random()) // تصادفی کردن نتایج
+    .slice(0, 3); // انتخاب ۳ تا
+
+// 4. SEO Schema (JSON-LD)
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": entry.data.title,
+  "image": entry.data.image.src,
+  "author": {
+    "@type": "Person",
+    "name": entry.data.author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Doramed Health",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://doramed.com/logo.png" // آدرس لوگوی سایت خود را وارد کنید
+    }
+  },
+  "datePublished": entry.data.pubDate.toISOString(),
+  "description": entry.data.description
+};
 ---
 
 <Layout title={entry.data.title} description={entry.data.description} image={entry.data.image.src}>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} slot="head" />
+
     <Navbar />
 
-    <div id="progress-container" class="fixed top-0 left-0 w-full h-1.5 z-[60] bg-transparent">
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-1.5 z-[60] bg-gray-100">
         <div id="progress-bar" class="h-full bg-gradient-to-r from-doramed-primary to-cyan-400 w-0 transition-all duration-100 ease-out"></div>
     </div>
 
-    <main class="relative pt-32 pb-24 bg-gray-50 min-h-screen">
+    <main class="relative pt-32 pb-24 bg-gray-50/50 min-h-screen">
         
-        <div class="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-blue-50 to-transparent -z-10"></div>
-        <div class="absolute top-20 right-0 w-[400px] h-[400px] bg-doramed-primary/5 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute top-0 inset-x-0 h-[600px] bg-gradient-to-b from-blue-100/30 to-transparent -z-10 pointer-events-none"></div>
+        <div class="fixed top-1/3 left-0 w-[500px] h-[500px] bg-cyan-100/20 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
 
-        <article class="container mx-auto px-4 max-w-4xl">
+        <article class="container mx-auto px-4">
             
-            <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8 animate-fade-in">
-                <a href="/" class="hover:text-doramed-primary transition-colors">خانه</a>
-                <span>/</span>
-                <a href="/blog" class="hover:text-doramed-primary transition-colors">وبلاگ</a>
-                <span>/</span>
-                <span class="text-doramed-primary font-bold truncate max-w-[200px]">{entry.data.title}</span>
+            <nav class="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-8 animate-fade-in max-w-4xl mx-auto">
+                <a href="/" class="hover:text-doramed-primary transition-colors flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z" clip-rule="evenodd" /></svg>
+                    خانه
+                </a>
+                <span class="text-gray-300">/</span>
+                <a href="/blog" class="hover:text-doramed-primary transition-colors">مجله سلامت</a>
+                <span class="text-gray-300">/</span>
+                <span class="text-doramed-primary font-bold truncate max-w-[150px] md:max-w-xs">{entry.data.title}</span>
             </nav>
 
-            <header class="text-center mb-12 animate-slide-up">
+            <header class="text-center mb-12 max-w-4xl mx-auto animate-slide-up">
                 <div class="flex items-center justify-center gap-2 mb-6">
                     {entry.data.tags.map(tag => (
-                        <span class="px-3 py-1 bg-white border border-gray-200 text-doramed-primary text-xs font-bold rounded-full shadow-sm">
-                            {tag}
-                        </span>
+                        <a href={`/blog?category=${tag}`} class="px-3 py-1 bg-white border border-blue-100 text-doramed-primary text-xs font-bold rounded-full shadow-sm hover:shadow-md hover:scale-105 transition-all">
+                            #{tag}
+                        </a>
                     ))}
                 </div>
                 
-                <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 leading-tight tracking-tight">
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-8 leading-tight tracking-tight">
                     {entry.data.title}
                 </h1>
                 
-                <div class="flex flex-wrap items-center justify-center gap-6 text-gray-500 text-sm md:text-base">
+                <div class="flex flex-wrap items-center justify-center gap-4 md:gap-8 text-gray-500 text-sm md:text-base bg-white/60 backdrop-blur-sm py-3 px-6 rounded-2xl inline-flex border border-white shadow-sm">
                     <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-doramed-primary to-cyan-500 flex items-center justify-center text-white font-bold text-xs shadow-md">
-                            {entry.data.author.charAt(0)}
-                        </div>
+                        <Image src={entry.data.image} alt={entry.data.author} width={32} height={32} class="w-8 h-8 rounded-full object-cover ring-2 ring-white shadow-sm" />
                         <span class="font-bold text-gray-900">{entry.data.author}</span>
                     </div>
-                    <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
-                    <time class="font-medium">{formattedDate}</time>
-                    <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
-                    <span class="text-doramed-primary font-medium">زمان مطالعه: ۵ دقیقه</span>
+                    <span class="w-1 h-1 rounded-full bg-gray-300 hidden md:block"></span>
+                    <div class="flex items-center gap-1.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" /></svg>
+                        <time>{formattedDate}</time>
+                    </div>
+                    <span class="w-1 h-1 rounded-full bg-gray-300 hidden md:block"></span>
+                    <div class="flex items-center gap-1.5 text-doramed-primary font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span>{readingTime} دقیقه مطالعه</span>
+                    </div>
                 </div>
             </header>
 
-            <div class="relative w-full aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl shadow-blue-900/10 mb-16 group animate-scale-in">
+            <div class="relative w-full max-w-5xl mx-auto aspect-video rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl shadow-blue-900/10 mb-16 group animate-scale-in">
                 <Image 
                     src={entry.data.image} 
                     alt={entry.data.title} 
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                     transition:name={`img-${entry.slug}`} 
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
             </div>
 
-            <div class="bg-white rounded-[2rem] p-8 md:p-14 shadow-xl shadow-gray-100 border border-gray-100 relative overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
                 
-                <div class="prose prose-lg prose-slate max-w-none 
-                    prose-headings:font-black prose-headings:text-gray-900 prose-headings:tracking-tight
-                    prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-6 prose-h2:relative prose-h2:pl-4
-                    prose-p:text-gray-600 prose-p:leading-8 prose-p:mb-6
-                    prose-a:text-doramed-primary prose-a:font-bold prose-a:no-underline hover:prose-a:underline
-                    prose-img:rounded-3xl prose-img:shadow-lg prose-img:my-10
-                    prose-blockquote:border-l-4 prose-blockquote:border-doramed-primary prose-blockquote:bg-blue-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:not-italic prose-blockquote:text-gray-700
-                    prose-li:text-gray-600 prose-li:marker:text-doramed-primary
-                    prose-strong:text-gray-900 prose-strong:font-bold">
-                    
-                    <Content />
-                
-                </div>
+                <div class="lg:col-span-8">
+                    <div class="bg-white rounded-[2.5rem] p-6 md:p-12 shadow-xl shadow-gray-100 border border-white relative overflow-hidden">
+                        
+                        <div class="prose prose-lg md:prose-xl prose-slate max-w-none 
+                            prose-headings:font-black prose-headings:text-gray-900 prose-headings:tracking-tight prose-headings:scroll-mt-32
+                            prose-p:text-gray-600 prose-p:leading-8 prose-p:mb-6 prose-p:text-justify
+                            prose-a:text-doramed-primary prose-a:font-bold prose-a:no-underline hover:prose-a:underline prose-a:transition-all
+                            prose-img:rounded-3xl prose-img:shadow-lg prose-img:my-10 prose-img:w-full
+                            prose-blockquote:border-r-4 prose-blockquote:border-r-doramed-primary prose-blockquote:border-l-0 prose-blockquote:bg-blue-50/50 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:rounded-2xl prose-blockquote:not-italic prose-blockquote:text-gray-700 prose-blockquote:shadow-sm
+                            prose-li:text-gray-600 prose-li:marker:text-doramed-primary prose-li:mb-2
+                            prose-strong:text-gray-900 prose-strong:font-bold">
+                            
+                            <Content />
+                        
+                        </div>
 
-                <div class="mt-16 pt-10 border-t border-gray-100">
-                    <div class="flex flex-col md:flex-row items-center gap-6 bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                        <div class="w-20 h-20 shrink-0 rounded-full bg-white p-1 shadow-md">
-                            <div class="w-full h-full rounded-full bg-gradient-to-br from-doramed-primary to-blue-600 flex items-center justify-center text-white text-2xl font-bold">
-                                {entry.data.author.charAt(0)}
+                        <div class="mt-16 pt-10 border-t border-gray-100">
+                            <div class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-gray-50 to-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+                                <div class="w-24 h-24 shrink-0 rounded-full bg-white p-1.5 shadow-md">
+                                    <div class="w-full h-full rounded-full bg-gradient-to-br from-doramed-primary to-blue-600 flex items-center justify-center text-white text-3xl font-bold">
+                                        {entry.data.author.charAt(0)}
+                                    </div>
+                                </div>
+                                <div class="text-center md:text-right flex-grow">
+                                    <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                                        <h4 class="text-xl font-bold text-gray-900">{entry.data.author}</h4>
+                                        <span class="bg-blue-100 text-doramed-primary text-[10px] px-2 py-0.5 rounded-full font-bold">تایید شده</span>
+                                    </div>
+                                    <p class="text-gray-500 text-sm leading-6 mb-4">
+                                        متخصص و پژوهشگر در حوزه سلامت دیجیتال. با اشتیاق به بررسی تاثیر تکنولوژی بر بهبود کیفیت زندگی بیماران.
+                                    </p>
+                                    <div class="flex justify-center md:justify-start gap-3">
+                                        <button class="text-gray-400 hover:text-blue-500 transition-colors"><span class="sr-only">Twitter</span><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg></button>
+                                        <button class="text-gray-400 hover:text-blue-700 transition-colors"><span class="sr-only">LinkedIn</span><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 flex flex-wrap justify-between items-center gap-4">
+                                <a href="/blog" class="inline-flex items-center gap-2 text-gray-500 hover:text-doramed-primary font-bold transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 rotate-180">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                                    </svg>
+                                    بازگشت به مقالات
+                                </a>
+                                
+                                <div class="flex items-center gap-3">
+                                    <span class="text-sm font-bold text-gray-400">اشتراک گذاری:</span>
+                                    <button id="copy-link-btn" class="group relative w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-doramed-primary hover:text-white transition-all shadow-sm" aria-label="کپی لینک">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                        <span class="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">کپی لینک</span>
+                                    </button>
+                                    <a href={`https://telegram.me/share/url?url=https://doramed.com/blog/${entry.slug}&text=${entry.data.title}`} target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-blue-500 hover:text-white transition-all shadow-sm">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0 .056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="text-center md:text-right">
-                            <span class="text-xs font-bold text-doramed-primary uppercase tracking-wider">نویسنده مقاله</span>
-                            <h4 class="text-xl font-bold text-gray-900 mt-1 mb-2">{entry.data.author}</h4>
-                            <p class="text-gray-500 text-sm leading-6">
-                                متخصص در حوزه سلامت دیجیتال و تجهیزات پزشکی. ما در دورامد تلاش می‌کنیم جدیدترین تکنولوژی‌های روز دنیا را برای سلامتی شما به کار بگیریم.
-                            </p>
+                    </div>
+                </div>
+
+                <aside class="lg:col-span-4 space-y-8">
+                    
+                    <div class="sticky top-24">
+                        <div class="bg-white rounded-[2rem] p-6 shadow-lg shadow-gray-100 border border-white">
+                            <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-doramed-primary"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+                                فهرست مطالب
+                            </h3>
+                            <nav class="toc-nav">
+                                <ul class="space-y-3 text-sm border-r-2 border-gray-100 pr-4">
+                                    {headings.map(heading => (
+                                        <li class={`toc-item transition-all duration-300 ${heading.depth > 2 ? 'mr-4 text-xs' : ''}`}>
+                                            <a href={`#${heading.slug}`} class="text-gray-500 hover:text-doramed-primary block py-1 hover:translate-x-1 transition-transform">
+                                                {heading.text}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="bg-gray-900 rounded-[2rem] p-6 mt-6 relative overflow-hidden text-center">
+                            <div class="absolute inset-0 bg-doramed-primary/20 blur-3xl"></div>
+                            <h4 class="text-white font-bold relative z-10 mb-2">خبرنامه پزشکی</h4>
+                            <p class="text-gray-400 text-xs relative z-10 mb-4">جدیدترین‌های تکنولوژی سلامت را از دست ندهید.</p>
+                            <form class="relative z-10 space-y-2">
+                                <input type="email" placeholder="ایمیل شما" class="w-full px-4 py-2 rounded-xl bg-white/10 border border-white/10 text-white placeholder-gray-500 text-sm outline-none focus:border-doramed-primary" />
+                                <button class="w-full py-2 bg-doramed-primary text-white text-sm font-bold rounded-xl hover:bg-doramed-light transition-colors">عضویت</button>
+                            </form>
                         </div>
                     </div>
-                </div>
-
-                <div class="mt-8 flex justify-between items-center">
-                    <a href="/blog" class="inline-flex items-center gap-2 text-gray-500 hover:text-doramed-primary font-bold transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 rotate-180">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                        </svg>
-                        بازگشت به مقالات
-                    </a>
-                    
-                    <div class="flex gap-3">
-                        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-blue-500 hover:text-white transition-all shadow-sm" aria-label="اشتراک گذاری در تلگرام">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0 .056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                        </button>
-                        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-blue-600 hover:text-white transition-all shadow-sm" aria-label="اشتراک گذاری در لینکدین">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                        </button>
-                    </div>
-                </div>
+                </aside>
 
             </div>
+
+            {relatedPosts.length > 0 && (
+                <section class="mt-24 max-w-6xl mx-auto">
+                    <div class="flex items-center gap-3 mb-10">
+                        <div class="h-2 w-2 bg-doramed-primary rounded-full"></div>
+                        <h3 class="text-gray-900 font-bold text-2xl">مطالب پیشنهادی</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {relatedPosts.map(post => (
+                            <a href={`/blog/${post.slug}`} class="group bg-white rounded-3xl p-4 shadow-sm hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 transition-all border border-gray-100">
+                                <div class="relative h-48 rounded-2xl overflow-hidden mb-4">
+                                    <Image src={post.data.image} alt={post.data.title} width={400} height={300} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                    <span class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-xs font-bold text-gray-800 shadow-sm">{post.data.tags[0]}</span>
+                                </div>
+                                <h4 class="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-doramed-primary transition-colors">{post.data.title}</h4>
+                                <div class="flex items-center justify-between text-xs text-gray-400 mt-4">
+                                    <time>{post.data.pubDate.toLocaleDateString('fa-IR')}</time>
+                                    <span class="flex items-center gap-1 text-doramed-primary font-bold">
+                                        ادامه
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
+                                    </span>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </section>
+            )}
 
         </article>
     </main>
@@ -140,6 +257,7 @@ const formattedDate = entry.data.pubDate.toLocaleDateString('fa-IR', {
 </Layout>
 
 <script>
+    // 1. Progress Bar Logic
     window.addEventListener('scroll', () => {
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -148,6 +266,48 @@ const formattedDate = entry.data.pubDate.toLocaleDateString('fa-IR', {
         if(progressBar) {
             progressBar.style.width = scrolled + "%";
         }
+    });
+
+    // 2. Copy Link Logic
+    const copyBtn = document.getElementById('copy-link-btn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                const tooltip = copyBtn.querySelector('span');
+                const originalText = tooltip.innerText;
+                tooltip.innerText = "کپی شد!";
+                tooltip.classList.remove('opacity-0');
+                setTimeout(() => {
+                    tooltip.innerText = originalText;
+                    tooltip.classList.add('opacity-0');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+        });
+    }
+
+    // 3. Active Table of Contents Logic
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const id = entry.target.getAttribute('id');
+            const link = document.querySelector(`.toc-nav a[href="#${id}"]`);
+            if (entry.isIntersecting && link) {
+                document.querySelectorAll('.toc-nav a').forEach(a => {
+                    a.classList.remove('text-doramed-primary', 'font-bold', 'translate-x-1');
+                    a.classList.add('text-gray-500');
+                    a.parentElement.classList.remove('border-r-2', 'border-doramed-primary');
+                });
+                link.classList.remove('text-gray-500');
+                link.classList.add('text-doramed-primary', 'font-bold', 'translate-x-1');
+                link.parentElement.classList.add('border-r-2', 'border-doramed-primary', '-mr-[2px]');
+            }
+        });
+    }, { rootMargin: '-100px 0px -60% 0px' });
+
+    document.querySelectorAll('h2[id], h3[id]').forEach((section) => {
+        observer.observe(section);
     });
 </script>
 
@@ -159,4 +319,7 @@ const formattedDate = entry.data.pubDate.toLocaleDateString('fa-IR', {
     .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
     .animate-slide-up { animation: slide-up 0.8s ease-out 0.2s forwards; opacity: 0; }
     .animate-scale-in { animation: scale-in 1s ease-out 0.4s forwards; opacity: 0; }
+    
+    /* Smooth Scroll Behavior */
+    html { scroll-behavior: smooth; }
 </style>

@@ -6,168 +6,414 @@ import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 
-const allPosts = (await getCollection('blog'))
+// --- 1. CONFIGURATION & UTILS ---
+const CONFIG = {
+    POSTS_PER_PAGE: 6,
+    LOCALE: 'fa-IR'
+};
+
+const formatDate = (date: Date) => new Intl.DateTimeFormat(CONFIG.LOCALE, { dateStyle: 'long' }).format(date);
+
+// --- 2. DATA LAYER (Server Side) ---
+const url = Astro.url;
+const searchQuery = url.searchParams.get('q')?.trim() || '';
+const categoryFilter = url.searchParams.get('category')?.trim() || '';
+const currentPage = Math.max(1, parseInt(url.searchParams.get('page') || '1'));
+
+const allPostsRaw = await getCollection('blog');
+const allPublishedPosts = allPostsRaw
     .filter(post => !post.data.draft)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const featuredPost = allPosts[0];
-const otherPosts = allPosts.slice(1);
+// --- 3. FILTERING LOGIC ---
+let filteredPosts = allPublishedPosts;
+
+if (searchQuery) {
+    filteredPosts = filteredPosts.filter(post => 
+        post.data.title.includes(searchQuery) || 
+        post.data.description.includes(searchQuery)
+    );
+}
+
+if (categoryFilter && categoryFilter !== 'all') {
+    filteredPosts = filteredPosts.filter(post => post.data.tags.includes(categoryFilter));
+}
+
+// --- 4. FEATURED POST LOGIC ---
+const showFeatured = currentPage === 1 && !searchQuery && !categoryFilter;
+let featuredPost = null;
+let postsToList = filteredPosts;
+
+if (showFeatured && filteredPosts.length > 0) {
+    featuredPost = filteredPosts[0];
+    postsToList = filteredPosts.slice(1);
+}
+
+// --- 5. PAGINATION CALCULATION ---
+const totalPosts = postsToList.length;
+const totalPages = Math.ceil(totalPosts / CONFIG.POSTS_PER_PAGE);
+const startIndex = (currentPage - 1) * CONFIG.POSTS_PER_PAGE;
+const endIndex = startIndex + CONFIG.POSTS_PER_PAGE;
+const currentPosts = postsToList.slice(startIndex, endIndex);
+
+// --- 6. UI HELPERS ---
+const categories = [
+    { name: 'همه مطالب', slug: 'all' },
+    { name: 'تغذیه و رژیم', slug: 'تغذیه' },
+    { name: 'دیابت هوشمند', slug: 'دیابت' },
+    { name: 'قلب و عروق', slug: 'قلب' },
+    { name: 'تکنولوژی', slug: 'تکنولوژی' },
+    { name: 'روانشناسی', slug: 'روانشناسی' },
+];
 
 const title = "مجله سلامت دورامد | تکنولوژی و پزشکی";
-const formatDate = (date: Date) => new Intl.DateTimeFormat('fa-IR', { dateStyle: 'long' }).format(date);
+const description = "مرجع تخصصی مقالات پزشکی هوشمند، تله‌مدیسین و سلامت دیجیتال.";
+
+const createUrl = (pageNum: number) => {
+    const newUrl = new URL(url);
+    newUrl.searchParams.set('page', pageNum.toString());
+    return newUrl.pathname + newUrl.search;
+};
 ---
 
-<Layout title={title} description="مرجع تخصصی مقالات پزشکی هوشمند، تله‌مدیسین و سلامت دیجیتال">
+<Layout title={title} description={description}>
     <Navbar />
     
-    <main class="relative pt-32 pb-24 min-h-screen bg-gray-50 text-gray-800">
+    <main class="relative pt-24 md:pt-32 pb-16 md:pb-24 min-h-screen bg-gray-50 text-gray-800 selection:bg-doramed-primary selection:text-white overflow-hidden">
         
-        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-b from-blue-50 to-transparent rounded-full blur-3xl opacity-60 pointer-events-none -z-10"></div>
-        <div class="absolute top-1/2 left-0 w-[500px] h-[500px] bg-cyan-50/50 rounded-full blur-3xl pointer-events-none -z-10"></div>
+        <div class="fixed top-0 right-0 w-[300px] md:w-[800px] h-[300px] md:h-[800px] bg-gradient-to-b from-blue-100/40 to-transparent rounded-full blur-[60px] md:blur-[100px] opacity-60 pointer-events-none -z-10 translate-x-1/3 -translate-y-1/4"></div>
+        <div class="fixed bottom-0 left-0 w-[250px] md:w-[600px] h-[250px] md:h-[600px] bg-cyan-100/40 rounded-full blur-[50px] md:blur-[80px] pointer-events-none -z-10 -translate-x-1/3 translate-y-1/4"></div>
 
-        <div class="container mx-auto px-4 relative z-10">
+        <div class="container mx-auto px-4 sm:px-6 relative z-10">
             
-            <div class="text-center max-w-3xl mx-auto mb-20">
-                <span class="inline-block py-1.5 px-4 rounded-full bg-blue-100 text-doramed-primary text-xs font-bold border border-blue-200 mb-5">
-                    مجله خبری و آموزشی
+            <div class="text-center max-w-4xl mx-auto mb-16 md:mb-20">
+                <span class="inline-flex items-center gap-2 py-1.5 px-3 md:px-4 rounded-full bg-white border border-blue-100 text-doramed-primary text-[10px] md:text-xs font-bold shadow-sm mb-4 md:mb-6 hover:shadow-md transition-shadow cursor-default">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-doramed-primary opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-doramed-primary"></span>
+                    </span>
+                    مجله خبری و آموزشی دورامد
                 </span>
-                <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight leading-tight">
+                
+                <h1 class="text-3xl sm:text-4xl md:text-6xl font-black text-gray-900 mb-4 md:mb-6 tracking-tight leading-tight">
                     دنیای 
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-doramed-primary to-cyan-500">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-doramed-primary to-cyan-500 relative inline-block">
                         سلامت هوشمند
                     </span>
+                    <br class="hidden sm:block" />
+                    را کشف کنید
                 </h1>
-                <p class="text-gray-500 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-                    جدیدترین مقالات علمی، اخبار تکنولوژی پزشکی و راهکارهای ارتقای سلامت را اینجا دنبال کنید.
+                
+                <p class="text-gray-500 text-sm md:text-lg leading-relaxed mb-8 md:mb-10 max-w-xl md:max-w-2xl mx-auto px-2">
+                    {searchQuery ? `نتایج جستجو برای: "${searchQuery}"` : 'پایگاهی برای ارتقای دانش سلامت شما؛ از جدیدترین مقالات علمی تا راهکارهای عملی.'}
                 </p>
 
-                <div class="relative max-w-lg mx-auto group">
+                <div class="relative max-w-lg mx-auto group z-20 w-full">
                     <div class="absolute -inset-1 bg-gradient-to-r from-doramed-primary to-cyan-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-                    <div class="relative bg-white border border-gray-100 rounded-2xl p-2 flex items-center shadow-xl shadow-gray-200/50">
-                        <div class="p-3 text-gray-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <form action="/blog" method="GET" class="relative bg-white border border-gray-100 rounded-2xl p-1.5 md:p-2 flex items-center shadow-xl shadow-gray-200/50">
+                        <div class="p-2 md:p-3 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                             </svg>
                         </div>
                         <input 
-                            type="text" 
-                            placeholder="جستجو در مقالات..." 
-                            class="bg-transparent border-none outline-none text-gray-700 w-full placeholder-gray-400 text-base px-2 font-medium"
+                            type="search" 
+                            name="q"
+                            value={searchQuery}
+                            placeholder="جستجو..." 
+                            class="bg-transparent border-none outline-none text-gray-700 w-full placeholder-gray-400 text-sm md:text-base px-2 font-medium h-10 md:h-12"
                         />
-                        <button class="bg-doramed-primary hover:bg-doramed-dark text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg">
+                        {categoryFilter && <input type="hidden" name="category" value={categoryFilter} />}
+                        
+                        <button type="submit" class="bg-doramed-primary hover:bg-doramed-dark text-white px-4 md:px-6 py-2 md:py-3 rounded-xl font-bold text-xs md:text-sm transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap">
                             جستجو
                         </button>
-                    </div>
+                    </form>
+                </div>
+
+                <div class="mt-8 flex flex-wrap justify-center gap-2 md:gap-3 overflow-x-auto pb-4 no-scrollbar px-2 -mx-4 md:mx-0">
+                    {categories.map(cat => {
+                        const isActive = (cat.slug === 'all' && !categoryFilter) || categoryFilter === cat.slug;
+                        return (
+                            <a 
+                                href={cat.slug === 'all' ? '/blog' : `/blog?category=${cat.slug}`}
+                                class={`px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs md:text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 ${isActive 
+                                    ? 'bg-gray-900 text-white shadow-lg shadow-gray-900/20 scale-105' 
+                                    : 'bg-white text-gray-600 border border-gray-200 hover:border-doramed-primary hover:text-doramed-primary hover:shadow-md'}`}
+                            >
+                                {cat.name}
+                            </a>
+                        )
+                    })}
                 </div>
             </div>
 
             {featuredPost && (
-                <div class="mb-24">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="h-8 w-1.5 bg-doramed-primary rounded-full"></div>
-                        <h3 class="text-gray-900 font-bold text-2xl">مقاله برجسته</h3>
+                <section class="mb-16 md:mb-24 animate-fade-in-up">
+                    <div class="flex items-center justify-between mb-4 md:mb-6 px-1">
+                        <div class="flex items-center gap-3">
+                            <div class="h-6 md:h-8 w-1.5 bg-doramed-primary rounded-full"></div>
+                            <h3 class="text-gray-900 font-bold text-lg md:text-2xl">منتخب سردبیر</h3>
+                        </div>
                     </div>
 
-                    <a href={`/blog/${featuredPost.slug}`} class="group relative block w-full bg-white border border-gray-100 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-gray-200/50 hover:shadow-doramed-primary/20 transition-all duration-500 hover:-translate-y-1">
-                        <div class="grid lg:grid-cols-2 gap-0">
-                            <div class="relative h-[350px] lg:h-[500px] overflow-hidden">
+                    <article class="group relative block w-full bg-white border border-gray-100 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-xl shadow-gray-200/40 hover:shadow-doramed-primary/10 transition-all duration-500">
+                        <a href={`/blog/${featuredPost.slug}`} class="absolute inset-0 z-10">
+                            <span class="sr-only">مشاهده مقاله {featuredPost.data.title}</span>
+                        </a>
+                        <div class="grid lg:grid-cols-12 gap-0 h-full">
+                            <div class="lg:col-span-7 relative h-64 sm:h-80 lg:h-[550px] overflow-hidden">
                                 <Image 
                                     src={featuredPost.data.image} 
                                     alt={featuredPost.data.title} 
+                                    width={1200}
+                                    height={800}
+                                    loading="eager" 
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
-                                    transition:name={`img-${featuredPost.slug}`}
                                 />
-                                <div class="absolute top-6 right-6 z-20">
-                                    <span class="bg-white/90 backdrop-blur-md text-doramed-primary text-xs font-bold px-4 py-2 rounded-full shadow-lg">
-                                        منتخب سردبیر 🔥
+                                <div class="absolute top-4 right-4 md:top-6 md:right-6 z-20 flex gap-2">
+                                    <span class="bg-white/95 backdrop-blur-md text-doramed-primary text-[10px] md:text-xs font-bold px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-lg flex items-center gap-1">
+                                         🔥 <span class="hidden sm:inline">داغ‌ترین مطلب</span><span class="sm:hidden">ویژه</span>
                                     </span>
                                 </div>
                             </div>
 
-                            <div class="p-8 lg:p-14 flex flex-col justify-center">
-                                <div class="flex items-center gap-3 mb-6">
-                                    <span class="text-doramed-primary text-sm font-bold bg-blue-50 px-3 py-1 rounded-lg">
+                            <div class="lg:col-span-5 p-6 md:p-10 lg:p-14 flex flex-col justify-center bg-white relative">
+                                <div class="flex items-center gap-3 mb-4 md:mb-6">
+                                    <span class="text-doramed-primary text-[10px] md:text-xs font-bold bg-blue-50 px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg">
                                         {featuredPost.data.tags[0]}
                                     </span>
-                                    <span class="text-gray-400 text-sm">{formatDate(featuredPost.data.pubDate)}</span>
+                                    <span class="w-1 h-1 rounded-full bg-gray-300"></span>
+                                    <time datetime={featuredPost.data.pubDate.toISOString()} class="text-gray-400 text-[10px] md:text-xs font-medium">
+                                        {formatDate(featuredPost.data.pubDate)}
+                                    </time>
                                 </div>
 
-                                <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-6 leading-tight group-hover:text-doramed-primary transition-colors">
+                                <h2 class="text-xl md:text-3xl lg:text-4xl font-black text-gray-900 mb-4 md:mb-6 leading-tight group-hover:text-doramed-primary transition-colors">
                                     {featuredPost.data.title}
                                 </h2>
                                 
-                                <p class="text-gray-500 text-lg leading-relaxed mb-8 line-clamp-3">
+                                <p class="text-gray-500 text-sm md:text-lg leading-relaxed mb-6 md:mb-8 line-clamp-3 lg:line-clamp-4">
                                     {featuredPost.data.description}
                                 </p>
 
-                                <div class="flex items-center gap-2 text-doramed-dark font-bold mt-auto group-hover:gap-4 transition-all">
-                                    <span>مطالعه کامل مقاله</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-doramed-primary">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            )}
-
-            <div>
-                <div class="flex items-center gap-3 mb-10">
-                    <div class="h-2 w-2 bg-gray-300 rounded-full"></div>
-                    <h3 class="text-gray-900 font-bold text-xl">آخرین نوشته‌ها</h3>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {otherPosts.map(post => (
-                        <a href={`/blog/${post.slug}`} class="group flex flex-col h-full bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg shadow-gray-100 hover:shadow-2xl hover:shadow-gray-200 hover:-translate-y-2 transition-all duration-300">
-                            
-                            <div class="h-60 relative overflow-hidden">
-                                <Image 
-                                    src={post.data.image} 
-                                    alt={post.data.title} 
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    transition:name={`img-${post.slug}`}
-                                />
-                                <div class="absolute top-4 right-4">
-                                     <span class="text-xs font-bold text-gray-800 bg-white/90 backdrop-blur px-3 py-1.5 rounded-lg shadow-sm">
-                                        {post.data.tags[0]}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="p-7 flex flex-col flex-grow">
-                                <div class="flex justify-between items-center text-xs text-gray-400 mb-4 font-medium">
-                                    <span>{formatDate(post.data.pubDate)}</span>
-                                    <span class="bg-gray-50 px-2 py-1 rounded">۵ دقیقه مطالعه</span>
-                                </div>
-                                
-                                <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 leading-snug group-hover:text-doramed-primary transition-colors">
-                                    {post.data.title}
-                                </h2>
-                                
-                                <p class="text-gray-500 text-sm line-clamp-3 mb-6 flex-grow leading-relaxed">
-                                    {post.data.description}
-                                </p>
-                                
-                                <div class="mt-auto pt-5 border-t border-gray-100 flex items-center justify-between">
-                                    <span class="text-sm font-bold text-doramed-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 -translate-x-2 group-hover:translate-x-0">
-                                        ادامه مطلب
-                                    </span>
-                                    <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-doramed-primary group-hover:text-white transition-all duration-300 shadow-sm">
-                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                <div class="flex items-center justify-between mt-auto pt-6 md:pt-8 border-t border-gray-50">
+                                     <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 md:w-5 md:h-5"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" /></svg>
+                                        </div>
+                                        <span class="text-xs md:text-sm font-bold text-gray-800">تیم پزشکی دورامد</span>
+                                     </div>
+                                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-doramed-primary flex items-center justify-center text-white shadow-lg shadow-doramed-primary/30 group-hover:scale-110 transition-transform">
+                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                                         </svg>
                                     </div>
                                 </div>
                             </div>
-                        </a>
-                    ))}
+                        </div>
+                    </article>
+                </section>
+            )}
+
+            
+            <section id="posts-grid">
+                <div class="flex items-center gap-3 mb-6 md:mb-10 px-1">
+                    <div class="h-2 w-2 bg-doramed-primary rounded-full animate-pulse"></div>
+                    <h3 class="text-gray-900 font-bold text-lg md:text-xl">
+                        {searchQuery ? 'نتایج یافت شده' : 'آخرین نوشته‌ها'}
+                    </h3>
                 </div>
-            </div>
+                
+                {currentPosts.length > 0 ? (
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                        {currentPosts.map(post => (
+                            <article class="h-full">
+                                <div class="group flex flex-col h-full bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg shadow-gray-100 hover:shadow-2xl hover:shadow-gray-200/60 hover:-translate-y-2 transition-all duration-300 relative">
+                                    
+                                    <a href={`/blog/${post.slug}`} class="block h-52 md:h-60 relative overflow-hidden bg-gray-100">
+                                        <Image 
+                                            src={post.data.image} 
+                                            alt={post.data.title} 
+                                            width={600}
+                                            height={400}
+                                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                        />
+                                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                                        <div class="absolute top-4 right-4 z-10">
+                                            <span class="text-[10px] font-bold text-gray-800 bg-white/95 backdrop-blur px-2.5 py-1 rounded-lg shadow-sm border border-gray-100">
+                                                {post.data.tags[0]}
+                                            </span>
+                                        </div>
+                                    </a>
+
+                                    <div class="p-5 md:p-6 flex flex-col flex-grow relative">
+                                        <div class="flex justify-between items-center text-xs text-gray-400 mb-3 md:mb-4 font-medium">
+                                            <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+                                            <div class="flex items-center gap-1">
+                                                <span>۵ دقیقه</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <h2 class="text-base md:text-lg font-bold text-gray-900 mb-2 md:mb-3 line-clamp-2 leading-snug group-hover:text-doramed-primary transition-colors">
+                                            <a href={`/blog/${post.slug}`}>
+                                                {post.data.title}
+                                            </a>
+                                        </h2>
+                                        
+                                        <p class="text-gray-500 text-xs md:text-sm line-clamp-2 mb-4 md:mb-6 flex-grow leading-relaxed">
+                                            {post.data.description}
+                                        </p>
+                                        
+                                        <div class="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between">
+                                            <a href={`/blog/${post.slug}`} class="text-xs md:text-sm font-bold text-doramed-primary flex items-center gap-1 group/link">
+                                                ادامه مطلب
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3 md:w-3.5 md:h-3.5 group-hover/link:-translate-x-1 transition-transform">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                                                </svg>
+                                            </a>
+                                            
+                                            <button 
+                                                class="bookmark-btn text-gray-300 hover:text-doramed-primary transition-colors focus:outline-none p-1" 
+                                                data-slug={post.slug}
+                                                aria-label="ذخیره مقاله"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 icon">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                ) : (
+                    <div class="text-center py-16 md:py-20 bg-white rounded-3xl border border-gray-100 px-4">
+                        <p class="text-gray-500 text-base md:text-lg">مقاله‌ای یافت نشد.</p>
+                        <a href="/blog" class="text-doramed-primary font-bold mt-4 inline-block hover:underline">بازگشت به همه مقالات</a>
+                    </div>
+                )}
+
+                {/* Pagination - Simplified for Mobile */}
+                {totalPages > 1 && (
+                    <div class="mt-12 md:mt-16 flex justify-center">
+                        <nav class="flex items-center gap-1 md:gap-2 bg-white p-1.5 md:p-2 rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100">
+                            {currentPage > 1 ? (
+                                <a href={createUrl(currentPage - 1)} class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-600 hover:bg-doramed-primary hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3 md:w-4 md:h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </a>
+                            ) : (
+                                <span class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-300 cursor-not-allowed">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3 md:w-4 md:h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </span>
+                            )}
+
+                            <span class="px-2 md:px-4 font-bold text-gray-800 text-xs md:text-base whitespace-nowrap">
+                                صفحه {currentPage} از {totalPages}
+                            </span>
+
+                            {currentPage < totalPages ? (
+                                <a href={createUrl(currentPage + 1)} class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-600 hover:bg-doramed-primary hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3 md:w-4 md:h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                    </svg>
+                                </a>
+                            ) : (
+                                <span class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-300 cursor-not-allowed">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3 md:w-4 md:h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                    </svg>
+                                </span>
+                            )}
+                        </nav>
+                    </div>
+                )}
+            </section>
+
+            <section class="mt-16 md:mb-24 relative overflow-hidden rounded-[2rem] bg-gray-900 p-6 md:p-12">
+                <div class="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-5"></div>
+                <div class="absolute top-0 right-0 w-64 h-64 bg-doramed-primary rounded-full blur-[80px] opacity-20"></div>
+                
+                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8">
+                    <div class="text-center lg:text-right">
+                        <h3 class="text-xl md:text-3xl font-bold text-white mb-2">عضویت در خبرنامه پزشکی</h3>
+                        <p class="text-gray-400 text-sm md:text-base">دریافت هفتگی چکیده‌ای از مهم‌ترین اخبار سلامت.</p>
+                    </div>
+                    <div class="w-full lg:w-auto flex-shrink-0">
+                        <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3">
+                            <input type="email" required placeholder="ایمیل خود را وارد کنید..." class="px-5 py-3 rounded-xl bg-white/10 border border-white/10 text-white placeholder-gray-500 outline-none focus:border-doramed-primary w-full sm:w-72 transition-colors text-sm" />
+                            <button type="submit" class="px-6 py-3 rounded-xl bg-doramed-primary text-white font-bold hover:bg-doramed-light transition-colors shadow-lg shadow-doramed-primary/25 disabled:opacity-50 text-sm whitespace-nowrap">
+                                عضویت رایگان
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
 
         </div>
     </main>
 
     <Footer />
 </Layout>
+
+<script is:inline>
+    // --- 1. Newsletter Logic (Same as before) ---
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = newsletterForm.querySelector('button');
+            const input = newsletterForm.querySelector('input');
+            const originalText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = '...';
+            setTimeout(() => {
+                alert(`ایمیل ${input.value} ثبت شد!`);
+                input.value = '';
+                btn.innerText = '✓';
+                btn.classList.replace('bg-doramed-primary', 'bg-green-500');
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                    btn.classList.replace('bg-green-500', 'bg-doramed-primary');
+                }, 3000);
+            }, 1000);
+        });
+    }
+
+    // --- 2. Bookmark Logic (Same as before) ---
+    const bookmarkBtns = document.querySelectorAll('.bookmark-btn');
+    const savedBookmarks = JSON.parse(localStorage.getItem('doramed_bookmarks') || '[]');
+    bookmarkBtns.forEach(btn => {
+        const slug = btn.getAttribute('data-slug');
+        const icon = btn.querySelector('.icon');
+        if (savedBookmarks.includes(slug)) {
+            icon.setAttribute('fill', 'currentColor');
+            btn.classList.add('text-doramed-primary');
+            btn.classList.remove('text-gray-300');
+        }
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const currentBookmarks = JSON.parse(localStorage.getItem('doramed_bookmarks') || '[]');
+            if (currentBookmarks.includes(slug)) {
+                const newBookmarks = currentBookmarks.filter(s => s !== slug);
+                localStorage.setItem('doramed_bookmarks', JSON.stringify(newBookmarks));
+                icon.setAttribute('fill', 'none');
+                btn.classList.remove('text-doramed-primary');
+                btn.classList.add('text-gray-300');
+            } else {
+                currentBookmarks.push(slug);
+                localStorage.setItem('doramed_bookmarks', JSON.stringify(currentBookmarks));
+                icon.setAttribute('fill', 'currentColor');
+                btn.classList.add('text-doramed-primary');
+                btn.classList.remove('text-gray-300');
+            }
+        });
+    });
+</script>
