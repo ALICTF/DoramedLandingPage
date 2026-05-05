@@ -3,16 +3,13 @@
 import Layout from "../layouts/Layout.astro";
 import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar.astro";
-
-// ایمپورت کامپوننت‌های ساخته شده
 import HeroSection from "../components/about/HeroSection.astro";
 import StatsSection from "../components/about/StatsSection.astro";
 import CeoSection from "../components/about/CeoSection.astro";
 import TechTeam from "../components/about/TechTeam.astro";
 import AdminTeam from "../components/about/AdminTeam.astro";
 import CtaSection from "../components/about/CtaSection.astro";
-
-// --- Assets ---
+import HonorsSection from "../components/about/HonorsSection.astro";
 import imgCeo from "../assets/dr-g.jpg";
 import imgHeidari from "../assets/fateme.jpeg";
 import imgAtaei from "../assets/zeynab.jpg";
@@ -23,79 +20,100 @@ import imgRezghi from "../assets/drrez.jpeg";
 import imgMoheb from "../assets/meysam.jpg";
 import imgKhajenezhad from "../assets/mostafa.jpg";
 import imgNasrollahi from "../assets/nafise.jpg";
-
 import certPatent from "../assets/1-2.jpg";
 import certHealth from "../assets/2-3.jpg";
 import certKnowledge from "../assets/3-3.jpg";
 import certIso from "../assets/4-1.jpg";
 import certProd from "../assets/5-1.jpg";
 
-// --- Data ---
 const ceoData = {
   name: "دکتر امین‌الله گلرو",
   role: "موسس و مدیرعامل",
   image: imgCeo,
-  quote:
-    "هدف نهایی ما این است که با ارتقای سهولت دسترسی مردم به خدمات مراقبتی، سطح سلامت را در سراسر جهان ارتقا دهیم.",
-  bio: "بنیان‌گذار شرکت گسترش لوازم درمانی نوین مدیا (دورامد). با تکیه بر دانش و فناوری روز، متعهد به ارائه ویزیت‌های اولیه مجازی با کیفیت بالا برای طیف وسیعی از نیازهای بهداشتی جامعه هستیم.",
+  quote: "هدف نهایی ما این است که با تلفیق دانش مهندسی و پزشکی، دسترسی به خدمات مراقبتی را تسهیل کرده و سطح سلامت جامعه را ارتقا دهیم.",
+  bio: "دکتر گلرو، فارغ‌التحصیل دکتری تخصصی (PhD) مهندسی پزشکی بیوالکتریک و از دانش‌آموختگان مدارس استعدادهای درخشان (سمپاد) هستند. ایشان با تاسیس اولین آزمایشگاه کالیبراسیون خراسان جنوبی مسیر کارآفرینی را آغاز کردند و هم‌اکنون با بیش از یک دهه تجربه به عنوان مدیر تجهیزات پزشکی دانشگاه علوم پزشکی بیرجند، رهبری استراتژیک دورامد را بر عهده دارند.",
+  highlights: [
+    "دکتری تخصصی مهندسی پزشکی (بیوالکتریک)",
+    "کارآفرین برتر استان خراسان جنوبی (۱۳۹۰)",
+    "مدیر تجهیزات پزشکی دانشگاه علوم پزشکی بیرجند (از سال ۹۰)",
+    "عضو فدراسیون بین‌المللی مخترعین (IFIA)",
+    "همکاری با سازمان بهداشت جهانی (WHO) در بحران کرونا",
+    "عضو کمیسیون فنی تدوین استانداردهای مهندسی پزشکی"
+  ],
+  socials: {
+    linkedin: "https://www.linkedin.com/in/amin-golrou-11235665/",
+    telegram: "https://t.me/agolrou", 
+    instagram: "https://www.instagram.com/dr.amin.golrou/" 
+  }
 };
 
 const techTeamData = [
   {
     name: "مصطفی خواجه نژاد",
-    role: "متخصص هوش مصنوعی | توسعه دهنده وبسایت",
+    role: "توسعه‌دهنده ارشد وب | متخصص هوش مصنوعی",
     image: imgKhajenezhad,
-    bio: "توسعه‌دهنده رابط‌ کاربری مدرن و متخصص هوش مصنوعی. پیاده‌سازی الگوریتم‌های هوشمند و خلق تجربه‌های تعاملی و امن در بستر وب."  },
+    bio: "توسعه‌دهنده ارشد رابط کاربری با تسلط بر اکوسیستم React و معماری‌های مدرن وب.  همزمان به‌عنوان مهندس هوش مصنوعی، بر پیاده‌سازی الگوریتم‌های یادگیری عمیق (Deep Learning) و یادگیری تقویتی (RL) جهت هوشمندسازی فرآیندهای پلتفرم تمرکز دارند.",
+    linkedin: "https://www.linkedin.com/in/mostafa-khajenezhad/" 
+  },
   {
     name: "سید محمدرضا حاجی‌میرزایی",
     role: "مدیر تولید",
     image: imgMirzaei,
-    bio: "حوزه تخصصی: طراحی و تولید سیستم‌های نهفته (Embedded Systems) و سنسورهای زیستی (Bio Sensors).",
+    bio: "متخصص برجسته در طراحی و پیاده‌سازی سیستم‌های نهفته (Embedded Systems). مسئولیت طراحی سخت‌افزارهای دقیق پزشکی و توسعه سنسورهای زیستی (Bio Sensors) را بر عهده دارند و پل ارتباطی میان دنیای سخت‌افزار و نرم‌افزار هستند.",
+    linkedin: "#" 
   },
-  {
+{
     name: "شایان احراری",
-    role: "برنامه نویس فول استک | امنیت اطلاعات",
+    role: "مهندس ارشد نرم‌افزار | توسعه‌دهنده موبایل و بک‌اند",
     image: imgAhrari,
-    bio: "برنامه‌نویس بک‌اند و شکارچی باگ‌های امنیتی. تخصص در معماری سرور و تضمین امنیت داده‌ها در بالاترین سطح.",
+    bio: "معمار سیستم‌های نرم‌افزاری با تسلط کامل بر توسعه اپلیکیشن‌های موبایل (Android & iOS) و زیرساخت‌های سمت سرور. با رویکردی امنیت‌محور، وظیفه طراحی پلتفرم‌های یکپارچه درمانی و تضمین امنیت داده‌های حساس پزشکی در برابر حملات سایبری را بر عهده دارند.",
+    linkedin: "https://www.linkedin.com/in/shayan-ahrari/"
   },
 ];
+
 
 const adminTeamData = [
   {
     name: "دکتر محمدرضا رزقی",
     role: "مدیر اجرایی",
     image: imgRezghi,
-    bio: "مشاور استراتژیک در حوزه مدیریت خدمات درمانی و توسعه شبکه همکاری با بیمارستان‌ها.",
+    bio: "دارای سابقه مدیریتی در حوزه درمان، مسئولیت هدایت استراتژیک مجموعه و توسعه شبکه همکاری با بیمارستان‌ها را بر عهده دارند. تمرکز اصلی  بر بهینه‌سازی فرآیندهای کلان سازمانی و گسترش تعاملات پزشکی است.",
+    linkedin: "#"
   },
-  {
-    name: "مهندس فاطمه حیدری",
-    role: "کارشناس دیجیتال مارکتینگ",
-    image: imgHeidari,
-    bio: "۴ سال سابقه تخصصی در حوزه تجهیزات پزشکی.",
+    {
+    name: "نفیسه نصراللهی",
+    role: "مدیر داخلی",
+    image: imgNasrollahi,
+    bio: "تحلیل دقیق داده‌های بازار و مدیریت امور داخلی سازمان.  با رویکردی منظم، بر حسن اجرای فرآیندها نظارت داشته و راهکارهای نوآورانه‌ای برای بهبود تجربه مشتریان و ارتقای کیفیت خدمات ارائه می‌دهند.",
+    linkedin: "#"
   },
-  {
-    name: "مهندس زینب عطائی",
-    role: "متخصص سئو",
-    image: imgAtaei,
-    bio: "بهینه‌سازی موتورهای جستجو و تحلیل داده‌های رشد.",
-  },
-  {
-    name: "مهندس سجاد شفاعتی",
+   {
+    name: " سجاد شفاعتی",
     role: "مدیر فروش",
     image: imgShafaati,
-    bio: "تدوین استراتژی‌های فروش B2B و ارتباط موثر با مراکز درمانی سراسر کشور.",
+    bio: "فعال در حوزه توسعه بازار تجهیزات پزشکی ، ارائه و استقرار راهکار های هوشمند پزشکی , تدوین و استراتژی های فروش B2B و تعامل موثر با مراکز درمانی و بیمارستان های سراسر کشور .",
+    linkedin: "#"
+  },
+  {
+    name: " فاطمه حیدری",
+    role: "کارشناس دیجیتال مارکتینگ",
+    image: imgHeidari,
+    bio: "با ۴ سال تجربه تخصصی در صنعت تجهیزات پزشکی، وظیفه تدوین استراتژی‌های دیجیتال و مدیریت کمپین‌های تبلیغاتی را بر عهده دارند. هدف  ارتقای هویت بصری برند و جذب مخاطبان هدفمند در فضای آنلاین است.",
+    linkedin: "#"
+  },
+  {
+    name: " زینب عطائی",
+    role: "متخصص سئو",
+    image: imgAtaei,
+    bio: "متخصص در تحلیل الگوریتم‌های جستجو و استراتژی‌های رشد ارگانیک.  با بهینه‌سازی فنی وب‌سایت و تحلیل رفتار کاربران، نقش کلیدی در افزایش رتبه سایت در موتورهای جستجو و جذب ترافیک پایدار ایفا می‌کنند.",
+    linkedin: "#"
   },
   {
     name: "میثم محب راد",
     role: "حسابدار",
     image: imgMoheb,
-    bio: "مدیریت عملیات مالی روزانه شرکت و هماهنگی بین دپارتمان‌های مختلف.",
-  },
-  {
-    name: "نفیسه نصراللهی",
-    role: "مدیر داخلی",
-    image: imgNasrollahi,
-    bio: "تحلیل داده‌های بازار و ارائه راهکارهای نوین برای بهبود تجربه مشتریان.",
+    bio: "مدیریت دقیق جریان‌های مالی روزانه و نظارت بر اسناد حسابداری.  با ایجاد هماهنگی مالی بین دپارتمان‌های مختلف و ارائه گزارش‌های تحلیلی، نقشی کلیدی در انضباط اقتصادی و شفافیت مالی مجموعه ایفا می‌کنند.",
+    linkedin: "#"
   },
 ];
 
@@ -114,30 +132,22 @@ const certificatesData = [
 >
   <Navbar />
 
-  <main
-    class="relative pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden bg-gray-50"
-  >
+  <main class="relative pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden bg-gray-50">
     <div
       class="fixed inset-0 opacity-[0.03] pointer-events-none"
-      style="background-image: url('/images/noise.svg');"
     >
     </div>
     <div
       class="fixed top-0 left-0 w-[600px] h-[600px] bg-doramed-primary/10 rounded-full blur-[100px] pointer-events-none -z-10"
     >
     </div>
-
     <HeroSection />
-
     <StatsSection />
-
     <CeoSection ceo={ceoData} />
-
     <AdminTeam team={adminTeamData} />
-
     <TechTeam team={techTeamData} />
-
     <CtaSection />
+    <HonorsSection certificates={certificatesData} />
   </main>
 
   <Footer />
@@ -247,22 +257,12 @@ const certificatesData = [
 
 <style is:global>
   @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
   @keyframes slide-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .animate-fade-in {
@@ -283,3 +283,4 @@ const certificatesData = [
     transform: translateY(0);
   }
 </style>
+

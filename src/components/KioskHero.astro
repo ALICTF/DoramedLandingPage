@@ -1,0 +1,32 @@
+---
+// src/components/KioskHero.astro
+import { Image } from "astro:assets";
+import kioskImg from "../assets/2.png"; // تصویر مدل سینا (V4)
+---
+
+<section class="relative pt-32 pb-20 bg-doramed-darker overflow-hidden">
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+      <div class="w-full lg:w-1/2 text-right">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-doramed-primary/20 text-doramed-primary text-xs font-bold mb-6 border border-doramed-primary/30">
+          تکنولوژی انحصاری دورامد - مدل سینا
+        </span>
+        <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight mb-8">
+          یک کلینیک هوشمند <br/> 
+          <span class="text-doramed-primary">در ابعاد یک کیوسک</span>
+        </h1>
+        <p class="text-doramed-gray text-lg leading-loose mb-10 text-justify">
+          کیوسک پایش سلامت دورامد، با بهره‌گیری از دقیق‌ترین سنسورهای کلینیکال و قدرت تحلیل هوش مصنوعی، 
+          بیش از ۱۲۰ پارامتر حیاتی شما را در کمتر از چند دقیقه تحلیل کرده و نقشه راه اختصاصی سلامتتان را ترسیم می‌کند.
+        </p>
+        <div class="flex gap-4">
+          <a href="#features" class="px-8 py-4 bg-doramed-primary text-white font-bold rounded-2xl hover:scale-105 transition">بررسی سنسورها</a>
+        </div>
+      </div>
+      <div class="w-full lg:w-1/2 relative">
+        <div class="absolute inset-0 bg-doramed-primary/20 blur-[120px] rounded-full"></div>
+        <Image src={kioskImg} alt="کیوسک هوشمند سینا" class="relative z-10 w-full h-auto drop-shadow-[0_35px_35px_rgba(2,62,138,0.3)]" />
+      </div>
+    </div>
+  </div>
+</section>

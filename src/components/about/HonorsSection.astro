@@ -1,0 +1,154 @@
+---
+// src/components/about/HonorsSection.astro
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Certificate {
+    title: string;
+    image: ImageMetadata;
+}
+
+interface Props {
+    certificates: Certificate[];
+}
+
+const { certificates } = Astro.props;
+---
+
+<section class="container mx-auto px-4 mb-24 relative" id="honors-section">
+    
+    <div class="text-center mb-12">
+        <span class="text-amber-600 font-bold text-xs uppercase tracking-wider bg-amber-50 px-3 py-1 rounded-full mb-3 inline-block">دستاوردها</span>
+        <h2 class="text-3xl md:text-4xl font-black text-gray-900">افتخارات و گواهینامه‌ها</h2>
+        <p class="text-gray-500 mt-4 max-w-2xl mx-auto text-sm leading-7">
+            تعهد ما به کیفیت و نوآوری، منجر به کسب استانداردها و تاییدیه های معتبر ملی و بین‌المللی شده است.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-center">
+        {certificates.map((cert) => (
+            <div class="cert-item js-cert-trigger group cursor-pointer" role="button" aria-label={`مشاهده بزرگنمایی ${cert.title}`}>
+                
+                <div class="relative bg-white p-3 rounded-2xl shadow-md border-2 border-transparent group-hover:border-doramed-primary/20 group-hover:shadow-xl transition-all duration-300 overflow-hidden aspect-[3/4]">
+                    
+                    <div class="w-full h-full bg-gray-50 rounded-xl overflow-hidden relative pointer-events-none">
+                        <Image 
+                            src={cert.image} 
+                            alt={cert.title} 
+                            width={400} 
+                            height={600} 
+                            class="js-cert-img w-full h-full object-contain mix-blend-multiply p-2 transition-transform duration-500 group-hover:scale-110" 
+                        />
+                        
+                        <div class="absolute inset-0 bg-doramed-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                            <svg class="w-10 h-10 text-white transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-75" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+
+                <h3 class="text-center mt-4 font-bold text-gray-700 text-sm group-hover:text-doramed-primary transition-colors">
+                    {cert.title}
+                </h3>
+            </div>
+        ))}
+    </div>
+
+    <div 
+        id="cert-modal" 
+        class="fixed inset-0 z-[100] hidden items-center justify-center p-4" 
+        role="dialog" 
+        aria-modal="true"
+    >
+        <div 
+            id="cert-modal-backdrop" 
+            class="fixed inset-0 bg-black/90 backdrop-blur-sm transition-opacity duration-300 opacity-0"
+        ></div>
+
+        <div 
+            id="cert-modal-content" 
+            class="relative z-10 flex flex-col items-center max-w-4xl w-full max-h-[90vh] transition-all duration-300 opacity-0 scale-95"
+        >
+            <button 
+                id="cert-modal-close" 
+                class="absolute -top-12 right-0 md:-right-12 p-2 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                aria-label="بستن"
+            >
+                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <img 
+                id="cert-modal-img" 
+                src="" 
+                alt="Certificate Large View" 
+                class="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl bg-white p-1"
+            >
+        </div>
+    </div>
+
+</section>
+
+<script>
+    document.addEventListener('astro:page-load', () => {
+        
+        const triggers = document.querySelectorAll('.js-cert-trigger');
+        const modal = document.getElementById('cert-modal');
+        const backdrop = document.getElementById('cert-modal-backdrop');
+        const modalContent = document.getElementById('cert-modal-content');
+        const modalImg = document.getElementById('cert-modal-img') as HTMLImageElement;
+        const closeBtn = document.getElementById('cert-modal-close');
+
+        if (!modal || !backdrop || !modalContent || !modalImg) return;
+
+
+        const openModal = (imgSrc: string) => {
+            modalImg.src = imgSrc;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                modalContent.classList.remove('opacity-0', 'scale-95');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden';
+        };
+
+        const closeModal = () => {
+            backdrop.classList.add('opacity-0');
+            modalContent.classList.add('opacity-0', 'scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                modalImg.src = ''; 
+                document.body.style.overflow = ''; 
+            }, 300);
+        };
+
+
+        triggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                const imgElement = trigger.querySelector('.js-cert-img') as HTMLImageElement;
+                if (imgElement && imgElement.currentSrc) {
+                    openModal(imgElement.currentSrc);
+                }
+            });
+        });
+
+        closeBtn?.addEventListener('click', closeModal);
+        
+        backdrop.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    });
+</script>

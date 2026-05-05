@@ -1,0 +1,31 @@
+---
+// src/components/KioskFeatures.astro
+const sensors = [
+  { title: "فشار خون", desc: "سنجش دقیق سیستولیک و دیاستولیک با دقت میلی‌متری", icon: "❤️" },
+  { title: "نوار قلب (ECG)", desc: "ثبت و تحلیل سیگنال‌های قلبی جهت شناسایی آریتمی", icon: "⚡" },
+  { title: "ترکیبات بدنی", desc: "آنالیز کامل شاخص توده بدنی (BMI) و بادی کامپوزیشن", icon: "⚖️" },
+  { title: "اکسیژن خون", desc: "تحلیل سطح SpO2 و ضربان قلب با تکنولوژی پالس اکسیمتری", icon: "🩸" },
+  { title: "بینایی‌سنجی", desc: "غربالگری اولیه حدت بینایی و سلامت چشم", icon: "👁️" }
+];
+---
+
+<section id="features" class="py-24 bg-doramed-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center max-w-3xl mx-auto mb-20">
+      <h2 class="text-3xl md:text-4xl font-black text-doramed-darker mb-6">سنسورهایی که نبض زندگی را می‌فهمند</h2>
+      <p class="text-doramed-muted leading-relaxed">
+        ما ۱۲۰ پارامتر حیاتی را از این ۵ حوزه استخراج کرده و برای تحلیل عمیق به هسته هوش مصنوعی ارسال می‌کنیم.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+      {sensors.map(sensor => (
+        <div class="bg-white p-8 rounded-[2.5rem] border border-doramed-white shadow-xl shadow-doramed-dark/5 hover:-translate-y-2 transition-all duration-300">
+          <div class="text-4xl mb-6">{sensor.icon}</div>
+          <h3 class="text-xl font-bold text-doramed-darker mb-4">{sensor.title}</h3>
+          <p class="text-doramed-muted text-sm leading-7">{sensor.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

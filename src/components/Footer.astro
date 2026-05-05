@@ -3,12 +3,12 @@
 
 const year = new Date().getFullYear();
 
-// تعریف داده‌ها برای تمیزی کد (Data Abstraction)
+// بروزرسانی لینک‌های دسترسی سریع با مسیرهای واقعی
 const quickLinks = [
-  { text: "صفحه اصلی", href: "#hero" },
-  { text: "محصولات", href: "#products" },
-  { text: "هوش مصنوعی", href: "#ai-health" },
-  { text: "درباره ما", href: "#about" },
+  { text: "صفحه اصلی", href: "/" },
+  { text: "محصولات", href: "/products" }, // فرض بر این است که صفحه محصولات دارید
+  { text: "وبلاگ", href: "/blog" },       // اضافه شدن لینک وبلاگ
+  { text: "درباره ما", href: "/about" },  // لینک به صفحه جدید درباره ما
 ];
 
 const socialLinks = [
@@ -30,7 +30,7 @@ const socialLinks = [
 ];
 ---
 
-<footer class="bg-doramed-darker text-doramed-gray pt-16 pb-8 border-t border-doramed-muted/20">
+<footer class="bg-doramed-darker text-doramed-gray pt-16 pb-8 border-t border-doramed-muted/20 mt-auto">
     <div class="container mx-auto px-6">
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-12 text-center md:text-right">
@@ -70,7 +70,7 @@ const socialLinks = [
                     
                     <div class="flex items-center justify-center md:justify-start gap-3">
                         <span class="text-doramed-primary shrink-0">📞</span>
-                        <a href="tel:05138334013" class="hover:text-doramed-white transition" dir="ltr">051-38334013</a>
+                        <a href="tel:05138334013" class="hover:text-doramed-white transition" dir="ltr">051-91001115</a>
                     </div>
                     
                     <div class="flex items-center justify-center md:justify-start gap-3">

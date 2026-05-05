@@ -3,8 +3,6 @@
 import { Image } from "astro:assets";
 import drImage from "../assets/dr2.jpg";
 
-// اگر عکس کاور نقشه داری، اینجا ایمپورت کن. فعلا من با CSS هندل کردم
-// import mapCover from "../assets/map-cover.jpg";
 ---
 
 <section id="about" class="py-24 bg-doramed-white relative overflow-hidden">
@@ -174,14 +172,12 @@ import drImage from "../assets/dr2.jpg";
   const mapContainer = document.getElementById("map-container");
   const placeholder = document.getElementById("map-placeholder");
   
-  // لینک نقشه رو اینجا نگه میداریم، اما تا کلیک نشه تو DOM نمیزاریمش
   const iframeSrc =
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3215.394967385966!2d59.53032737648437!3d36.30275897239396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f6c92476b797207%3A0x6291612e4f5091c6!2sMashhad%20Innovation%20Factory!5e0!3m2!1sen!2s!4v1709635000000!5m2!1sen!2s";
 
   function loadMap() {
     if (!mapContainer) return;
 
-    // ساختن المنت iframe
     const iframe = document.createElement("iframe");
     iframe.setAttribute("src", iframeSrc);
     iframe.setAttribute("width", "100%");
@@ -193,7 +189,6 @@ import drImage from "../assets/dr2.jpg";
     iframe.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
     iframe.classList.add("w-full", "h-full", "animate-fade-in");
 
-    // حذف placeholder و اضافه کردن iframe
     if (placeholder) {
       placeholder.style.opacity = "0";
       setTimeout(() => {
@@ -203,7 +198,6 @@ import drImage from "../assets/dr2.jpg";
     }
   }
 
-  // لیسنر برای کلیک
   if (placeholder) {
     placeholder.addEventListener("click", loadMap);
   }

@@ -14,6 +14,7 @@ const isActive = (href: string) => {
 const navLinks = [
     { text: "خانه", href: "/" },
     { text: "وبلاگ", href: "/blog" },
+    { text: "کیوسک پایش سلامت", href: "/kiosk" },
     { text: "درباره ما", href: "/about" }, // <-- لینک جدید
 ];
 
@@ -34,7 +35,7 @@ const socialLinks = [
     },
     { 
         name: 'تماس', 
-        href: 'tel:05138334013', 
+        href: 'tel:05191001115', 
         icon: 'phone', 
         color: 'hover:bg-green-500', 
         shadow: 'hover:shadow-green-500/40' 
@@ -216,22 +217,17 @@ const socialLinks = [
             toggleMenu();
         };
 
-        // 2. کلیک بیرون از منو (بستن)
         const closeOnClickOutside = (e) => {
-            // اگر منو باز بود و کلیک خارج از منو و دکمه بود
             if (!menu.classList.contains('hidden') && !menu.contains(e.target) && !btn.contains(e.target)) {
-                toggleMenu(true); // بستن اجباری
+                toggleMenu(true); 
             }
         };
         document.addEventListener('click', closeOnClickOutside);
 
-        // 3. کلیک روی لینک‌های داخل منو (برای بستن منو پس از کلیک)
         menu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => toggleMenu(true));
         });
     }
 
-    // اجرای تابع با ایونت مخصوص Astro
-    // این ایونت هم در لود اولیه و هم بعد از هر تغییر صفحه اجرا می‌شود
     document.addEventListener('astro:page-load', initMobileMenu);
 </script>

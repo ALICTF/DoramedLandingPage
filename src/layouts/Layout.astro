@@ -105,7 +105,6 @@ const jsonLd = type === 'article' ? [organizationSchema, articleSchema] : [organ
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#0D1B2A" />
-
     <title>{title} | {siteName}</title>
     <meta name="title" content={`${title} | ${siteName}`} />
     <meta name="description" content={description} />
@@ -120,14 +119,12 @@ const jsonLd = type === 'article' ? [organizationSchema, articleSchema] : [organ
     <meta property="og:image" content={new URL(image, siteUrl)} />
     <meta property="og:locale" content="fa_IR" />
     <meta property="og:site_name" content={siteName} />
-
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, siteUrl)} />
-
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <!-- <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
       href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
       rel="stylesheet"
@@ -144,7 +141,7 @@ const jsonLd = type === 'article' ? [organizationSchema, articleSchema] : [organ
         y = l.getElementsByTagName(r)[0];
         y.parentNode.insertBefore(t, y);
       })(window, document, "clarity", "script", "ubjze9x2rd");
-    </script>
+    </script> -->
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 

@@ -1,0 +1,39 @@
+---
+// src/components/KioskSpecifications.astro
+const outputs = [
+  { title: "تحلیل یک‌به‌یک", desc: "تفسیر کامل تمام گزارش‌های پزشکی به زبان ساده" },
+  { title: "برنامه غذایی", desc: "ارائه ۵ گزینه متنوع برای هر وعده متناسب با بدن شما" },
+  { title: "برنامه تمرینی", desc: "طراحی تمرینات روزانه بر اساس محدودیت‌های حرکتی" },
+  { title: "مکمل‌های ورزشی", desc: "پیشنهاد مکمل‌های مجاز متناسب با نیازهای فیزیولوژیک" }
+];
+---
+
+<section class="py-24 bg-white relative">
+  <div class="container mx-auto px-6">
+    <div class="bg-doramed-darker rounded-[3rem] p-12 lg:p-20 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(2,62,138,0.1),transparent)]"></div>
+      
+      <div class="relative z-10 flex flex-col lg:flex-row gap-16 items-center">
+        <div class="w-full lg:w-1/2">
+          <h2 class="text-3xl lg:text-4xl font-black text-white mb-8">پرونده سلامت شما؛ <br/> فراتر از یک کاغذ معمولی</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            {outputs.map(item => (
+              <div>
+                <h4 class="text-doramed-primary font-bold text-lg mb-2">{item.title}</h4>
+                <p class="text-doramed-gray text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="w-full lg:w-1/2">
+          <div class="aspect-square bg-white/5 rounded-full border border-white/10 flex items-center justify-center p-10 animate-float">
+             <div class="text-center">
+                <span class="text-6xl font-black text-white tracking-tighter">120+</span>
+                <p class="text-doramed-primary font-bold mt-2">پارامتر تحلیلی</p>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
