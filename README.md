@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🏥 Doramed Health Kiosk Portal</h1>
+  <h1> Doramed Health Kiosk Portal</h1>
   <h3>Enterprise Astro Architecture for AI-Powered Medical Kiosks</h3>
   <p>The official corporate and product showcase platform for Doramed's advanced Health Monitoring Kiosks. Built with <b>Astro 5</b>, <b>React 19</b>, and <b>Tailwind CSS</b> to deliver clinical-grade performance, SEO optimization, and a premium user experience.</p>
   
@@ -43,24 +43,4 @@ The project is strictly broken down into highly reusable components[cite: 27, 28
 
 ---
 
-## 📂 Project Structure
 
-```text
-/
-├── public/                 # Static assets (fonts, global styles)
-├── src/
-│   ├── assets/             # Optimized images and medical certificates
-│   ├── components/         # Reusable UI modules
-│   │   ├── AIProcess.astro # AI data pipeline explanation
-│   │   ├── KioskTimeLine.astro # Product evolution history
-│   │   ├── ReportPopup.astro # Interactive medical report preview
-│   │   └── about/          # Sub-components for the About page (Team, CEO, Stats)
-│   ├── layouts/
-│   │   └── Layout.astro    # Master layout wrapper with global SEO headers
-│   └── pages/
-│       ├── index.astro     # Main portal entry
-│       ├── kiosk.astro     # Deep-dive product specifications page
-│       ├── about.astro     # Corporate team and certificates
-│       └── 404.astro       # Custom interactive error page
-├── tailwind.config.js      # Custom theme colors (Doramed specific palette)
-└── tsconfig.json           # Strict TypeScript/React-JSX rules
