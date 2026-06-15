@@ -1,0 +1,51 @@
+---
+// src/components/kiosk/shared/KioskFeatures.astro
+interface Feature {
+  icon: string;
+  title: string;
+  desc?: string;
+}
+interface Props {
+  eyebrow: string;
+  title: string;
+  titleAccent: string;
+  description: string;
+  features: Feature[];
+}
+const { eyebrow, title, titleAccent, description, features } = Astro.props;
+---
+
+<section id="features" class="py-20 lg:py-32 bg-doramed-dark relative border-y border-doramed-muted/20 overflow-hidden scroll-mt-24">
+
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="inline-block py-1 px-3 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-bold border border-cyan-500/20 mb-4">
+                {eyebrow}
+            </span>
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-6">
+                {title} <span class="text-doramed-primary">{titleAccent}</span>
+            </h2>
+            <p class="text-doramed-gray text-lg leading-relaxed">
+                {description}
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+            {features.map(feat => (
+                <div class="group bg-doramed-darker/60 backdrop-blur-xl border border-doramed-muted/30 p-6 md:p-8 rounded-[2rem] hover:border-doramed-primary/40 hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 blur-2xl rounded-full pointer-events-none group-hover:bg-cyan-500/15 transition-all duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition-transform">
+                            {feat.icon}
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">{feat.title}</h3>
+                        {feat.desc && <p class="text-doramed-gray text-sm leading-relaxed">{feat.desc}</p>}
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,40 @@
+---
+// src/components/kiosk/shared/KioskSteps.astro
+interface Step {
+  title: string;
+  desc: string;
+}
+interface Props {
+  eyebrow: string;
+  title: string;
+  titleAccent: string;
+  steps: Step[];
+}
+const { eyebrow, title, titleAccent, steps } = Astro.props;
+---
+
+<section class="py-20 lg:py-32 bg-doramed-dark border-y border-doramed-muted/20 relative overflow-hidden">
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="inline-block py-1 px-3 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-bold border border-cyan-500/20 mb-4">
+                {eyebrow}
+            </span>
+            <h2 class="text-3xl md:text-4xl font-black text-white">
+                {title} <span class="text-doramed-primary">{titleAccent}</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            <div class="hidden lg:block absolute top-10 right-[12%] left-[12%] h-px bg-gradient-to-l from-transparent via-doramed-muted/40 to-transparent pointer-events-none"></div>
+            {steps.map((step, i) => (
+                <div class="relative z-10 text-center group">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-3xl bg-doramed-darker border border-doramed-muted/40 flex items-center justify-center text-2xl font-black text-transparent bg-clip-text bg-gradient-to-l from-cyan-400 to-doramed-primary group-hover:border-doramed-primary/50 group-hover:-translate-y-1 transition-all duration-300 shadow-xl">
+                        {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">{step.title}</h3>
+                    <p class="text-doramed-gray text-sm leading-relaxed px-2">{step.desc}</p>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,90 @@
+---
+// src/components/kiosk/clinic-pro/ClinicFAQ.astro
+// سوالات متداول - آکاردئون
+import { Icon } from "astro-icon/components";
+
+const faqs = [
+    { q: "نصب و راه‌اندازی کیوسک چقدر طول می‌کشد؟", a: "پس از نهایی شدن سفارش، کیوسک آماده‌سازی و در محل مرکز درمانی شما نصب و پیکربندی می‌شود. آموزش کامل کار با دستگاه به کادر مرکز ارائه می‌گردد." },
+    { q: "هزینه استفاده از Clinic Pro چقدر است؟", a: "قیمت متناسب با نوع مرکز، تعداد تست‌ها و حجم مراجعین شماست. برای دریافت پیشنهاد اختصاصی و مشاوره با واحد فروش دورامد تماس بگیرید." },
+    { q: "آیا کیوسک به اپراتور نیاز دارد؟", a: "بله. انجام تست‌ها با حضور یک اپراتور آموزش‌دیده انجام می‌شود تا فرآیند برای هر بیمار دقیق، ایمن و راحت باشد. آموزش کامل کار با دستگاه به کادر مرکز ارائه می‌شود." },
+    { q: "آیا با سیستم پرونده الکترونیک مرکز یکپارچه می‌شود؟", a: "بله. امکان یکپارچه‌سازی با سیستم مرکز درمانی و پرونده الکترونیک سلامت (EHR) از طریق API فراهم است." },
+    { q: "چه تست‌هایی روی دستگاه قابل انجام است؟", a: "فشار خون، نوار قلب (ECG)، اکسیژن خون (SpO2)، آنالیز ترکیب بدن، بینایی‌سنجی، تشخیص آپنه خواب و سایر شاخص‌های حیاتی؛ با قابلیت افزودن تست‌های جدید." },
+    { q: "گزارش‌ها چگونه در اختیار پزشک قرار می‌گیرد؟", a: "گزارش هوشمند پیش از ویزیت به‌صورت دیجیتال در پرونده بیمار و قابل چاپ به‌صورت PDF در اختیار پزشک قرار می‌گیرد." },
+];
+---
+
+<section class="py-14 lg:py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-doramed-primary/8 text-doramed-primary text-sm font-bold mb-5">
+                <Icon name="lucide:help-circle" class="w-4 h-4" />
+                سوالات متداول
+            </span>
+            <h2 class="text-2xl md:text-4xl font-black text-slate-800">
+                هر آنچه باید <span class="text-doramed-primary">بدانید</span>
+            </h2>
+        </div>
+
+        <div class="faq-accordion max-w-3xl mx-auto space-y-2.5">
+            {faqs.map(faq => (
+                <div class="faq-item bg-slate-50 rounded-2xl border border-slate-100 shadow-[0_4px_15px_rgba(15,27,42,0.04)] overflow-hidden transition-colors duration-300 hover:border-doramed-primary/20">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 p-4 cursor-pointer text-right select-none" aria-expanded="false">
+                        <span class="font-black text-slate-800 text-sm md:text-base">{faq.q}</span>
+                        <span class="faq-icon w-8 h-8 shrink-0 rounded-full bg-doramed-primary/8 flex items-center justify-center text-doramed-primary transition-all duration-300">
+                            <Icon name="lucide:chevron-down" class="w-5 h-5 transition-transform duration-300" />
+                        </span>
+                    </button>
+                    <div class="faq-panel grid grid-rows-[0fr] transition-all duration-300 ease-out">
+                        <div class="overflow-hidden">
+                            <p class="text-slate-500 text-sm leading-loose text-right px-4 pb-4">{faq.a}</p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>
+
+<script>
+    function initFaqAccordion() {
+        document.querySelectorAll<HTMLElement>(".faq-accordion").forEach(acc => {
+            const items = acc.querySelectorAll<HTMLElement>(".faq-item");
+            items.forEach(item => {
+                const trigger = item.querySelector<HTMLButtonElement>(".faq-trigger");
+                const panel = item.querySelector<HTMLElement>(".faq-panel");
+                const icon = item.querySelector<HTMLElement>(".faq-icon");
+                if (!trigger || !panel || !icon) return;
+
+                trigger.addEventListener("click", () => {
+                    const isOpen = panel.classList.contains("grid-rows-[1fr]");
+
+                    items.forEach(other => {
+                        const p = other.querySelector<HTMLElement>(".faq-panel");
+                        const t = other.querySelector<HTMLButtonElement>(".faq-trigger");
+                        const ic = other.querySelector<HTMLElement>(".faq-icon");
+                        const cv = ic?.querySelector("svg");
+                        p?.classList.remove("grid-rows-[1fr]");
+                        p?.classList.add("grid-rows-[0fr]");
+                        t?.setAttribute("aria-expanded", "false");
+                        ic?.classList.remove("bg-doramed-primary", "text-white");
+                        ic?.classList.add("bg-doramed-primary/8", "text-doramed-primary");
+                        cv?.classList.remove("rotate-180");
+                    });
+
+                    if (!isOpen) {
+                        panel.classList.remove("grid-rows-[0fr]");
+                        panel.classList.add("grid-rows-[1fr]");
+                        trigger.setAttribute("aria-expanded", "true");
+                        icon.classList.remove("bg-doramed-primary/8", "text-doramed-primary");
+                        icon.classList.add("bg-doramed-primary", "text-white");
+                        icon.querySelector("svg")?.classList.add("rotate-180");
+                    }
+                });
+            });
+        });
+    }
+
+    document.addEventListener("astro:page-load", initFaqAccordion);
+</script>

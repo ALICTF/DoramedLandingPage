@@ -58,7 +58,7 @@ const steps: ProcessStep[] = [
 
 <section id="ai-health" class="py-32 bg-doramed-darker text-doramed-white relative overflow-hidden">
     
-    <div class="absolute inset-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 z-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute inset-0 w-full h-full bg-noise opacity-20 z-0 pointer-events-none" aria-hidden="true"></div>
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none" aria-hidden="true">
         <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-doramed-primary/20 rounded-full blur-[120px] animate-pulse-slow"></div>
         <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[150px] animate-pulse-slow" style="animation-delay: 2s;"></div>
@@ -118,7 +118,7 @@ const steps: ProcessStep[] = [
         <div class="mt-24 text-center">
             <a href="http://kiosk.doramed.ir/subusers/login" target="_blank" class="relative inline-flex group" aria-label="ورود به سامانه هوشمند پزشکی">
                 <div class="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
-                <button class="relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-doramed-darker font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 gap-3">
+                <button class="relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-doramed-darker rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 gap-3">
                     ورود به آینده پزشکی
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 group-hover:translate-x-1 transition-transform">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -167,5 +167,24 @@ const steps: ProcessStep[] = [
 
     .perspective-1000 {
         perspective: 1000px;
+    }
+
+    /* The "thinking brain" card's rotating sheen. */
+    @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+        animation: spin-slow 12s linear infinite;
+    }
+
+    /* Subtle wobble on the CTA glow. */
+    @keyframes tilt {
+        0%, 50%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(0.8deg); }
+        75% { transform: rotate(-0.8deg); }
+    }
+    .animate-tilt {
+        animation: tilt 8s ease-in-out infinite;
     }
 </style>

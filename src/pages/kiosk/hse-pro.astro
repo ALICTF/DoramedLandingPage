@@ -1,0 +1,82 @@
+---
+// src/pages/kiosk/hse-pro.astro
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+
+// کامپوننت‌های اختصاصی HSE Pro (تم روشن)
+import HseHero from "../../components/kiosk/hse-pro/HseHero.astro";
+import HseLogos from "../../components/kiosk/hse-pro/HseLogos.astro";
+import HseWhy from "../../components/kiosk/hse-pro/HseWhy.astro";
+import HseFeatures from "../../components/kiosk/hse-pro/HseFeatures.astro";
+import HseAI from "../../components/kiosk/hse-pro/HseAI.astro";
+import HseHowItWorks from "../../components/kiosk/hse-pro/HseHowItWorks.astro";
+import HseTarget from "../../components/kiosk/hse-pro/HseTarget.astro";
+import HseScenarios from "../../components/kiosk/hse-pro/HseScenarios.astro";
+import HseOutputs from "../../components/kiosk/hse-pro/HseOutputs.astro";
+import HseTestimonials from "../../components/kiosk/hse-pro/HseTestimonials.astro";
+import KioskShowcase from "../../components/kiosk/shared/KioskShowcase.astro";
+import kioskHseImg from "../../assets/kiosk/kiosk-hse-white.png";
+import HseCases from "../../components/kiosk/hse-pro/HseCases.astro";
+import KioskIndustries from "../../components/kiosk/shared/KioskIndustries.astro";
+import KioskDashboards from "../../components/kiosk/shared/KioskDashboards.astro";
+import HseFAQ from "../../components/kiosk/hse-pro/HseFAQ.astro";
+import HseCTA from "../../components/kiosk/hse-pro/HseCTA.astro";
+import HseStickyCTA from "../../components/kiosk/hse-pro/HseStickyCTA.astro";
+import HseReveal from "../../components/kiosk/hse-pro/HseReveal.astro";
+
+const pageTitle = "HSE Pro | کیوسک هوشمند پایش سلامت کارکنان و صنایع - دورامد";
+const pageDescription = "کیوسک هوشمند پایش سلامت دورامد، راهکاری جامع برای غربالگری سریع، پایش سلامت شغلی، معاینات دوره‌ای و مدیریت داده‌محور سلامت کارکنان در محیط‌های صنعتی و سازمانی.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Navbar />
+
+  <main class="bg-white text-slate-800 overflow-hidden pt-20">
+
+    <HseHero />
+
+    <HseLogos />
+
+    <div class="reveal-on-scroll"><HseWhy /></div>
+
+    <div class="reveal-on-scroll"><HseFeatures /></div>
+
+    <div class="reveal-on-scroll">
+      <KioskShowcase
+        image={kioskHseImg}
+        title="کیوسک HSE Pro از نزدیک"
+        description="یک ایستگاه سلامت شغلی یکپارچه و تمام‌فارسی که شش تست حیاتی، تحلیل هوش مصنوعی و پرونده سلامت کارکنان را در یک دستگاه گرد هم می‌آورد."
+        bg="slate"
+      />
+    </div>
+
+    <div class="reveal-on-scroll"><HseAI /></div>
+
+    <div class="reveal-on-scroll"><HseHowItWorks /></div>
+
+    <div class="reveal-on-scroll"><HseTarget /></div>
+
+    <div class="reveal-on-scroll"><HseScenarios /></div>
+
+    <div class="reveal-on-scroll"><HseOutputs /></div>
+
+    <div class="reveal-on-scroll"><HseTestimonials /></div>
+
+    <div class="reveal-on-scroll"><HseCases /></div>
+
+    <div class="reveal-on-scroll"><KioskIndustries bg="slate" /></div>
+
+    <div class="reveal-on-scroll"><KioskDashboards bg="white" /></div>
+
+    <div class="reveal-on-scroll"><HseFAQ /></div>
+
+    <div class="reveal-on-scroll"><HseCTA /></div>
+
+  </main>
+
+  <Footer />
+
+  <HseStickyCTA />
+  <HseReveal />
+</Layout>

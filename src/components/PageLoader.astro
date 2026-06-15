@@ -99,27 +99,17 @@ import logoImg from "../assets/logo.png";
 </style>
 
 <script>
+  // Registered once at module scope (these listeners persist across view
+  // transitions, so re-adding them on every astro:page-load would leak).
+  const getLoader = () => document.getElementById("page-loader");
+
+  // Show the loader while the next page is being prepared...
+  document.addEventListener("astro:before-preparation", () => {
+    getLoader()?.classList.remove("opacity-0", "pointer-events-none");
+  });
+
+  // ...and hide it once the new page is ready (also runs on first load).
   document.addEventListener("astro:page-load", () => {
-    const loader = document.getElementById("page-loader");
-
-    const showLoader = () => {
-      if (loader) {
-        loader.classList.remove("opacity-0", "pointer-events-none");
-      }
-    };
-
-    const hideLoader = () => {
-      if (loader) {
-        loader.classList.add("opacity-0", "pointer-events-none");
-      }
-    };
-
-    document.addEventListener("astro:before-preparation", () => {
-      showLoader();
-    });
-
-    document.addEventListener("astro:after-swap", () => {});
-
-    hideLoader();
+    getLoader()?.classList.add("opacity-0", "pointer-events-none");
   });
 </script>

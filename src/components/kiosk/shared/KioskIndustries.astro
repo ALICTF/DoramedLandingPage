@@ -1,0 +1,144 @@
+---
+// src/components/kiosk/shared/KioskIndustries.astro
+// تب‌بندی صنایع - یک محصول، سه کاربرد (مشترک بین هر سه صفحه)
+import { Icon } from "astro-icon/components";
+
+// صفحه‌ی فعلی را می‌گیریم تا تب مربوطه پیش‌فرض فعال باشد
+const path = Astro.url.pathname;
+
+const industries = [
+    {
+        id: "fitness",
+        tab: "باشگاه و تناسب اندام",
+        icon: "lucide:dumbbell",
+        href: "/kiosk/fitness-ai",
+        title: "Fitness AI",
+        desc: "آنالیز ترکیب بدن و آمادگی جسمانی ورزشکاران، به‌همراه برنامه تمرین، تغذیه و مکمل هوشمند برای جذب و نگه‌داشت اعضای باشگاه.",
+        points: ["آنالیز دقیق ترکیب بدن", "برنامه تمرین و تغذیه AI", "پایش پیشرفت ورزشکار"],
+    },
+    {
+        id: "clinic",
+        tab: "کلینیک و بیمارستان",
+        icon: "lucide:stethoscope",
+        href: "/kiosk/clinic-pro",
+        title: "Clinic Pro",
+        desc: "پذیرش هوشمند و ثبت خودکار علائم حیاتی بیماران پیش از ویزیت، با پرونده الکترونیک سلامت و گزارش هوشمند برای کادر درمان.",
+        points: ["پذیرش و تریاژ هوشمند", "پرونده الکترونیک سلامت", "گزارش پیش از ویزیت"],
+    },
+    {
+        id: "hse",
+        tab: "صنایع و سازمان‌ها",
+        icon: "lucide:hard-hat",
+        href: "/kiosk/hse-pro",
+        title: "HSE Pro",
+        desc: "غربالگری سلامت شغلی کارکنان، پایش پیش از شیفت و مدیریت داده‌محور سلامت در صنایع و سازمان‌ها برای کاهش ریسک و حوادث.",
+        points: ["غربالگری سلامت شغلی", "پایش پیش از شیفت", "داشبورد مدیریتی HSE"],
+    },
+];
+
+const activeIndex = Math.max(
+    0,
+    industries.findIndex((i) => path.includes(i.href))
+);
+
+const { bg = "white" } = Astro.props as { bg?: "white" | "slate" };
+const sectionBg = bg === "slate" ? "bg-slate-50" : "bg-white";
+---
+
+<section class={`py-16 lg:py-24 ${sectionBg}`}>
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <div class="text-center max-w-2xl mx-auto mb-10 md:mb-12">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-doramed-primary/8 text-doramed-primary text-sm font-bold mb-5">
+                <Icon name="lucide:layers" class="w-4 h-4" />
+                یک محصول، چند کاربرد
+            </span>
+            <h2 class="text-2xl md:text-4xl font-black text-slate-800">
+                کیوسک پایش سلامت دورامد برای <span class="text-doramed-primary">هر صنعت</span>
+            </h2>
+        </div>
+
+        <!-- تب‌ها -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8" id="ind-tabs">
+            {industries.map((ind, i) => (
+                <button
+                    data-ind-tab={i}
+                    class:list={[
+                        "inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-black transition-all",
+                        i === activeIndex
+                            ? "bg-doramed-primary text-white shadow-lg shadow-doramed-primary/30"
+                            : "bg-slate-100 text-slate-500 hover:bg-slate-200",
+                    ]}
+                >
+                    <Icon name={ind.icon} class="w-4 h-4" />
+                    {ind.tab}
+                </button>
+            ))}
+        </div>
+
+        <!-- پنل‌ها -->
+        <div class="max-w-4xl mx-auto">
+            {industries.map((ind, i) => (
+                <div
+                    data-ind-panel={i}
+                    class:list={[
+                        "bg-slate-50 rounded-[2rem] border border-slate-100 p-7 md:p-10",
+                        i === activeIndex ? "" : "hidden",
+                    ]}
+                >
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="w-24 h-24 shrink-0 rounded-3xl bg-doramed-primary/10 flex items-center justify-center text-doramed-primary">
+                            <Icon name={ind.icon} class="w-12 h-12" />
+                        </div>
+                        <div class="text-center md:text-right flex-1">
+                            <h3 class="text-2xl font-black text-doramed-primary mb-3">{ind.title}</h3>
+                            <p class="text-slate-500 text-sm md:text-base leading-loose mb-5">{ind.desc}</p>
+                            <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-6">
+                                {ind.points.map(p => (
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 text-xs font-bold">
+                                        <Icon name="lucide:check" class="w-3.5 h-3.5 text-doramed-primary" />
+                                        {p}
+                                    </span>
+                                ))}
+                            </div>
+                            <a href={ind.href} class="inline-flex items-center gap-2 px-6 py-3 bg-doramed-primary hover:bg-doramed-dark text-white font-black rounded-xl transition-colors text-sm active:scale-95">
+                                مشاهده صفحه {ind.title}
+                                <Icon name="lucide:arrow-left" class="w-4 h-4" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>
+
+<script>
+    function initKioskIndustries() {
+        const tabs = document.querySelectorAll("[data-ind-tab]");
+        const panels = document.querySelectorAll("[data-ind-panel]");
+        if (!tabs.length) return;
+
+        tabs.forEach((tab) => {
+            tab.addEventListener("click", () => {
+                const idx = tab.getAttribute("data-ind-tab");
+
+                tabs.forEach((t) => {
+                    const active = t.getAttribute("data-ind-tab") === idx;
+                    t.classList.toggle("bg-doramed-primary", active);
+                    t.classList.toggle("text-white", active);
+                    t.classList.toggle("shadow-lg", active);
+                    t.classList.toggle("shadow-doramed-primary/30", active);
+                    t.classList.toggle("bg-slate-100", !active);
+                    t.classList.toggle("text-slate-500", !active);
+                });
+
+                panels.forEach((p) => {
+                    p.classList.toggle("hidden", p.getAttribute("data-ind-panel") !== idx);
+                });
+            });
+        });
+    }
+    document.addEventListener("astro:page-load", initKioskIndustries);
+</script>

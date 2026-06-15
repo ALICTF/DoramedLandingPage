@@ -61,26 +61,32 @@
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    const SEEN_KEY = 'doramed-report-popup-seen';
+
+    function initReportPopup() {
+        // Only ever surface this once per browser session — don't nag on every
+        // page view / view-transition navigation.
+        if (sessionStorage.getItem(SEEN_KEY)) return;
+
         const popup = document.getElementById('report-popup');
         const backdrop = document.getElementById('popup-backdrop');
         const content = document.getElementById('popup-content');
         const closeBtn = document.getElementById('close-popup');
         const secCloseBtn = document.getElementById('secondary-close');
+        if (!popup || !backdrop || !content) return;
 
         const showPopup = () => {
-            if (!popup || !backdrop || !content) return;
+            sessionStorage.setItem(SEEN_KEY, '1');
             popup.classList.remove('hidden');
             popup.classList.add('flex');
-            setTimeout(() => {
+            requestAnimationFrame(() => {
                 backdrop.classList.remove('opacity-0');
                 content.classList.remove('scale-90', 'translate-y-8', 'opacity-0');
                 content.classList.add('scale-100', 'translate-y-0', 'opacity-100');
-            }, 50);
+            });
         };
 
         const hidePopup = () => {
-            if (!popup || !backdrop || !content) return;
             backdrop.classList.add('opacity-0');
             content.classList.remove('scale-100', 'translate-y-0', 'opacity-100');
             content.classList.add('scale-90', 'translate-y-8', 'opacity-0');
@@ -90,10 +96,14 @@
             }, 700);
         };
 
-        setTimeout(showPopup, 1500);
+        const timer = setTimeout(showPopup, 1500);
 
         closeBtn?.addEventListener('click', hidePopup);
         secCloseBtn?.addEventListener('click', hidePopup);
-        backdrop?.addEventListener('click', hidePopup);
-    });
+        backdrop.addEventListener('click', hidePopup);
+        // If the visitor navigates away before it appears, cancel it.
+        document.addEventListener('astro:before-preparation', () => clearTimeout(timer), { once: true });
+    }
+
+    document.addEventListener('astro:page-load', initReportPopup);
 </script>

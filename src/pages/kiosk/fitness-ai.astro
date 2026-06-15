@@ -1,0 +1,71 @@
+---
+// src/pages/kiosk/fitness-ai.astro
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+
+// کامپوننت‌های اختصاصی Fitness AI (تم روشن)
+import FitnessHero from "../../components/kiosk/fitness-ai/FitnessHero.astro";
+import FitnessLogos from "../../components/kiosk/fitness-ai/FitnessLogos.astro";
+import FitnessWhy from "../../components/kiosk/fitness-ai/FitnessWhy.astro";
+import FitnessFeatures from "../../components/kiosk/fitness-ai/FitnessFeatures.astro";
+import FitnessAI from "../../components/kiosk/fitness-ai/FitnessAI.astro";
+import FitnessHowItWorks from "../../components/kiosk/fitness-ai/FitnessHowItWorks.astro";
+import FitnessTarget from "../../components/kiosk/fitness-ai/FitnessTarget.astro";
+import FitnessTestimonials from "../../components/kiosk/fitness-ai/FitnessTestimonials.astro";
+import KioskShowcase from "../../components/kiosk/shared/KioskShowcase.astro";
+import KioskIndustries from "../../components/kiosk/shared/KioskIndustries.astro";
+import KioskDashboards from "../../components/kiosk/shared/KioskDashboards.astro";
+import kioskFitnessImg from "../../assets/kiosk/kiosk-hse-white.png";
+import FitnessFAQ from "../../components/kiosk/fitness-ai/FitnessFAQ.astro";
+import FitnessStickyCTA from "../../components/kiosk/fitness-ai/FitnessStickyCTA.astro";
+import FitnessReveal from "../../components/kiosk/fitness-ai/FitnessReveal.astro";
+
+const pageTitle = "Fitness AI | کیوسک هوشمند آنالیز بدن و تناسب اندام باشگاه‌ها - دورامد";
+const pageDescription =
+  "کیوسک هوشمند Fitness AI دورامد؛ آنالیز ترکیب بدن، سنجش آمادگی جسمانی و برنامه تمرینی و تغذیه‌ای شخصی‌سازی شده با هوش مصنوعی برای باشگاه‌ها و مراکز تناسب اندام.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Navbar />
+
+  <main class="bg-white text-slate-800 overflow-hidden pt-20">
+
+    <FitnessHero />
+
+    <FitnessLogos />
+
+    <div class="reveal-on-scroll"><FitnessWhy /></div>
+
+    <div class="reveal-on-scroll"><FitnessFeatures /></div>
+
+    <div class="reveal-on-scroll">
+      <KioskShowcase
+        image={kioskFitnessImg}
+        title="کیوسک Fitness AI از نزدیک"
+        description="یک ایستگاه سلامت هوشمند و تمام‌فارسی که شش تست بدنی، تحلیل هوش مصنوعی و پرونده دیجیتال ورزشکار را در یک دستگاه گرد هم می‌آورد."
+        bg="white"
+      />
+    </div>
+
+    <div class="reveal-on-scroll"><FitnessAI /></div>
+
+    <div class="reveal-on-scroll"><FitnessHowItWorks /></div>
+
+    <div class="reveal-on-scroll"><FitnessTarget /></div>
+
+    <div class="reveal-on-scroll"><FitnessTestimonials /></div>
+
+    <div class="reveal-on-scroll"><KioskIndustries bg="slate" /></div>
+
+    <div class="reveal-on-scroll"><KioskDashboards bg="white" /></div>
+
+    <div class="reveal-on-scroll"><FitnessFAQ /></div>
+
+  </main>
+
+  <Footer />
+
+  <FitnessStickyCTA />
+  <FitnessReveal />
+</Layout>

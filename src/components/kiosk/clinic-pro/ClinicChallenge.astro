@@ -1,0 +1,47 @@
+---
+// src/components/kiosk/clinic-pro/ClinicChallenge.astro
+// چالش در مقابل راه‌حل
+import { Icon } from "astro-icon/components";
+---
+
+<section class="py-12 lg:py-16 bg-slate-50">
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-4 items-center max-w-6xl mx-auto">
+
+            <!-- کارت راه‌حل (چپ) -->
+            <div class="bg-white rounded-3xl p-8 border border-doramed-primary/10 shadow-[0_10px_30px_rgba(2,62,138,0.06)] order-3 text-right">
+                <div class="flex items-center gap-3 mb-4 justify-end">
+                    <h3 class="text-xl font-black text-doramed-primary">راه‌حل: Clinic Pro</h3>
+                    <span class="w-10 h-10 rounded-xl bg-doramed-primary/10 flex items-center justify-center text-doramed-primary shrink-0">
+                        <Icon name="lucide:circle-check-big" class="w-6 h-6" />
+                    </span>
+                </div>
+                <p class="text-slate-500 text-sm md:text-base leading-loose">
+                    پذیرش هوشمند، جمع‌آوری خودکار داده‌های سلامت، یکپارچه‌سازی با سیستم مرکز درمانی و ارائه گزارش‌های دقیق برای تصمیم‌گیری بهتر و تجربه‌ای حرفه‌ای برای بیمار.
+                </p>
+            </div>
+
+            <!-- فلش وسط -->
+            <div class="flex items-center justify-center order-1 lg:order-2 lg:px-2">
+                <span class="w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-doramed-primary rotate-90 lg:rotate-0">
+                    <Icon name="lucide:arrow-left" class="w-6 h-6" />
+                </span>
+            </div>
+
+            <!-- کارت چالش (راست) -->
+            <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-[0_10px_30px_rgba(15,27,42,0.05)] order-2 lg:order-1 text-right">
+                <div class="flex items-center gap-3 mb-4 justify-end">
+                    <h3 class="text-xl font-black text-slate-800">چالش امروز مراکز درمانی</h3>
+                    <span class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-500 shrink-0">
+                        <Icon name="lucide:triangle-alert" class="w-6 h-6" />
+                    </span>
+                </div>
+                <p class="text-slate-500 text-sm md:text-base leading-loose">
+                    پذیرش بیماران به روش‌های سنتی، وقت‌گیر، پراکنده و مستعد خطاست. داده‌ها در سیستم‌های مختلف ثبت می‌شوند و دسترسی به اطلاعات چه برای پزشک و چه برای مدیریت دشوار است.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>

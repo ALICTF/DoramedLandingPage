@@ -1,0 +1,42 @@
+---
+// src/components/kiosk/shared/KioskAudience.astro
+interface Item {
+  icon: string;
+  title: string;
+  desc: string;
+}
+interface Props {
+  eyebrow: string;
+  title: string;
+  titleAccent: string;
+  items: Item[];
+}
+const { eyebrow, title, titleAccent, items } = Astro.props;
+---
+
+<section class="py-20 lg:py-32 bg-doramed-darker relative overflow-hidden">
+    <div class="absolute top-1/4 right-0 w-[500px] h-[500px] bg-doramed-primary/10 blur-[140px] rounded-full pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="inline-block py-1 px-3 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-bold border border-cyan-500/20 mb-4">
+                {eyebrow}
+            </span>
+            <h2 class="text-3xl md:text-4xl font-black text-white">
+                {title} <span class="text-doramed-primary">{titleAccent}</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {items.map(item => (
+                <div class="flex items-start gap-4 bg-doramed-dark/50 border border-doramed-muted/30 rounded-3xl p-6 hover:bg-doramed-dark transition-colors">
+                    <span class="w-12 h-12 rounded-2xl bg-doramed-primary/15 border border-doramed-primary/30 flex items-center justify-center text-2xl shrink-0">{item.icon}</span>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1">{item.title}</h3>
+                        <p class="text-doramed-gray text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

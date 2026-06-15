@@ -1,0 +1,217 @@
+---
+// src/components/kiosk/clinic-pro/ClinicHero.astro
+// تم روشن - هیرو Clinic Pro
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+// عکس هیرو Clinic — محیط درمانی/پزشکی (لوکال)
+import heroImage from "../../../assets/kiosk/hero/hero-clinic.jpg";
+
+// پنل توضیحات کنار عکس — مزیت‌های کلیدی این صفحه
+const highlights = [
+    { icon: "lucide:user-check", title: "پذیرش هوشمند", desc: "ثبت‌نام و تریاژ خودکار بیمار" },
+    { icon: "lucide:heart-pulse", title: "پایش علائم حیاتی", desc: "اندازه‌گیری دقیق در چند دقیقه" },
+    { icon: "lucide:folder-heart", title: "پرونده الکترونیک", desc: "سوابق سلامت یکپارچه بیمار" },
+];
+---
+
+<section class="relative bg-gradient-to-b from-white via-slate-50 to-slate-100 overflow-hidden">
+
+    <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-doramed-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[450px] h-[450px] bg-sky-200/30 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 py-12 sm:py-14 lg:py-20 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            <!-- متن (راست) -->
+            <div class="text-center lg:text-right order-1 lg:order-1">
+
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-doramed-primary/8 text-doramed-primary text-xs sm:text-sm font-bold mb-5">
+                    <Icon name="lucide:stethoscope" class="w-4 h-4" />
+                    پذیرش سریع‌تر، تجربه بهتر بیمار، تصمیم دقیق‌تر
+                </span>
+
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-doramed-primary mb-5 tracking-tight leading-none">
+                    Clinic Pro
+                </h1>
+
+                <h2 class="text-lg sm:text-xl md:text-2xl font-black text-slate-700 mb-6">
+                    نسخه تخصصی برای کلینیک‌ها، درمانگاه‌ها و بیمارستان‌ها
+                </h2>
+
+                <p class="text-slate-500 text-base md:text-lg leading-loose mb-9 max-w-xl mx-auto lg:mx-0 text-justify lg:text-right font-medium">
+                    پذیرش اولیه هوشمند، پایش علائم حیاتی، تشکیل پرونده سلامت، گزارش هوشمند و بهبود تجربه بیمار در یک راهکار یکپارچه.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start mb-9">
+                    <a href="tel:09199152292" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-doramed-primary hover:bg-doramed-dark text-white font-black rounded-2xl transition-all shadow-[0_12px_30px_rgba(2,62,138,0.3)] hover:shadow-[0_16px_40px_rgba(2,62,138,0.45)] active:scale-95">
+                        <Icon name="lucide:calendar-check" class="w-5 h-5" />
+                        درخواست مشاوره و دمو
+                    </a>
+                    <a href="tel:09199152292" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-doramed-primary/20 text-doramed-primary font-black rounded-2xl hover:border-doramed-primary/50 hover:bg-doramed-primary/5 transition-all active:scale-95">
+                        <Icon name="lucide:phone" class="w-5 h-5" />
+                        <span dir="ltr">09199152292</span>
+                    </a>
+                </div>
+
+                <!-- لینک‌های تماس -->
+                <div class="flex flex-wrap items-center gap-x-7 gap-y-3 justify-center lg:justify-start text-slate-600 text-sm font-bold">
+                    <a href="https://www.doramed.ir" target="_blank" class="flex items-center gap-2.5 hover:text-doramed-primary transition-colors group">
+                        <span class="w-9 h-9 rounded-full bg-doramed-primary/10 flex items-center justify-center text-doramed-primary group-hover:bg-doramed-primary group-hover:text-white transition-colors">
+                            <Icon name="lucide:globe" class="w-4 h-4" />
+                        </span>
+                        www.doramed.ir
+                    </a>
+                    <a href="https://www.instagram.com/doramed_ir" target="_blank" class="flex items-center gap-2.5 hover:text-doramed-primary transition-colors group">
+                        <span class="w-9 h-9 rounded-full bg-doramed-primary/10 flex items-center justify-center text-doramed-primary group-hover:bg-doramed-primary group-hover:text-white transition-colors">
+                            <Icon name="lucide:instagram" class="w-4 h-4" />
+                        </span>
+                        @doramed_ir
+                    </a>
+                </div>
+
+                <!-- نوار آمار اعتمادساز -->
+                <div class="grid grid-cols-3 gap-3 mt-9 max-w-md mx-auto lg:mx-0">
+                    <div class="text-center lg:text-right">
+                        <div class="text-2xl md:text-3xl font-black text-doramed-primary">۷</div>
+                        <div class="text-[11px] md:text-xs text-slate-500 font-bold mt-0.5">تست بالینی</div>
+                    </div>
+                    <div class="text-center lg:text-right border-x lg:border-x-0 lg:border-r border-slate-200 lg:pr-4">
+                        <div class="text-2xl md:text-3xl font-black text-doramed-primary">AI</div>
+                        <div class="text-[11px] md:text-xs text-slate-500 font-bold mt-0.5">گزارش هوشمند</div>
+                    </div>
+                    <div class="text-center lg:text-right lg:border-r border-slate-200 lg:pr-4">
+                        <div class="text-2xl md:text-3xl font-black text-doramed-primary">۱۰۰٪</div>
+                        <div class="text-[11px] md:text-xs text-slate-500 font-bold mt-0.5">پرونده دیجیتال</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تصویر (چپ) + پنل توضیحات + کارت‌های شناور -->
+            <div class="relative order-2 lg:order-2 w-full max-w-[340px] sm:max-w-[480px] lg:max-w-none mx-auto lg:mr-0 lg:ml-auto px-0 sm:px-6 lg:px-10">
+
+                <!-- بک‌دراپ آبی نرم + blob -->
+                <div class="absolute inset-2 sm:inset-4 lg:inset-6 bg-gradient-to-br from-sky-50 to-doramed-primary/10 rounded-[2.5rem] sm:rounded-[3rem] -z-0 pointer-events-none"></div>
+                <div class="absolute -top-4 -right-4 w-40 h-40 bg-doramed-primary/10 blur-3xl rounded-full pointer-events-none"></div>
+
+                <!-- رپر عکس: کارت‌های شناور نسبت به همین عکس absolute هستند -->
+                <div class="relative">
+                <!-- عکس -->
+                <div class="hero-img relative w-full aspect-[4/5] lg:aspect-[4/3] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden ring-1 ring-white shadow-[0_25px_50px_rgba(15,27,42,0.1)]">
+                    <Image src={heroImage} alt="پذیرش هوشمند و پایش علائم حیاتی بیمار — Clinic Pro دورامد" widths={[400, 600, 800]} sizes="(max-width: 768px) 80vw, 40vw" loading="eager" class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-doramed-primary/20 via-transparent to-transparent pointer-events-none"></div>
+                    <!-- بازتاب نور ملایم که هرازگاهی روی عکس عبور می‌کند -->
+                    <div class="hero-sheen pointer-events-none"></div>
+
+                <!-- کارت شناور بالا-چپ: علائم حیاتی بیمار -->
+                <div class="absolute top-3 sm:top-6 -left-1 sm:left-0 bg-white/95 backdrop-blur-xl border border-slate-100 rounded-xl sm:rounded-2xl shadow-[0_15px_35px_rgba(15,27,42,0.12)] z-20 p-3 sm:p-4 w-[150px] sm:w-[200px] lg:w-[220px] animate-[float_5s_ease-in-out_infinite]">
+                    <div class="flex items-center gap-3 pb-3 mb-3 border-b border-slate-100">
+                        <div class="relative w-12 h-12 shrink-0">
+                            <svg class="w-12 h-12 -rotate-90" viewBox="0 0 36 36">
+                                <circle cx="18" cy="18" r="15.5" fill="none" stroke="#e2e8f0" stroke-width="4"/>
+                                <circle cx="18" cy="18" r="15.5" fill="none" stroke="#023E8A" stroke-width="4" stroke-linecap="round" stroke-dasharray="96 100"/>
+                            </svg>
+                            <span class="absolute inset-0 flex items-center justify-center text-xs font-black text-doramed-primary">۹۶٪</span>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-slate-400 font-bold">پایش بیمار</div>
+                            <div class="text-sm font-black text-slate-700">وضعیت نرمال</div>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-400 font-bold">فشار خون</span><span class="font-black text-slate-700">۱۲۰/۸۰</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400 font-bold">ضربان قلب</span><span class="font-black text-doramed-primary">۷۴ bpm</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400 font-bold">اکسیژن خون</span><span class="font-black text-slate-700">۹۹٪</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400 font-bold">قند خون</span><span class="font-black text-slate-700">۹۰</span></div>
+                    </div>
+                </div>
+
+                <!-- کارت شناور پایین-راست: آمار پذیرش امروز -->
+                <div class="absolute bottom-3 sm:bottom-6 -right-1 sm:right-0 bg-white/95 backdrop-blur-xl border border-slate-100 rounded-xl sm:rounded-2xl shadow-[0_15px_35px_rgba(15,27,42,0.12)] z-20 p-3 sm:p-4 w-[160px] sm:w-[210px] lg:w-[230px] animate-[float_6s_ease-in-out_infinite_1s]">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-black text-slate-700">پذیرش امروز</span>
+                        <span class="inline-flex items-center gap-1 text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+                            <Icon name="lucide:trending-up" class="w-3 h-3" />
+                            فعال
+                        </span>
+                    </div>
+                    <div class="flex items-end justify-between gap-1 sm:gap-1.5 h-14 sm:h-20">
+                        <div class="flex-1 h-full flex flex-col justify-end items-center gap-1.5">
+                            <div class="w-full rounded-lg bg-slate-100" style="height: 42%"></div>
+                            <span class="text-[8px] text-slate-400 font-bold">۸</span>
+                        </div>
+                        <div class="flex-1 h-full flex flex-col justify-end items-center gap-1.5">
+                            <div class="w-full rounded-lg bg-slate-200" style="height: 60%"></div>
+                            <span class="text-[8px] text-slate-400 font-bold">۱۰</span>
+                        </div>
+                        <div class="flex-1 h-full flex flex-col justify-end items-center gap-1.5">
+                            <div class="w-full rounded-lg bg-doramed-primary/40" style="height: 74%"></div>
+                            <span class="text-[8px] text-slate-400 font-bold">۱۲</span>
+                        </div>
+                        <div class="flex-1 h-full flex flex-col justify-end items-center gap-1.5">
+                            <div class="w-full rounded-lg bg-doramed-primary/70" style="height: 88%"></div>
+                            <span class="text-[8px] text-slate-400 font-bold">۱۴</span>
+                        </div>
+                        <div class="flex-1 h-full flex flex-col justify-end items-center gap-1.5">
+                            <div class="w-full rounded-lg bg-gradient-to-t from-doramed-primary to-sky-400 shadow-[0_4px_10px_rgba(2,62,138,0.3)]" style="height: 100%"></div>
+                            <span class="text-[8px] text-doramed-primary font-black">۱۶</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
+                        <span class="text-[10px] text-slate-400 font-bold">بیماران امروز</span>
+                        <span class="text-xs font-black text-slate-700">۸۶ نفر</span>
+                    </div>
+                </div>
+                </div>
+                <!-- پایان رپر عکس -->
+
+                <!-- پنل توضیحات زیر عکس -->
+                <div class="relative z-10 mt-5 bg-white/95 backdrop-blur-xl border border-slate-100 rounded-2xl shadow-[0_15px_35px_rgba(15,27,42,0.08)] p-4 sm:p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-1.5 h-5 rounded-full bg-doramed-primary"></span>
+                        <span class="text-sm font-black text-slate-700">Clinic Pro چه می‌کند؟</span>
+                    </div>
+                    <ul class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        {highlights.map(h => (
+                            <li class="flex items-start gap-3">
+                                <span class="shrink-0 w-9 h-9 rounded-xl bg-doramed-primary/8 text-doramed-primary flex items-center justify-center">
+                                    <Icon name={h.icon} class="w-5 h-5" />
+                                </span>
+                                <span class="text-right">
+                                    <span class="block text-[13px] font-black text-slate-700 leading-tight">{h.title}</span>
+                                    <span class="block text-[11px] text-slate-400 font-bold mt-0.5">{h.desc}</span>
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* شناوری بسیار ملایم کارت‌ها */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+    }
+
+    /* بازتاب نور ظریف روی عکس — نامحسوس */
+    .hero-sheen {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.18) 48%, rgba(255,255,255,0.30) 50%, rgba(255,255,255,0.18) 52%, transparent 62%);
+        transform: translateX(-120%);
+        animation: hero-sheen-move 7.5s ease-in-out infinite;
+    }
+    @keyframes hero-sheen-move {
+        0%, 70%   { transform: translateX(-120%); }
+        88%, 100% { transform: translateX(120%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .hero-sheen { display: none; }
+        [class*="animate-[float"] { animation: none !important; }
+    }
+</style>

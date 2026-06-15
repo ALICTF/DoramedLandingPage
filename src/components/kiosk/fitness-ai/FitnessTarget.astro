@@ -1,0 +1,55 @@
+---
+// src/components/kiosk/fitness-ai/FitnessTarget.astro
+// تم روشن - مناسب برای (کارت عکس لوکال + آیکن دایره‌ای)
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+import imgGym from "../../../assets/kiosk/sections/fit-gym.jpg";
+import imgCenter from "../../../assets/kiosk/sections/fit-center.jpg";
+import imgNutrition from "../../../assets/kiosk/sections/fit-nutrition.jpg";
+import imgBeauty from "../../../assets/kiosk/sections/fit-beauty.jpg";
+import imgWellness from "../../../assets/kiosk/sections/fit-wellness.jpg";
+import imgYoga from "../../../assets/kiosk/sections/fit-yoga.jpg";
+
+const targets = [
+    { title: "باشگاه‌ها", icon: "lucide:dumbbell", img: imgGym },
+    { title: "مراکز تناسب اندام", icon: "lucide:activity", img: imgCenter },
+    { title: "مراکز تغذیه", icon: "lucide:apple", img: imgNutrition },
+    { title: "کلینیک‌های زیبایی و لاغری", icon: "lucide:sparkles", img: imgBeauty },
+    { title: "مراکز wellness", icon: "lucide:heart-pulse", img: imgWellness },
+    { title: "یوگا و پیلاتس", icon: "lucide:flower-2", img: imgYoga },
+];
+---
+
+<section class="py-16 lg:py-24 bg-slate-50 relative">
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <div class="text-center max-w-2xl mx-auto mb-14 md:mb-16">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-doramed-primary/8 text-doramed-primary text-sm font-bold mb-5">
+                <Icon name="lucide:map-pin" class="w-4 h-4" />
+                کاربردها
+            </span>
+            <h2 class="text-2xl md:text-4xl font-black text-slate-800">مناسب برای</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+            {targets.map(target => (
+                <div class="group">
+                    <!-- رپر بیرونی (بدون overflow) تا آیکن کلیپ نشود -->
+                    <div class="relative">
+                        <div class="relative aspect-square rounded-3xl overflow-hidden bg-slate-200 shadow-[0_10px_30px_rgba(15,27,42,0.08)] group-hover:shadow-[0_15px_40px_rgba(2,62,138,0.18)] transition-all duration-300">
+                            <Image src={target.img} alt={target.title} width={600} height={600} loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/55 via-slate-900/10 to-transparent"></div>
+                        </div>
+                        <!-- آیکن دایره‌ای - بیرون از کادر overflow و روی لبه پایین عکس -->
+                        <div class="absolute left-1/2 -translate-x-1/2 -bottom-7 w-14 h-14 rounded-full bg-white shadow-lg flex items-center justify-center text-doramed-primary border-4 border-slate-50 group-hover:bg-doramed-primary group-hover:text-white transition-colors duration-300 z-10">
+                            <Icon name={target.icon} class="w-6 h-6" />
+                        </div>
+                    </div>
+                    <h3 class="text-center text-sm md:text-base font-black text-slate-700 mt-10 group-hover:text-doramed-primary transition-colors">{target.title}</h3>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>

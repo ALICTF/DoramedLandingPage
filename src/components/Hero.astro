@@ -1,19 +1,25 @@
 ---
 // src/components/Hero.astro
-
-// نکته مهم: با ایمپورت کردن ویدیو، آسترو خودش آدرس نهایی و بهینه شده را تولید می‌کند
-// اطمینان حاصل کن که فایل vid.mp4 دقیقاً در مسیر src/assets/vid.mp4 باشد
+import { Image } from 'astro:assets';
 import heroVideo from '../assets/vid.mp4';
 
-// اگر پوستر هم در پوشه assets است، بهتر است ایمپورت شود، اما فعلا طبق کد قبلی از public می‌خوانیم
-const videoPoster = "/hero-video-poster.jpg"; 
+// Local, build-optimized specialist avatars (previously hot-linked from freepik).
+import doc1 from '../assets/dr1.jpg';
+import doc2 from '../assets/dr2.jpg';
+import doc3 from '../assets/drrez.jpeg';
+
+const specialists = [
+    { src: doc1, alt: 'دکتر متخصص دورامد ۱' },
+    { src: doc2, alt: 'دکتر متخصص دورامد ۲' },
+    { src: doc3, alt: 'دکتر متخصص دورامد ۳' },
+];
 ---
 
 <section id="hero" class="relative bg-gradient-to-b from-doramed-darker via-doramed-dark to-doramed-darker pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden text-doramed-white">
     
     <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-doramed-primary/20 rounded-full blur-[100px] opacity-50 -translate-y-1/2 translate-x-1/4 pointer-events-none" aria-hidden="true"></div>
     <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-doramed-muted/20 rounded-full blur-[100px] opacity-40 translate-y-1/4 -translate-x-1/4 pointer-events-none" aria-hidden="true"></div>
-    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-noise opacity-10 mix-blend-overlay pointer-events-none" aria-hidden="true"></div>
 
     <div class="container mx-auto px-6 relative z-10">
         <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
@@ -60,9 +66,17 @@ const videoPoster = "/hero-video-poster.jpg";
                 <div class="mt-8 md:mt-12 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 p-3 sm:p-3 pr-4 sm:pr-5 rounded-2xl bg-doramed-dark/40 border border-doramed-muted/30 backdrop-blur-md hover:bg-doramed-dark/60 hover:border-doramed-primary/40 transition-all duration-300 cursor-default group max-w-max mx-auto lg:mx-0">
                     
                     <div class="flex -space-x-2 sm:-space-x-3 space-x-reverse">
-                        <img width="40" height="40" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker object-cover" src="https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg?w=100" alt="دکتر متخصص دورامد ۱" loading="lazy">
-                        <img width="40" height="40" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker object-cover" src="https://img.freepik.com/free-photo/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.jpg?w=100" alt="دکتر متخصص دورامد ۲" loading="lazy">
-                        <img width="40" height="40" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker object-cover" src="https://img.freepik.com/free-photo/doctor-with-his-arms-crossed-white-background_1368-5790.jpg?w=100" alt="دکتر متخصص دورامد ۳" loading="lazy">
+                        {specialists.map(doc => (
+                            <Image
+                                src={doc.src}
+                                alt={doc.alt}
+                                width={40}
+                                height={40}
+                                format="webp"
+                                loading="lazy"
+                                class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker object-cover"
+                            />
+                        ))}
                         <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-doramed-darker bg-doramed-primary flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-white">
                             +۵۰
                         </div>

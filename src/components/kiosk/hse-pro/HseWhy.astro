@@ -1,0 +1,36 @@
+---
+// src/components/kiosk/hse-pro/HseWhy.astro
+// تم روشن - چرا HSE Pro؟ (۶ کارت)
+import { Icon } from "astro-icon/components";
+
+const benefits = [
+    { title: "گزارش‌گیری تحلیلی", desc: "گزارش‌های دقیق، قابل تنظیم و تحلیل داده‌ها برای تصمیم‌گیری هوشمند.", icon: "lucide:file-bar-chart" },
+    { title: "داشبورد مدیریتی", desc: "نمای جامع لحظه‌ای از وضعیت سلامت سازمان، واحدها و پروژه‌ها.", icon: "lucide:layout-dashboard" },
+    { title: "پایش پیش از شیفت", desc: "اطمینان از سلامت کارکنان قبل از شروع کار در محیط‌های حساس و پرریسک.", icon: "lucide:hard-hat" },
+    { title: "مدیریت ریسک", desc: "شناسایی افراد پرریسک و هشدار به‌موقع برای کاهش حوادث و غیبت‌ها.", icon: "lucide:shield-alert" },
+    { title: "پرونده سلامت کارکنان", desc: "ایجاد و نگه‌داری پرونده سلامت دیجیتال برای هر کارمند به‌صورت یکپارچه.", icon: "lucide:folder-heart" },
+    { title: "کاهش زمان غربالگری", desc: "انجام سریع و خودکار تست‌ها در چند دقیقه و بدون نیاز به نیروی متخصص.", icon: "lucide:timer" },
+];
+---
+
+<section class="py-16 lg:py-24 bg-slate-50">
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <h2 class="text-2xl md:text-4xl font-black text-slate-800 text-center mb-12 md:mb-16">
+            چرا <span class="text-doramed-primary">HSE Pro</span>؟
+        </h2>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {benefits.map(b => (
+                <div class="group bg-white rounded-2xl border border-slate-100 p-6 text-center shadow-[0_8px_25px_rgba(15,27,42,0.04)] hover:shadow-[0_12px_30px_rgba(2,62,138,0.12)] hover:border-doramed-primary/30 hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-doramed-primary/8 flex items-center justify-center text-doramed-primary group-hover:bg-doramed-primary group-hover:text-white transition-colors duration-300">
+                        <Icon name={b.icon} class="w-7 h-7" />
+                    </div>
+                    <h3 class="text-sm md:text-base font-black text-slate-800 mb-2 group-hover:text-doramed-primary transition-colors">{b.title}</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">{b.desc}</p>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>

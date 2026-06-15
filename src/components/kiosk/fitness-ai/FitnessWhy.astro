@@ -1,0 +1,37 @@
+---
+// src/components/kiosk/fitness-ai/FitnessWhy.astro
+// تم روشن - چرا Fitness AI (یک ردیف ۶ کارتی سبک با جداکننده)
+import { Icon } from "astro-icon/components";
+
+const features = [
+    { title: "تجربه حرفه‌ای اعضا", desc: "ارائه تجربه‌ای مدرن و تکنولوژیک که رضایت و مشارکت اعضا را افزایش می‌دهد.", icon: "lucide:sparkles" },
+    { title: "پایش روند پیشرفت", desc: "ذخیره و مقایسه داده‌ها در طول زمان برای مشاهده روند واقعی پیشرفت.", icon: "lucide:trending-up" },
+    { title: "گزارش هوشمند AI", desc: "تحلیل داده‌ها و ارائه پیشنهادهای اختصاصی تمرینی و تغذیه‌ای.", icon: "lucide:brain-circuit" },
+    { title: "خدمات VIP", desc: "اختصاصی‌سازی خدمات ویژه و ارتباط ارزش‌افزوده با اعضای باشگاه شما.", icon: "lucide:crown" },
+    { title: "افزایش وفاداری مشتری", desc: "با نتایج ملموس و ارتباط پیوسته، اعضا ماندگارتر خواهند شد.", icon: "lucide:heart-handshake" },
+    { title: "تمایز برند", desc: "با ارائه خدمات پیشرفته، برند خود را از رقبا متمایز کنید.", icon: "lucide:gem" },
+];
+---
+
+<section class="py-16 lg:py-24 bg-slate-50 relative">
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <h2 class="text-2xl md:text-4xl font-black text-slate-800 text-center mb-12 md:mb-16 max-w-4xl mx-auto leading-snug">
+            چرا <span class="text-doramed-primary">Fitness AI</span> انتخاب هوشمند باشگاه‌ها و مراکز سلامت است؟
+        </h2>
+
+        <!-- ردیف ۶ کارتی با جداکننده عمودی -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 lg:divide-x lg:divide-x-reverse lg:divide-slate-100 gap-y-8 lg:gap-y-0">
+            {features.map(feature => (
+                <div class="group text-center px-4 lg:px-5">
+                    <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-doramed-primary/8 flex items-center justify-center text-doramed-primary group-hover:bg-doramed-primary group-hover:text-white group-hover:-translate-y-1 transition-all duration-300">
+                        <Icon name={feature.icon} class="w-8 h-8" />
+                    </div>
+                    <h3 class="text-base font-black text-slate-800 mb-2 group-hover:text-doramed-primary transition-colors">{feature.title}</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">{feature.desc}</p>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>

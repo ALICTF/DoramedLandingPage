@@ -1,0 +1,41 @@
+---
+// src/components/kiosk/clinic-pro/ClinicDemos.astro
+// نمونه انجام تست با دستگاه (۴ کارت عکس)
+import { Image } from "astro:assets";
+
+import imgEcg from "../../../assets/kiosk/sections/demo-ecg.jpg";
+import imgSpo2 from "../../../assets/kiosk/sections/demo-spo2.jpg";
+import imgBp from "../../../assets/kiosk/sections/demo-bp.jpg";
+import imgBody from "../../../assets/kiosk/sections/demo-body.jpg";
+
+const demos = [
+    { title: "نوار قلب", desc: "ثبت نوار قلب ۱۲ لید در کمتر از یک دقیقه", img: imgEcg },
+    { title: "اکسیژن خون", desc: "اندازه‌گیری سطح اکسیژن خون و ضربان قلب (SpO2)", img: imgSpo2 },
+    { title: "فشار خون", desc: "اندازه‌گیری دقیق فشار خون سیستولیک و دیاستولیک", img: imgBp },
+    { title: "تست ترکیبات بدن", desc: "آنالیز ترکیب بدن در چند ثانیه شامل چربی، عضله، آب و ...", img: imgBody },
+];
+---
+
+<section class="py-16 lg:py-24 bg-slate-50">
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <h2 class="text-2xl md:text-4xl font-black text-slate-800 text-center mb-12 md:mb-16">
+            نمونه انجام تست با <span class="text-doramed-primary">دستگاه</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {demos.map(d => (
+                <div class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-[0_8px_25px_rgba(15,27,42,0.05)] hover:shadow-[0_15px_40px_rgba(2,62,138,0.12)] hover:-translate-y-1 transition-all duration-300">
+                    <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+                        <Image src={d.img} alt={d.title} width={600} height={450} loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="text-base font-black text-doramed-primary mb-2">{d.title}</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">{d.desc}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>

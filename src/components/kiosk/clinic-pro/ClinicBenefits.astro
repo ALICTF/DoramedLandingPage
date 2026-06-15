@@ -1,0 +1,36 @@
+---
+// src/components/kiosk/clinic-pro/ClinicBenefits.astro
+// مزایای کلیدی (۶ مورد در یک ردیف)
+import { Icon } from "astro-icon/components";
+
+const benefits = [
+    { title: "آرشیو و ارجاع", desc: "ذخیره امن داده‌ها و امکان ارجاع بین مراکز.", icon: "lucide:archive" },
+    { title: "گزارش سریع", desc: "گزارش‌های هوشمند و قابل استفاده برای پزشک.", icon: "lucide:file-text" },
+    { title: "پرونده سلامت دیجیتال", desc: "تشکیل و به‌روزرسانی پرونده سلامت در لحظه.", icon: "lucide:folder-heart" },
+    { title: "پایش قبل از ویزیت", desc: "اندازه‌گیری دقیق علائم حیاتی قبل از ملاقات پزشک.", icon: "lucide:heart-pulse" },
+    { title: "بهبود تجربه بیمار", desc: "مسیر ساده، سریع و بدون تماس غیرضروری.", icon: "lucide:smile" },
+    { title: "کاهش زمان پذیرش", desc: "اتوماسیون فرآیند پذیرش و کاهش صف انتظار.", icon: "lucide:timer" },
+];
+---
+
+<section class="py-16 lg:py-24 bg-white">
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <h2 class="text-2xl md:text-4xl font-black text-slate-800 text-center mb-12 md:mb-16">
+            مزایای <span class="text-doramed-primary">کلیدی</span>
+        </h2>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-10 gap-x-4">
+            {benefits.map(b => (
+                <div class="group text-center px-2">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-doramed-primary/8 flex items-center justify-center text-doramed-primary group-hover:bg-doramed-primary group-hover:text-white group-hover:-translate-y-1 transition-all duration-300">
+                        <Icon name={b.icon} class="w-8 h-8" />
+                    </div>
+                    <h3 class="text-sm md:text-base font-black text-slate-800 mb-2 group-hover:text-doramed-primary transition-colors">{b.title}</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">{b.desc}</p>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>

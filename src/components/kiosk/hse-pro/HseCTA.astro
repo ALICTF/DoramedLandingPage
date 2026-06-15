@@ -1,0 +1,60 @@
+---
+// src/components/kiosk/hse-pro/HseCTA.astro
+// CTA پایانی - نوار آبی با فرم تماس
+import { Icon } from "astro-icon/components";
+---
+
+<section class="py-14 lg:py-20 bg-white relative overflow-hidden">
+
+    <div class="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-doramed-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center bg-slate-50 rounded-[2rem] border border-slate-100 shadow-[0_15px_40px_rgba(15,27,42,0.06)] p-8 lg:p-12">
+
+            <!-- فرم تماس (چپ) -->
+            <form class="order-2 lg:order-1 grid grid-cols-1 sm:grid-cols-2 gap-3" onsubmit="return false;">
+                <input type="text" placeholder="نام و نام خانوادگی" class="px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-doramed-primary/30 text-right" />
+                <input type="tel" placeholder="تلفن همراه" dir="rtl" class="px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-doramed-primary/30 text-right" />
+                <input type="text" placeholder="نام سازمان / شرکت" class="px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-doramed-primary/30 text-right" />
+                <input type="email" placeholder="ایمیل" dir="rtl" class="px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-doramed-primary/30 text-right" />
+                <textarea placeholder="پیام شما" rows="3" class="sm:col-span-2 px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-doramed-primary/30 text-right resize-none"></textarea>
+                <button type="submit" class="sm:col-span-2 inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-doramed-primary text-white font-black rounded-xl hover:bg-doramed-dark transition-all shadow-[0_12px_30px_rgba(2,62,138,0.25)] active:scale-95">
+                    <Icon name="lucide:send" class="w-5 h-5" />
+                    ارسال درخواست
+                </button>
+            </form>
+
+            <!-- متن + اطلاعات تماس (راست) -->
+            <div class="order-1 lg:order-2 text-center lg:text-right">
+                <h2 class="text-2xl md:text-4xl font-black text-slate-800 mb-4 leading-tight">
+                    سلامت سازمان شما، اولویت ماست
+                </h2>
+                <p class="text-slate-500 text-base md:text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+                    همین حالا برای دریافت دمو و مشاوره تخصصی با کارشناسان دورامد تماس بگیرید.
+                </p>
+
+                <div class="space-y-4 inline-block text-right">
+                    <a href="tel:09199152292" class="flex items-center gap-3 text-slate-800 font-black hover:text-doramed-primary transition-colors">
+                        <span class="w-10 h-10 rounded-full bg-doramed-primary/10 border border-doramed-primary/15 flex items-center justify-center text-doramed-primary shrink-0">
+                            <Icon name="lucide:phone" class="w-5 h-5" />
+                        </span>
+                        <span dir="ltr">09199152292</span>
+                    </a>
+                    <a href="https://www.doramed.ir" target="_blank" class="flex items-center gap-3 text-slate-600 font-bold hover:text-doramed-primary transition-colors">
+                        <span class="w-10 h-10 rounded-full bg-doramed-primary/10 border border-doramed-primary/15 flex items-center justify-center text-doramed-primary shrink-0">
+                            <Icon name="lucide:globe" class="w-5 h-5" />
+                        </span>
+                        www.doramed.ir
+                    </a>
+                    <a href="https://www.instagram.com/doramed_ir" target="_blank" class="flex items-center gap-3 text-slate-600 font-bold hover:text-doramed-primary transition-colors">
+                        <span class="w-10 h-10 rounded-full bg-doramed-primary/10 border border-doramed-primary/15 flex items-center justify-center text-doramed-primary shrink-0">
+                            <Icon name="lucide:instagram" class="w-5 h-5" />
+                        </span>
+                        @doramed_ir
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,102 @@
+---
+// src/components/kiosk/fitness-ai/FitnessFeatures.astro
+// نوار آبی تیره - قابلیت‌های کلیدی Fitness AI (طراحی جدید کارتی)
+import { Icon } from "astro-icon/components";
+
+// برای باشگاه: آنالیز ترکیب بدن مهم‌ترین تست است و اول می‌آید.
+const capabilities = [
+    { title: "آنالیز ترکیب بدن", desc: "تفکیک دقیق چربی، عضله، آب بدن و BMI", icon: "lucide:scan-line" },
+    { title: "نوار قلب (ECG)", desc: "غربالگری سلامت قلب پیش از تمرین سنگین", icon: "lucide:activity" },
+    { title: "فشار خون", desc: "ثبت فشار خون و ضربان قلب ورزشکار", icon: "lucide:gauge" },
+    { title: "اکسیژن خون (SpO2)", desc: "پایش کیفیت اکسیژن خون در زمان تمرین", icon: "lucide:droplet" },
+    { title: "قند خون", desc: "پایش قند خون برای برنامه تغذیه و تمرین", icon: "lucide:test-tube" },
+    { title: "هولتر ریتم قلبی", desc: "پایش ریتم قلبی و ضربان قلب حین تمرین", icon: "lucide:heart-pulse" },
+];
+
+const outputs = [
+    { title: "گزارش هوشمند AI", icon: "lucide:brain-circuit" },
+    { title: "پرونده دیجیتال", icon: "lucide:folder-heart" },
+    { title: "خروجی PDF", icon: "lucide:file-text" },
+    { title: "اپلیکیشن ورزشکار", icon: "lucide:smartphone" },
+];
+---
+
+<section class="py-16 lg:py-24 bg-doramed-dark relative overflow-hidden">
+
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30 pointer-events-none"></div>
+    <div class="absolute top-1/4 right-0 w-[450px] h-[450px] bg-doramed-primary/20 blur-[130px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sky-500/10 blur-[130px] rounded-full pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+
+            <!-- کارت معرفی (سمت راست) -->
+            <div class="lg:col-span-4 relative bg-gradient-to-br from-doramed-primary to-doramed-darker rounded-[2rem] p-8 lg:p-10 overflow-hidden flex flex-col justify-between border border-white/10 shadow-2xl">
+                <div class="absolute -top-10 -left-10 w-44 h-44 bg-sky-400/20 blur-3xl rounded-full pointer-events-none"></div>
+
+                <div class="relative z-10">
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sky-200 text-sm font-bold mb-6">
+                        <Icon name="lucide:cpu" class="w-4 h-4" />
+                        تجهیزات و سنسورها
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-black text-white leading-tight mb-4">
+                        قابلیت‌های کلیدی <span class="block text-sky-300 mt-1">Fitness AI</span>
+                    </h2>
+                    <p class="text-sky-100/80 text-sm md:text-base leading-relaxed">
+                        مجموعه‌ای کامل از سنسورهای دقیق پزشکی و موتور هوش مصنوعی، همگی در یک کیوسک هوشمند برای آنالیز جامع بدن.
+                    </p>
+                </div>
+
+                <!-- آمار کوتاه -->
+                <div class="relative z-10 grid grid-cols-3 gap-3 mt-8 pt-8 border-t border-white/15">
+                    <div class="text-center">
+                        <div class="text-2xl font-black text-white">۱۵+</div>
+                        <div class="text-[10px] text-sky-200/70 font-bold mt-1">شاخص بدن</div>
+                    </div>
+                    <div class="text-center border-x border-white/15">
+                        <div class="text-2xl font-black text-white">۲'</div>
+                        <div class="text-[10px] text-sky-200/70 font-bold mt-1">زمان آنالیز</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-black text-white">AI</div>
+                        <div class="text-[10px] text-sky-200/70 font-bold mt-1">تحلیل هوشمند</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شبکه قابلیت‌ها (سمت چپ) -->
+            <div class="lg:col-span-8 flex flex-col gap-5">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {capabilities.map(cap => (
+                        <div class="group flex items-center gap-4 p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] hover:border-sky-400/40 transition-all duration-300">
+                            <div class="w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center text-sky-300 group-hover:from-doramed-primary group-hover:to-sky-500 group-hover:text-white transition-all duration-300">
+                                <Icon name={cap.icon} class="w-6 h-6" />
+                            </div>
+                            <div class="text-right">
+                                <h3 class="text-white font-black text-sm md:text-base leading-tight">{cap.title}</h3>
+                                <p class="text-doramed-gray text-xs mt-0.5">{cap.desc}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <!-- خروجی‌های نرم‌افزاری -->
+                <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-5">
+                    <div class="flex flex-wrap items-center justify-center gap-3">
+                        <span class="text-doramed-gray text-xs font-bold w-full sm:w-auto text-center">خروجی‌های نرم‌افزاری:</span>
+                        {outputs.map(out => (
+                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-doramed-primary/20 border border-doramed-primary/30 text-sky-200 text-xs font-bold hover:bg-doramed-primary/30 transition-colors">
+                                <Icon name={out.icon} class="w-4 h-4" />
+                                {out.title}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>

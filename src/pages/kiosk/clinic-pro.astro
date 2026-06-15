@@ -1,0 +1,86 @@
+---
+// src/pages/kiosk/clinic-pro.astro
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+
+// کامپوننت‌های اختصاصی Clinic Pro (تم روشن)
+import ClinicHero from "../../components/kiosk/clinic-pro/ClinicHero.astro";
+import ClinicLogos from "../../components/kiosk/clinic-pro/ClinicLogos.astro";
+import ClinicChallenge from "../../components/kiosk/clinic-pro/ClinicChallenge.astro";
+import ClinicBenefits from "../../components/kiosk/clinic-pro/ClinicBenefits.astro";
+import ClinicTests from "../../components/kiosk/clinic-pro/ClinicTests.astro";
+import ClinicAI from "../../components/kiosk/clinic-pro/ClinicAI.astro";
+import ClinicHowItWorks from "../../components/kiosk/clinic-pro/ClinicHowItWorks.astro";
+import ClinicDemos from "../../components/kiosk/clinic-pro/ClinicDemos.astro";
+import ClinicAudience from "../../components/kiosk/clinic-pro/ClinicAudience.astro";
+import ClinicOutputs from "../../components/kiosk/clinic-pro/ClinicOutputs.astro";
+import ClinicTestimonials from "../../components/kiosk/clinic-pro/ClinicTestimonials.astro";
+import KioskShowcase from "../../components/kiosk/shared/KioskShowcase.astro";
+import kioskClinicImg from "../../assets/kiosk/kiosk-hse-white.png";
+import ClinicCases from "../../components/kiosk/clinic-pro/ClinicCases.astro";
+import KioskIndustries from "../../components/kiosk/shared/KioskIndustries.astro";
+import KioskDashboards from "../../components/kiosk/shared/KioskDashboards.astro";
+import ClinicFAQ from "../../components/kiosk/clinic-pro/ClinicFAQ.astro";
+import ClinicCTA from "../../components/kiosk/clinic-pro/ClinicCTA.astro";
+import ClinicStickyCTA from "../../components/kiosk/clinic-pro/ClinicStickyCTA.astro";
+import ClinicReveal from "../../components/kiosk/clinic-pro/ClinicReveal.astro";
+
+const pageTitle = "Clinic Pro | کیوسک هوشمند پایش سلامت کلینیک‌ها و بیمارستان‌ها - دورامد";
+const pageDescription =
+  "کیوسک هوشمند Clinic Pro دورامد؛ پذیرش اولیه هوشمند، پایش علائم حیاتی، پرونده سلامت الکترونیک و گزارش هوشمند برای کلینیک‌ها، درمانگاه‌ها و بیمارستان‌ها.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Navbar />
+
+  <main class="bg-white text-slate-800 overflow-hidden pt-20">
+
+    <ClinicHero />
+
+    <ClinicLogos />
+
+    <div class="reveal-on-scroll"><ClinicChallenge /></div>
+
+    <div class="reveal-on-scroll"><ClinicBenefits /></div>
+
+    <div class="reveal-on-scroll"><ClinicTests /></div>
+
+    <div class="reveal-on-scroll">
+      <KioskShowcase
+        image={kioskClinicImg}
+        title="کیوسک Clinic Pro از نزدیک"
+        description="یک ایستگاه سلامت یکپارچه و تمام‌فارسی که شش تست بالینی، تحلیل هوش مصنوعی و پرونده الکترونیک سلامت بیمار را در یک دستگاه گرد هم می‌آورد."
+        bg="white"
+      />
+    </div>
+
+    <div class="reveal-on-scroll"><ClinicAI /></div>
+
+    <div class="reveal-on-scroll"><ClinicHowItWorks /></div>
+
+    <div class="reveal-on-scroll"><ClinicDemos /></div>
+
+    <div class="reveal-on-scroll"><ClinicAudience /></div>
+
+    <div class="reveal-on-scroll"><ClinicOutputs /></div>
+
+    <div class="reveal-on-scroll"><ClinicTestimonials /></div>
+
+    <div class="reveal-on-scroll"><ClinicCases /></div>
+
+    <div class="reveal-on-scroll"><KioskIndustries bg="white" /></div>
+
+    <div class="reveal-on-scroll"><KioskDashboards bg="slate" /></div>
+
+    <div class="reveal-on-scroll"><ClinicFAQ /></div>
+
+    <div class="reveal-on-scroll"><ClinicCTA /></div>
+
+  </main>
+
+  <Footer />
+
+  <ClinicStickyCTA />
+  <ClinicReveal />
+</Layout>

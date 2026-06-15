@@ -1,0 +1,38 @@
+---
+// src/components/kiosk/clinic-pro/ClinicCTA.astro
+// CTA پایانی - نوار آبی
+import { Icon } from "astro-icon/components";
+---
+
+<section class="py-14 lg:py-20 bg-slate-50 relative overflow-hidden">
+
+    <div class="absolute top-0 left-0 w-[400px] h-[400px] bg-doramed-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <div class="bg-white rounded-[2rem] border border-slate-100 shadow-[0_15px_40px_rgba(15,27,42,0.06)] p-8 lg:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-right">
+
+            <!-- متن (راست) -->
+            <div class="flex-1">
+                <h2 class="text-2xl md:text-4xl font-black text-slate-800 mb-4 leading-tight">
+                    هوشمندسازی مسیر بیمار از بدو ورود
+                </h2>
+                <p class="text-slate-500 text-base md:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                    Clinic Pro همراه مطمئن شما برای پذیرش هوشمند، پایش دقیق و مدیریت یکپارچه پرونده سلامت است.
+                </p>
+            </div>
+
+            <!-- دکمه‌ها (چپ) -->
+            <div class="flex flex-col items-center gap-3 shrink-0">
+                <a href="tel:09199152292" class="inline-flex items-center justify-center gap-3 px-10 py-4 bg-doramed-primary text-white font-black rounded-2xl hover:bg-doramed-dark transition-all shadow-[0_12px_30px_rgba(2,62,138,0.25)] active:scale-95">
+                    <Icon name="lucide:calendar-check" class="w-5 h-5" />
+                    درخواست مشاوره و دمو
+                </a>
+                <a href="tel:09199152292" class="inline-flex items-center gap-2 text-doramed-primary/90 font-black hover:text-doramed-primary transition-colors">
+                    <Icon name="lucide:phone" class="w-5 h-5" />
+                    <span dir="ltr">09199152292</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>

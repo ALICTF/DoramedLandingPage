@@ -1,0 +1,49 @@
+---
+// src/components/kiosk/clinic-pro/ClinicTests.astro
+// تست‌ها و سنسورهای کیوسک Clinic Pro (۶ تست، با تمرکز درمانی)
+import { Icon } from "astro-icon/components";
+
+// برای کلینیک: فشار، قند، نوار قلب شاخص‌های بالینی کلیدی‌اند و اول می‌آیند.
+const tests = [
+    { title: "فشار خون", desc: "اندازه‌گیری دقیق فشار خون و ضربان قلب، پایه‌ی تریاژ و ویزیت پزشک.", icon: "lucide:gauge" },
+    { title: "قند خون", desc: "سنجش قند خون برای غربالگری دیابت و پایش بیماران مزمن.", icon: "lucide:test-tube" },
+    { title: "نوار قلب (ECG)", desc: "ثبت نوار قلب برای غربالگری اولیه ریتم و سلامت قلب.", icon: "lucide:activity" },
+    { title: "اکسیژن خون (SpO2)", desc: "سنجش درصد اشباع اکسیژن خون و ضربان قلب بیمار.", icon: "lucide:droplet" },
+    { title: "آنالیز ترکیب بدن", desc: "اندازه‌گیری وزن، چربی، عضله و BMI برای ارزیابی وضعیت بیمار.", icon: "lucide:scan-line" },
+    { title: "بینایی‌سنجی", desc: "سنجش بینایی به‌عنوان بخشی از چکاپ اولیه و معاینات دوره‌ای.", icon: "lucide:eye" },
+    { title: "تشخیص آپنه خواب", desc: "غربالگری و تشخیص اختلال آپنه خواب با استفاده از سنسورهای دستگاه.", icon: "lucide:moon" },
+];
+---
+
+<section class="py-16 lg:py-24 bg-slate-50">
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-doramed-primary/8 text-doramed-primary text-sm font-bold mb-5">
+                <Icon name="lucide:cpu" class="w-4 h-4" />
+                سنسورهای کیوسک
+            </span>
+            <h2 class="text-2xl md:text-4xl font-black text-slate-800 mb-4">
+                ۷ تست بالینی در یک <span class="text-doramed-primary">کیوسک</span>
+            </h2>
+            <p class="text-slate-500 text-base md:text-lg leading-relaxed">
+                بیمار پیش از ویزیت، علائم حیاتی خود را به‌صورت خودکار ثبت می‌کند و نتایج بلافاصله در پرونده الکترونیک سلامت قرار می‌گیرد.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {tests.map(t => (
+                <div class="group bg-white rounded-2xl border border-slate-100 p-6 flex items-start gap-4 text-right shadow-[0_8px_25px_rgba(15,27,42,0.04)] hover:shadow-[0_12px_30px_rgba(2,62,138,0.12)] hover:border-doramed-primary/30 hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-doramed-primary/8 flex items-center justify-center text-doramed-primary group-hover:bg-doramed-primary group-hover:text-white transition-colors duration-300">
+                        <Icon name={t.icon} class="w-7 h-7" />
+                    </div>
+                    <div>
+                        <h3 class="text-base font-black text-slate-800 mb-1.5 group-hover:text-doramed-primary transition-colors">{t.title}</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">{t.desc}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>

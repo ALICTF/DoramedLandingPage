@@ -1,0 +1,153 @@
+---
+// src/components/kiosk/shared/KioskHero.astro
+// Reusable hero for kiosk product pages. The right-hand visual is a pure-CSS
+// device mockup (no external images) so every product page stays fast and on-brand.
+interface Vital {
+  label: string;
+  value: string;
+  state?: string;
+}
+
+interface Props {
+  eyebrow: string;
+  name: string;
+  nameAccent: string;
+  subtitle: string;
+  description: string;
+  phone: string;
+  phoneHref: string;
+  screenTitle: string;
+  vitals: Vital[];
+}
+
+const {
+  eyebrow,
+  name,
+  nameAccent,
+  subtitle,
+  description,
+  phone,
+  phoneHref,
+  screenTitle,
+  vitals,
+} = Astro.props;
+---
+
+<section class="relative min-h-screen pt-28 pb-20 lg:pt-36 lg:pb-32 flex items-center bg-doramed-darker">
+
+    <div class="absolute top-0 right-1/4 w-[700px] h-[700px] bg-doramed-primary/10 blur-[130px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-12 left-1/4 w-[500px] h-[500px] bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:50px_50px] opacity-40 pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+            <div class="w-full lg:col-span-6 text-center lg:text-right order-1 lg:order-1">
+
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-doramed-dark border border-doramed-muted/40 text-cyan-400 text-xs md:text-sm font-bold mb-8 shadow-lg shadow-black/20">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    {eyebrow}
+                </div>
+
+                <h1 class="text-6xl md:text-7xl lg:text-[5.5rem] font-black text-white leading-none mb-4 tracking-tight">
+                    {name} <span class="text-transparent bg-clip-text bg-gradient-to-l from-cyan-400 via-blue-500 to-doramed-primary filter drop-shadow-[0_0_20px_rgba(6,182,212,0.2)]">{nameAccent}</span>
+                </h1>
+
+                <h2 class="text-xl md:text-2xl font-black text-doramed-white mb-6 bg-gradient-to-r from-white to-doramed-gray bg-clip-text text-transparent">
+                    {subtitle}
+                </h2>
+
+                <p class="text-doramed-gray text-base md:text-lg leading-loose mb-12 max-w-2xl text-justify lg:text-right mx-auto lg:mx-0 font-medium">
+                    {description}
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                    <a href={phoneHref} class="w-full sm:w-auto px-8 py-4 bg-doramed-primary hover:bg-doramed-primary/80 text-white font-black rounded-2xl transition-all shadow-[0_10px_30px_rgba(2,62,138,0.4)] hover:shadow-[0_15px_40px_rgba(2,62,138,0.6)] flex items-center justify-center gap-3 group active:scale-95">
+                        درخواست دمو و مشاوره
+                        <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                    </a>
+
+                    <a href="#features" class="w-full sm:w-auto px-8 py-4 bg-doramed-dark/60 border border-doramed-muted/40 hover:bg-doramed-muted/30 text-doramed-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
+                        مشاهده قابلیت‌ها
+                    </a>
+                </div>
+            </div>
+
+            <div class="w-full lg:col-span-6 order-2 lg:order-2 relative flex items-center justify-center min-h-[400px] lg:min-h-[550px]">
+
+                {/* Pure-CSS kiosk device mockup */}
+                <div class="relative w-full max-w-[420px] aspect-[4/5] rounded-[3rem] border border-white/10 bg-gradient-to-b from-doramed-dark to-doramed-darker shadow-[0_30px_60px_rgba(0,0,0,0.5)] p-5 group">
+                    <div class="absolute inset-0 rounded-[3rem] bg-gradient-to-tr from-doramed-primary/20 to-cyan-500/5 opacity-60 pointer-events-none"></div>
+
+                    <div class="relative h-full rounded-[2.2rem] bg-doramed-darker/80 border border-white/5 overflow-hidden flex flex-col">
+                        {/* screen header */}
+                        <div class="flex items-center justify-between px-5 py-4 border-b border-white/5">
+                            <span class="text-xs font-black text-white">{screenTitle}</span>
+                            <span class="flex items-center gap-1.5 text-[10px] font-bold text-green-400">
+                                <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
+                                آنلاین
+                            </span>
+                        </div>
+
+                        {/* live ECG */}
+                        <div class="px-5 pt-5">
+                            <div class="h-12 w-full overflow-hidden opacity-80">
+                                <svg class="w-full h-full stroke-cyan-400" fill="none" viewBox="0 0 100 30" stroke-width="2">
+                                    <path d="M0,15 L30,15 L35,5 L40,25 L45,12 L50,18 L53,15 L70,15 L75,0 L80,30 L85,15 L100,15" class="ecg-line-anim"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        {/* vitals grid */}
+                        <div class="grid grid-cols-2 gap-3 p-5 mt-auto">
+                            {vitals.map(v => (
+                                <div class="bg-white/5 border border-white/5 rounded-2xl p-3 text-right">
+                                    <p class="text-[10px] text-doramed-gray font-bold">{v.label}</p>
+                                    <p class="text-base font-black text-white mt-1">{v.value}
+                                        {v.state && <span class="text-[10px] text-green-400 font-normal mr-1">{v.state}</span>}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute top-4 -left-2 sm:-left-6 bg-doramed-darker/80 backdrop-blur-xl border border-cyan-500/30 p-4 rounded-2xl shadow-2xl z-20 flex items-center gap-3 animate-[float_4s_ease-in-out_infinite] max-w-[200px] pointer-events-none">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30 text-xl shrink-0">🤖</div>
+                    <div>
+                        <div class="text-[10px] text-doramed-gray font-bold">تحلیل هوشمند</div>
+                        <div class="text-xs font-black text-white mt-0.5">گزارش AI آماده شد</div>
+                    </div>
+                </div>
+
+                <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-[radial-gradient(#415a77_1.5px,transparent_1.5px)] [background-size:12px_12px] opacity-30 -z-10 pointer-events-none"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-30 translate-y-[2px] pointer-events-none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px] md:h-[120px]">
+            <path d="M0,96L48,85.3C96,75,192,53,288,58.7C384,64,480,96,576,101.3C672,107,768,85,864,69.3C960,53,1056,43,1104,37.3L1152,32L1152,120L1104,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" class="fill-doramed-dark"></path>
+        </svg>
+    </div>
+
+</section>
+
+<style>
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-12px); }
+    }
+    .ecg-line-anim {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: draw-line 2s linear infinite;
+    }
+    @keyframes draw-line {
+        to { stroke-dashoffset: 0; }
+    }
+</style>

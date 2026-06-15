@@ -1,151 +1,183 @@
 ---
 // src/components/Navbar.astro
 import { Image } from 'astro:assets';
-import logoImg from '../assets/logo.png'; 
+import logoImg from '../assets/logo.png';
+import SocialIcon from './ui/SocialIcon.astro';
+import { navLinks, navSocials, type IconName } from '../data/site';
 
 const pathname = new URL(Astro.request.url).pathname;
-
 const isActive = (href: string) => {
     if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
 };
 
-// لینک "درباره ما" به این آرایه اضافه شد
-const navLinks = [
-    { text: "خانه", href: "/" },
-    { text: "وبلاگ", href: "/blog" },
-    { text: "کیوسک پایش سلامت", href: "/kiosk" },
-    { text: "درباره ما", href: "/about" }, // <-- لینک جدید
-];
-
-const socialLinks = [
-    { 
-        name: 'تلگرام', 
-        href: 'https://t.me/doramedco', 
-        icon: 'telegram', 
-        color: 'hover:bg-[#229ED9]', 
-        shadow: 'hover:shadow-[#229ED9]/40' 
-    },
-    { 
-        name: 'اینستاگرام', 
-        href: 'https://www.instagram.com/doramed_ir', 
-        icon: 'instagram', 
-        color: 'hover:bg-gradient-to-tr from-[#FFB238] via-[#E01E5A] to-[#8A3AB9]', 
-        shadow: 'hover:shadow-[#E01E5A]/40' 
-    },
-    { 
-        name: 'تماس', 
-        href: 'tel:05191001115', 
-        icon: 'phone', 
-        color: 'hover:bg-green-500', 
-        shadow: 'hover:shadow-green-500/40' 
-    },
-];
+// Per-channel hover colors (presentation only — kept next to the markup that uses it).
+const socialStyles: Record<IconName, { color: string; shadow: string }> = {
+    telegram: { color: 'hover:bg-[#229ED9]', shadow: 'hover:shadow-[#229ED9]/40' },
+    instagram: { color: 'hover:bg-gradient-to-tr from-[#FFB238] via-[#E01E5A] to-[#8A3AB9]', shadow: 'hover:shadow-[#E01E5A]/40' },
+    phone: { color: 'hover:bg-green-500', shadow: 'hover:shadow-green-500/40' },
+    linkedin: { color: 'hover:bg-[#0A66C2]', shadow: 'hover:shadow-[#0A66C2]/40' },
+    globe: { color: 'hover:bg-doramed-primary', shadow: 'hover:shadow-doramed-primary/40' },
+};
 ---
 
 <header class="fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-center px-4" id="main-header">
-    
+
     <div class="relative w-full max-w-[95%] md:w-auto md:max-w-none group transition-transform duration-300">
-        
+
         <div class="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-doramed-primary/50 to-transparent bg-[length:200%_200%] animate-border-pulse pointer-events-none opacity-70"></div>
-        
+
         <nav class="relative bg-white/80 backdrop-blur-xl rounded-full border border-white/50 shadow-2xl shadow-doramed-primary/10 px-4 py-2.5 flex justify-between items-center md:gap-8 md:min-w-[700px]">
 
             <a href="/" class="flex items-center gap-2 shrink-0 relative z-20" aria-label="خانه">
-                <Image 
-                    src={logoImg} 
-                    alt="لوگوی دورامد" 
+                <Image
+                    src={logoImg}
+                    alt="لوگوی دورامد"
                     height={40}
-                    loading="eager" 
-                    class="h-8 md:h-10 w-auto object-contain" 
+                    loading="eager"
+                    class="h-8 md:h-10 w-auto object-contain"
                 />
             </a>
 
             <ul class="hidden md:flex items-center gap-1 bg-gray-50/80 p-1.5 rounded-full border border-gray-200/50 shadow-inner">
                 {navLinks.map(link => {
                     const active = isActive(link.href);
+                    const hasDropdown = !!link.dropdown;
                     return (
-                        <li>
-                            <a 
-                                href={link.href} 
+                        <li class={hasDropdown ? "relative group/nav" : ""}>
+                            <a
+                                href={link.href}
                                 class={`relative px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2 overflow-hidden ${
-                                    active 
-                                    ? 'bg-doramed-primary text-white shadow-lg shadow-doramed-primary/30 ring-2 ring-doramed-primary/20' 
+                                    active
+                                    ? 'bg-doramed-primary text-white shadow-lg shadow-doramed-primary/30 ring-2 ring-doramed-primary/20'
                                     : 'text-gray-500 hover:text-doramed-primary hover:bg-white hover:shadow-sm'
                                 }`}
                             >
                                 <span class="relative z-10">{link.text}</span>
-                                {active && <div class="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent pointer-events-none"></div>}
-                                {link.href === '/blog' && !active && (
-                                    <span class="relative flex h-2 w-2">
+
+                                {hasDropdown && (
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 relative z-10 transition-transform duration-300 group-hover/nav:rotate-180 text-gray-400 group-hover/nav:text-doramed-primary">
+                                        <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                    </svg>
+                                )}
+
+                                {hasDropdown && (
+                                    <span class="relative flex h-2 w-2 z-10">
                                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-doramed-primary opacity-75"></span>
                                       <span class="relative inline-flex rounded-full h-2 w-2 bg-doramed-primary"></span>
                                     </span>
                                 )}
+
+                                {active && <div class="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent pointer-events-none"></div>}
                             </a>
+
+                            {hasDropdown && (
+                                <div class="absolute top-full right-0 pt-3 w-48 opacity-0 pointer-events-none translate-y-2 group-hover/nav:opacity-100 group-hover/nav:pointer-events-auto group-hover/nav:translate-y-0 transition-all duration-300 z-50">
+                                    <ul class="w-full bg-white/95 backdrop-blur-xl rounded-2xl border border-gray-100 shadow-xl p-2 flex flex-col gap-1 text-right">
+                                        {link.dropdown!.map(subLink => (
+                                            <li>
+                                                <a href={subLink.href} class="block px-4 py-2.5 rounded-xl text-sm font-bold text-gray-600 hover:text-doramed-primary hover:bg-gray-50 transition-colors" dir="ltr">
+                                                    {subLink.text}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </li>
                     );
                 })}
             </ul>
 
             <div class="hidden md:flex items-center gap-3 pl-1">
-                {socialLinks.map(social => (
-                    <a 
-                        href={social.href} 
-                        target={social.icon !== 'phone' ? "_blank" : "_self"}
-                        class={`group/icon relative w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-500 shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:text-white ${social.color} ${social.shadow}`}
+                {navSocials.map(social => (
+                    <a
+                        href={social.href}
+                        target={social.external ? "_blank" : "_self"}
+                        rel={social.external ? "noopener noreferrer" : undefined}
+                        class={`group/icon relative w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-500 shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:text-white ${socialStyles[social.icon].color} ${socialStyles[social.icon].shadow}`}
                         aria-label={social.name}
                     >
-                        {social.icon === 'telegram' && <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0 .056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>}
-                        {social.icon === 'instagram' && <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>}
-                        {social.icon === 'phone' && <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>}
-                    
+                        <SocialIcon name={social.icon} />
                     </a>
                 ))}
             </div>
 
-            <button id="mobile-menu-btn" class="md:hidden relative z-20 w-10 h-10 rounded-full bg-gray-50 flex flex-col justify-center items-center gap-1.5 border border-gray-200 shadow-sm active:scale-95 transition-transform" aria-label="منو">
+            <button id="mobile-menu-btn" class="md:hidden relative z-20 w-10 h-10 rounded-full bg-gray-50 flex flex-col justify-center items-center gap-1.5 border border-gray-200 shadow-sm active:scale-95 transition-transform" aria-label="منو" aria-expanded="false" aria-controls="mobile-menu">
                 <span class="w-5 h-0.5 bg-gray-600 rounded-full transition-all duration-300 origin-center" id="line-1"></span>
                 <span class="w-5 h-0.5 bg-gray-600 rounded-full transition-all duration-300 origin-center" id="line-2"></span>
                 <span class="w-5 h-0.5 bg-gray-600 rounded-full transition-all duration-300 origin-center" id="line-3"></span>
             </button>
 
             <div id="mobile-menu" class="absolute top-[calc(100%+12px)] left-0 right-0 bg-white/95 backdrop-blur-2xl rounded-3xl p-4 shadow-2xl shadow-doramed-primary/10 border border-gray-100 transform origin-top scale-y-0 opacity-0 transition-all duration-300 ease-out hidden">
-                
+
                 <ul class="flex flex-col gap-2 mb-4">
                     {navLinks.map(link => {
                         const active = isActive(link.href);
+                        const hasDropdown = !!link.dropdown;
                         return (
                             <li>
-                                <a 
-                                    href={link.href} 
-                                    class={`flex items-center justify-between p-3 rounded-2xl font-bold transition-all ${
-                                        active 
-                                        ? 'bg-doramed-primary/10 text-doramed-primary' 
-                                        : 'text-gray-600 hover:bg-gray-50'
-                                    }`}
-                                >
-                                    <span class="flex items-center gap-2">
-                                        {link.text}
-                                        {link.href === '/blog' && <span class="text-[10px] bg-red-500 text-white px-1.5 py-0.5 rounded-full">داغ</span>}
-                                    </span>
-                                    {active && <span class="w-2 h-2 rounded-full bg-doramed-primary"></span>}
-                                </a>
+                                {hasDropdown ? (
+                                    <div class="flex flex-col w-full">
+                                        <button
+                                            data-mobile-dropdown-btn
+                                            aria-expanded="false"
+                                            class={`flex items-center justify-between p-3 rounded-2xl font-bold transition-all w-full text-right ${
+                                                active ? 'bg-doramed-primary/10 text-doramed-primary' : 'text-gray-600 hover:bg-gray-50'
+                                            }`}
+                                        >
+                                            <span class="flex items-center gap-2">
+                                                {link.text}
+                                                <span class="relative flex h-2 w-2">
+                                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-doramed-primary opacity-75"></span>
+                                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-doramed-primary"></span>
+                                                </span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 transition-transform duration-300 mobile-chevron text-gray-400">
+                                                <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+
+                                        <ul data-mobile-dropdown-menu class="hidden flex-col gap-1 pr-6 pl-2 py-2 mt-1 bg-gray-50/50 rounded-2xl border border-gray-100/50 text-right">
+                                            {link.dropdown!.map(subLink => (
+                                                <li>
+                                                    <a href={subLink.href} class="block p-2.5 rounded-xl text-sm font-bold text-gray-500 hover:text-doramed-primary transition-colors" dir="ltr">
+                                                        {subLink.text}
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ) : (
+                                    <a
+                                        href={link.href}
+                                        class={`flex items-center justify-between p-3 rounded-2xl font-bold transition-all ${
+                                            active
+                                            ? 'bg-doramed-primary/10 text-doramed-primary'
+                                            : 'text-gray-600 hover:bg-gray-50'
+                                        }`}
+                                    >
+                                        <span class="flex items-center gap-2">
+                                            {link.text}
+                                        </span>
+                                        {active && <span class="w-2 h-2 rounded-full bg-doramed-primary"></span>}
+                                    </a>
+                                )}
                             </li>
                         );
                     })}
                 </ul>
 
                 <div class="border-t border-gray-100 pt-4 flex justify-around">
-                     {socialLinks.map(social => (
-                        <a 
-                            href={social.href} 
-                            target={social.icon !== 'phone' ? "_blank" : "_self"}
-                            class={`w-12 h-12 rounded-2xl flex items-center justify-center text-gray-500 shadow-sm border border-gray-100 ${social.color} hover:text-white transition-colors`}
+                     {navSocials.map(social => (
+                        <a
+                            href={social.href}
+                            target={social.external ? "_blank" : "_self"}
+                            rel={social.external ? "noopener noreferrer" : undefined}
+                            class={`w-12 h-12 rounded-2xl flex items-center justify-center text-gray-500 shadow-sm border border-gray-100 ${socialStyles[social.icon].color} hover:text-white transition-colors`}
+                            aria-label={social.name}
                         >
-                            {social.icon === 'telegram' && <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0 .056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>}
-                            {social.icon === 'instagram' && <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>}
-                            {social.icon === 'phone' && <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>}
+                            <SocialIcon name={social.icon} class="w-6 h-6" />
                         </a>
                      ))}
                 </div>
@@ -166,66 +198,80 @@ const socialLinks = [
     .animate-border-pulse {
         animation: border-pulse 6s ease infinite;
     }
-    
+
     .menu-open #line-1 { transform: rotate(45deg) translate(5px, 6px); }
     .menu-open #line-2 { opacity: 0; }
     .menu-open #line-3 { transform: rotate(-45deg) translate(5px, -6px); }
 </style>
 
 <script>
-    // تعریف تابع اصلی برای راه‌اندازی منو
     function initMobileMenu() {
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
 
-        // اگر دکمه یا منو در این صفحه وجود نداشتند، تابع را متوقف کن (جلوگیری از ارور)
         if (!btn || !menu) return;
 
-        // تابع باز/بسته کردن منو
         const toggleMenu = (forceClose = false) => {
             const isHidden = menu.classList.contains('hidden');
-            
-            // اگر دستور بستن اجباری بود یا منو باز بود -> ببند
             if (forceClose || !isHidden) {
-                // انیمیشن بسته شدن
                 menu.classList.add('scale-y-0', 'opacity-0');
                 btn.classList.remove('menu-open');
-                
+                btn.setAttribute('aria-expanded', 'false');
+
                 setTimeout(() => {
                     menu.classList.add('hidden');
-                }, 300); // صبر میکنیم انیمیشن تمام شود بعد hidden میکنیم
-            } 
-            // اگر منو بسته بود -> باز کن
-            else {
+                    // Collapse any open sub-menus when the main menu closes.
+                    menu.querySelectorAll('[data-mobile-dropdown-menu]').forEach(m => {
+                        m.classList.add('hidden');
+                        m.classList.remove('flex');
+                    });
+                    menu.querySelectorAll('[data-mobile-dropdown-btn]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+                    menu.querySelectorAll('.mobile-chevron').forEach(c => c.classList.remove('rotate-180'));
+                }, 300);
+            } else {
                 menu.classList.remove('hidden');
                 btn.classList.add('menu-open');
-                
-                // انیمیشن باز شدن (با یک فریم تاخیر برای اعمال ترنزیشن)
+                btn.setAttribute('aria-expanded', 'true');
+
                 requestAnimationFrame(() => {
                     menu.classList.remove('scale-y-0', 'opacity-0');
                 });
             }
         };
 
-        // حذف ایونت‌لیسنرهای قبلی برای جلوگیری از تکرار (در صورت لود مجدد کامپوننت)
-        // البته در ساختار ساده، تعریف مجدد متغیرها در اسکوپ تابع مشکل را حل میکند
-        // اما کلیک را هندل میکنیم:
-
-        // 1. کلیک روی دکمه همبرگری
         btn.onclick = (e) => {
             e.stopPropagation();
             toggleMenu();
         };
 
-        const closeOnClickOutside = (e) => {
-            if (!menu.classList.contains('hidden') && !menu.contains(e.target) && !btn.contains(e.target)) {
-                toggleMenu(true); 
+        const closeOnClickOutside = (e: MouseEvent) => {
+            const target = e.target as Node;
+            if (!menu.classList.contains('hidden') && !menu.contains(target) && !btn.contains(target)) {
+                toggleMenu(true);
             }
         };
         document.addEventListener('click', closeOnClickOutside);
 
+        // Close the menu when a real link (not a dropdown toggle) is tapped.
         menu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => toggleMenu(true));
+        });
+
+        // Wire up every mobile dropdown toggle (not just the first one).
+        menu.querySelectorAll<HTMLElement>('[data-mobile-dropdown-btn]').forEach(dropdownBtn => {
+            const wrapper = dropdownBtn.parentElement;
+            const submenu = wrapper?.querySelector('[data-mobile-dropdown-menu]');
+            const chevron = dropdownBtn.querySelector('.mobile-chevron');
+            if (!submenu || !chevron) return;
+
+            dropdownBtn.onclick = (e: MouseEvent) => {
+                e.stopPropagation();
+                const isSubHidden = submenu.classList.contains('hidden');
+                submenu.classList.toggle('hidden', !isSubHidden);
+                submenu.classList.toggle('flex', isSubHidden);
+                chevron.classList.toggle('rotate-180', isSubHidden);
+                dropdownBtn.setAttribute('aria-expanded', String(isSubHidden));
+            };
         });
     }
 

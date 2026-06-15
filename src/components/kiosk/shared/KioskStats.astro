@@ -1,0 +1,28 @@
+---
+// src/components/kiosk/shared/KioskStats.astro
+interface Stat {
+  value: string;
+  label: string;
+}
+interface Props {
+  intro: string;
+  stats: Stat[];
+}
+const { intro, stats } = Astro.props;
+---
+
+<section class="py-16 lg:py-24 bg-doramed-dark border-b border-doramed-muted/20 relative overflow-hidden">
+    <div class="container mx-auto px-6 relative z-10">
+        <p class="text-center text-doramed-gray text-lg md:text-xl leading-loose max-w-4xl mx-auto mb-14 font-medium">
+            {intro}
+        </p>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {stats.map(stat => (
+                <div class="bg-doramed-darker/60 border border-doramed-muted/30 rounded-3xl p-6 text-center hover:border-doramed-primary/40 hover:-translate-y-1 transition-all duration-300">
+                    <p class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-l from-cyan-400 to-doramed-primary mb-2">{stat.value}</p>
+                    <p class="text-doramed-gray text-xs md:text-sm font-bold leading-relaxed">{stat.label}</p>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

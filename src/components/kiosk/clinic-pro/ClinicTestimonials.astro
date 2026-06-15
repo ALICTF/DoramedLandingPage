@@ -1,0 +1,77 @@
+---
+// src/components/kiosk/clinic-pro/ClinicTestimonials.astro
+// نتایج + نظر مدیران مراکز درمانی
+import { Icon } from "astro-icon/components";
+
+const outcomes = [
+    { value: "۶", label: "تست بالینی در یک کیوسک", icon: "lucide:activity" },
+    { value: "AI", label: "گزارش تجمیعی هوشمند سلامت", icon: "lucide:brain-circuit" },
+    { value: "۱۰۰٪", label: "پرونده الکترونیک سلامت بیمار", icon: "lucide:folder-heart" },
+];
+
+const testimonials = [
+    {
+        quote: "با Clinic Pro فرآیند پذیرش و ثبت علائم حیاتی کاملاً خودکار شد و کادر درمان زمان بیشتری برای مراقبت واقعی از بیمار دارند.",
+        name: "مدیر درمانگاه",
+        role: "مشهد",
+    },
+    {
+        quote: "گزارش‌های پیش از ویزیت کمک کرده پزشک‌ها سریع‌تر و دقیق‌تر تصمیم بگیرند. تجربه بیمار هم خیلی حرفه‌ای‌تر شده.",
+        name: "مدیر کلینیک تخصصی",
+        role: "تهران",
+    },
+];
+---
+
+<section class="py-16 lg:py-24 bg-white">
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <div class="text-center max-w-2xl mx-auto mb-12 md:mb-14">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-doramed-primary/8 text-doramed-primary text-sm font-bold mb-5">
+                <Icon name="lucide:bar-chart-3" class="w-4 h-4" />
+                نتایج واقعی
+            </span>
+            <h2 class="text-2xl md:text-4xl font-black text-slate-800">
+                تاثیر <span class="text-doramed-primary">Clinic Pro</span> بر مرکز درمانی شما
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl mx-auto mb-14 lg:mb-16">
+            {outcomes.map(o => (
+                <div class="bg-white rounded-3xl border border-slate-100 p-7 text-center shadow-[0_8px_25px_rgba(15,27,42,0.05)]">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-doramed-primary/8 flex items-center justify-center text-doramed-primary">
+                        <Icon name={o.icon} class="w-6 h-6" />
+                    </div>
+                    <div class="text-3xl md:text-4xl font-black text-doramed-primary mb-1" dir="ltr">{o.value}</div>
+                    <div class="text-slate-500 text-sm font-bold">{o.label}</div>
+                </div>
+            ))}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {testimonials.map(t => (
+                <div class="bg-white rounded-3xl border border-slate-100 p-8 shadow-[0_8px_25px_rgba(15,27,42,0.05)] relative">
+                    <Icon name="lucide:quote" class="w-10 h-10 text-doramed-primary/15 mb-4" />
+                    <p class="text-slate-700 text-base md:text-lg leading-loose mb-6 font-medium">{t.quote}</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-doramed-primary/10 flex items-center justify-center text-doramed-primary">
+                            <Icon name="lucide:user" class="w-6 h-6" />
+                        </div>
+                        <div>
+                            <div class="font-black text-slate-800 text-sm">{t.name}</div>
+                            <div class="text-slate-400 text-xs font-bold">{t.role}</div>
+                        </div>
+                        <div class="ms-auto flex gap-0.5 text-amber-400">
+                            <Icon name="lucide:star" class="w-4 h-4 fill-amber-400" />
+                            <Icon name="lucide:star" class="w-4 h-4 fill-amber-400" />
+                            <Icon name="lucide:star" class="w-4 h-4 fill-amber-400" />
+                            <Icon name="lucide:star" class="w-4 h-4 fill-amber-400" />
+                            <Icon name="lucide:star" class="w-4 h-4 fill-amber-400" />
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>

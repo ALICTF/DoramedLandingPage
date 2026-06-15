@@ -1,0 +1,36 @@
+---
+// src/components/kiosk/clinic-pro/ClinicAudience.astro
+// مناسب برای (۷ کارت آیکن)
+import { Icon } from "astro-icon/components";
+
+const audience = [
+    { title: "مراکز توانبخشی", icon: "lucide:accessibility" },
+    { title: "مراکز تصویربرداری", icon: "lucide:scan" },
+    { title: "مراکز چکاپ", icon: "lucide:clipboard-list" },
+    { title: "مراکز طب کار", icon: "lucide:hard-hat" },
+    { title: "بیمارستان‌ها", icon: "lucide:hospital" },
+    { title: "درمانگاه‌ها", icon: "lucide:cross" },
+    { title: "کلینیک‌ها", icon: "lucide:building-2" },
+];
+---
+
+<section class="py-16 lg:py-24 bg-white">
+    <div class="container mx-auto px-4 sm:px-6">
+
+        <h2 class="text-2xl md:text-4xl font-black text-slate-800 text-center mb-12 md:mb-16">
+            مناسب <span class="text-doramed-primary">برای</span>
+        </h2>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+            {audience.map(a => (
+                <div class="group bg-white rounded-2xl border border-slate-100 p-5 flex flex-col items-center text-center gap-3 shadow-[0_8px_25px_rgba(15,27,42,0.04)] hover:shadow-[0_12px_30px_rgba(2,62,138,0.12)] hover:border-doramed-primary/30 hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-doramed-primary/8 flex items-center justify-center text-doramed-primary group-hover:bg-doramed-primary group-hover:text-white transition-colors duration-300">
+                        <Icon name={a.icon} class="w-7 h-7" />
+                    </div>
+                    <span class="text-slate-700 text-xs md:text-sm font-black leading-tight">{a.title}</span>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>

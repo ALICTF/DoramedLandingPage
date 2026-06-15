@@ -1,0 +1,87 @@
+---
+// src/components/kiosk/shared/KioskShowcase.astro
+// بخش معرفی فیزیکی کیوسک با عکس واقعی محصول + توضیحات و مشخصات
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+    image: ImageMetadata;      // عکس واقعی کیوسک (لوکال)
+    title?: string;
+    description?: string;
+    bg?: "white" | "slate";    // رنگ پس‌زمینه سکشن برای حفظ تناوب
+}
+
+const {
+    image,
+    title = "کیوسک پایش سلامت دورامد از نزدیک",
+    description = "یک ایستگاه سلامت یکپارچه و تمام‌فارسی که شش تست حیاتی، هوش مصنوعی و پرونده سلامت را در یک دستگاه گرد هم می‌آورد.",
+    bg = "slate",
+} = Astro.props;
+
+const sectionBg = bg === "white" ? "bg-white" : "bg-slate-50";
+
+// مشخصات کلیدی دستگاه
+const specs = [
+    { icon: "lucide:scan-line", title: "۶ سنسور پزشکی", desc: "آنالیز ترکیب بدن، نوار قلب، فشار خون، اکسیژن خون، بینایی‌سنجی و قند خون." },
+    { icon: "lucide:monitor-smartphone", title: "نمایشگر لمسی فارسی", desc: "رابط کاربری ساده و گام‌به‌گام برای راهنمایی کاربر در طول فرآیند." },
+    { icon: "lucide:printer", title: "چاپ و کارت‌خوان", desc: "چاپ گزارش، اسکن کارت شناسایی و احراز هویت کاربر روی خود دستگاه." },
+    { icon: "lucide:move", title: "طراحی متحرک و مدرن", desc: "بدنه‌ی چرخ‌دار و مقاوم، قابل جابه‌جایی و استقرار در هر فضایی." },
+];
+
+// نکته مهم: کار با دستگاه با حضور یک اپراتور انجام می‌شود
+const operatorNote = "راه‌اندازی و انجام تست‌ها با حضور یک اپراتور آموزش‌دیده انجام می‌شود تا فرآیند برای هر کاربر دقیق، ایمن و راحت باشد.";
+---
+
+<section class={`py-16 lg:py-24 ${sectionBg} relative overflow-hidden`}>
+    <div class="absolute top-1/4 left-0 w-[450px] h-[450px] bg-doramed-primary/5 blur-[130px] rounded-full pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            <!-- عکس واقعی کیوسک (بدون پس‌زمینه — کنترل اندازه با ارتفاع) -->
+            <div class="flex justify-center order-1">
+                <Image
+                    src={image}
+                    alt={title}
+                    widths={[300, 450, 600, 800]}
+                    sizes="(max-width: 768px) 70vw, 420px"
+                    class="w-auto h-[420px] sm:h-[520px] lg:h-[650px] object-contain drop-shadow-[0_25px_45px_rgba(15,27,42,0.15)]"
+                    loading="lazy"
+                />
+            </div>
+
+            <!-- توضیحات -->
+            <div class="order-2 text-center lg:text-right">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-doramed-primary/8 text-doramed-primary text-sm font-bold mb-5">
+                    <Icon name="lucide:box" class="w-4 h-4" />
+                    معرفی دستگاه
+                </span>
+                <h2 class="text-2xl md:text-4xl font-black text-slate-800 mb-4 leading-snug">{title}</h2>
+                <p class="text-slate-500 text-base md:text-lg leading-loose mb-8">{description}</p>
+
+                <!-- مشخصات -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    {specs.map(spec => (
+                        <div class="flex items-start gap-3 text-right bg-white/60 border border-slate-100 rounded-2xl p-4">
+                            <span class="w-10 h-10 shrink-0 rounded-xl bg-doramed-primary/8 flex items-center justify-center text-doramed-primary">
+                                <Icon name={spec.icon} class="w-5 h-5" />
+                            </span>
+                            <div>
+                                <h3 class="font-black text-slate-800 text-sm mb-0.5">{spec.title}</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed">{spec.desc}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <!-- نکته اپراتور -->
+                <div class="flex items-start gap-3 bg-doramed-primary/5 border border-doramed-primary/15 rounded-2xl p-4 text-right">
+                    <Icon name="lucide:user-cog" class="w-6 h-6 text-doramed-primary shrink-0 mt-0.5" />
+                    <p class="text-slate-600 text-sm leading-relaxed">{operatorNote}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
