@@ -31,14 +31,19 @@ const pageDescription =
 
   <main class="bg-white text-slate-800 overflow-hidden pt-20">
 
+    <!-- ۱) هیرو (ثابت) -->
     <FitnessHero />
 
+    <!-- ۲) اعتمادسازی: لوگوی مشتریان -->
     <FitnessLogos />
 
+    <!-- ۳) چرا Fitness AI؟ (ارزش کسب‌وکار برای باشگاه) -->
     <div class="reveal-on-scroll"><FitnessWhy /></div>
 
+    <!-- ۴) قابلیت‌ها و تست‌های دستگاه (کاربرد اصلی محصول) -->
     <div class="reveal-on-scroll"><FitnessFeatures /></div>
 
+    <!-- ۵) معرفی فیزیکی دستگاه -->
     <div class="reveal-on-scroll">
       <KioskShowcase
         image={kioskFitnessImg}
@@ -48,18 +53,25 @@ const pageDescription =
       />
     </div>
 
+    <!-- ۶) تمایز کلیدی: هوش مصنوعی -->
     <div class="reveal-on-scroll"><FitnessAI /></div>
 
+    <!-- ۷) نحوه کارکرد -->
     <div class="reveal-on-scroll"><FitnessHowItWorks /></div>
 
+    <!-- ۸) این محصول برای چه کسانی است -->
     <div class="reveal-on-scroll"><FitnessTarget /></div>
 
+    <!-- ۹) رضایت مشتریان -->
     <div class="reveal-on-scroll"><FitnessTestimonials /></div>
 
-    <div class="reveal-on-scroll"><KioskIndustries bg="slate" /></div>
+    <!-- ۱۰) داشبورد کاربر و مدیریت (ارزش افزوده‌ی کلیدی B2B) -->
+    <div class="reveal-on-scroll"><KioskDashboards bg="slate" /></div>
 
-    <div class="reveal-on-scroll"><KioskDashboards bg="white" /></div>
+    <!-- ۱۱) سایر کاربردها / صنایع -->
+    <div class="reveal-on-scroll"><KioskIndustries bg="white" /></div>
 
+    <!-- ۱۲) سوالات متداول -->
     <div class="reveal-on-scroll"><FitnessFAQ /></div>
 
   </main>
